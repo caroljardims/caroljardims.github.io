@@ -1,0 +1,35 @@
+// src/components/ProjectCard.astro
+---
+export interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  type: 'free' | 'paid';
+}
+
+const { title, description, tags, link, type } = Astro.props;
+---
+
+<a href={link} target="_blank" rel="noopener noreferrer" class="group block h-full">
+  <div class="h-full p-6 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-green-500 dark:hover:border-green-500 transition-all duration-300">
+    <div class="flex items-start justify-between mb-3">
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+        {title}
+      </h3>
+      <span class={`px-2 py-1 rounded text-xs font-semibold ${type === 'paid' ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'}`}>
+        {type === 'paid' ? '💰 Premium' : '🎁 Free'}
+      </span>
+    </div>
+    <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">
+      {description}
+    </p>
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <span class="px-2 py-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </div>
+</a>
