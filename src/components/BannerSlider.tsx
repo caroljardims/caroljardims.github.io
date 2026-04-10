@@ -1,12 +1,16 @@
 // src/components/BannerSlider.tsx
 import React, { useState, useEffect } from 'react';
 
-const images = [
-  { src: '/images/bridge.jpeg', alt: 'Bridge' },
-  { src: '/images/flowers.jpeg', alt: 'Flowers' },
-  { src: '/images/landscape.jpeg', alt: 'Landscape' },
-  { src: '/images/lookingdown.jpeg', alt: 'Looking down' },
-  { src: '/images/sitting-with-friends.jpeg', alt: 'With friends' },
+type Slide =
+  | { type: 'image'; src: string; alt: string }
+  | { type: 'gradient'; gradient: string };
+
+const slides: Slide[] = [
+  { type: 'gradient', gradient: 'linear-gradient(135deg, #FEC5BB 0%, #FFD7BA 50%, #FEC89A 100%)' },
+  { type: 'image', src: '/images/flowers.jpeg', alt: 'Flowers' },
+  { type: 'image', src: '/images/landscape.jpeg', alt: 'Landscape' },
+  { type: 'image', src: '/images/lookingdown.jpeg', alt: 'Looking down' },
+  { type: 'gradient', gradient: 'linear-gradient(135deg, #FAE1DD 0%, #FCD5CE 40%, #FFE5D9 100%)' },
 ];
 
 export const BannerSlider: React.FC = () => {
@@ -15,7 +19,7 @@ export const BannerSlider: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -27,43 +31,56 @@ export const BannerSlider: React.FC = () => {
   }, []);
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-slate-900">
-      {/* Images */}
-      {images.map((image, index) => (
+      {/* Slides */}
+      {slides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ${
             index === currentIndex ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="w-full h-full object-cover"
-            style={{ transform: `translateY(${scrollY * 0.4}px)`, willChange: 'transform' }}
-          />
-          <div className="absolute inset-0 bg-black/35"></div>
+          {slide.type === 'image' ? (
+            <>
+              <img
+                src={slide.src}
+                alt={slide.alt}
+                className="w-full h-full object-cover"
+                style={{ transform: `translateY(${scrollY * 0.4}px)`, willChange: 'transform' }}
+              />
+              <div className="absolute inset-0 bg-black/35"></div>
+            </>
+          ) : (
+            <div className="w-full h-full" style={{ background: slide.gradient }} />
+          )}
         </div>
       ))}
 
       {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white z-10 px-6">
-        <h1 className="text-6xl md:text-7xl font-bold mb-4 tracking-tight drop-shadow-lg">oi 👋</h1>
-        <a
-          href="#projects"
-          className="text-lg md:text-xl text-white/90 hover:text-white transition-colors duration-300 underline underline-offset-4 decoration-white/40 hover:decoration-white"
-        >
-          veja as coisinhas que eu fiz por aqui
-        </a>
-      </div>
+      {(() => {
+        const isGradient = slides[currentIndex]?.type === 'gradient';
+        return (
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-6">
+            <h1 className={`text-6xl md:text-7xl font-bold mb-4 tracking-tight transition-colors duration-700 ${isGradient ? 'text-slate-700 drop-shadow-none' : 'text-white drop-shadow-lg'}`}>
+              oi 👋
+            </h1>
+            <a
+              href="#projects"
+              className={`text-lg md:text-xl transition-colors duration-700 underline underline-offset-4 ${isGradient ? 'text-slate-600 decoration-slate-400/60 hover:text-slate-800 hover:decoration-slate-600' : 'text-white/90 hover:text-white decoration-white/40 hover:decoration-white'}`}
+            >
+              veja as coisinhas que eu fiz por aqui
+            </a>
+          </div>
+        );
+      })()}
 
       {/* Navigation arrows */}
       <button
@@ -88,7 +105,7 @@ export const BannerSlider: React.FC = () => {
 
       {/* Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {images.map((_, index) => (
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
