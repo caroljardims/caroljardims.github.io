@@ -32,12 +32,20 @@ export const DarkModeToggle: React.FC = () => {
       aria-label="Toggle dark mode"
     >
       {isDark ? (
-        <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       ) : (
-        <svg className="w-5 h-5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm0 12a5 5 0 110-10 5 5 0 010 10zm0-2a3 3 0 100-6 3 3 0 000 6zm0-11a1 1 0 00-1-1H5a1 1 0 00-1 1v1a1 1 0 102 0V3h4a1 1 0 001-1zm12 2a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-1 9a1 1 0 00-1-1h-1a1 1 0 110-2h1a1 1 0 001 1z" clipRule="evenodd" />
+        <svg className="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
       )}
     </button>
