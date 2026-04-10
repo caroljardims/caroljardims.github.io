@@ -20,9 +20,11 @@ const { title, description, tags, link, type } = Astro.props;
         {type === 'paid' ? 'premium' : 'grátis'}
       </span>
     </div>
-    <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">
-      {description}
-    </p>
+    <div class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed space-y-2">
+      {description.split('\n\n').map((para) => (
+        <p>{para}</p>
+      ))}
+    </div>
     <div class="flex flex-wrap gap-2">
       {tags.map((tag) => (
         <span class="px-2 py-1 rounded-full bg-peachy-100 dark:bg-slate-700 text-peachy-700 dark:text-peachy-300 text-xs font-medium">
