@@ -11,12 +11,19 @@ const images = [
 
 export const BannerSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const prevSlide = () => {
@@ -41,6 +48,7 @@ export const BannerSlider: React.FC = () => {
             src={image.src}
             alt={image.alt}
             className="w-full h-full object-cover"
+            style={{ transform: `translateY(${scrollY * 0.4}px)`, willChange: 'transform' }}
           />
           <div className="absolute inset-0 bg-black/35"></div>
         </div>
