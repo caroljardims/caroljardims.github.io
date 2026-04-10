@@ -45,7 +45,7 @@ export const ContactForm: React.FC = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full px-4 py-2 rounded-lg bg-peachy-50 dark:bg-slate-800 border border-peachy-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-peachy-500"
         />
       </div>
       <div>
@@ -56,7 +56,7 @@ export const ContactForm: React.FC = () => {
           value={formData.email}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full px-4 py-2 rounded-lg bg-peachy-50 dark:bg-slate-800 border border-peachy-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-peachy-500"
         />
       </div>
       <div>
@@ -67,18 +67,18 @@ export const ContactForm: React.FC = () => {
           onChange={handleChange}
           required
           rows={5}
-          className="w-full px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="w-full px-4 py-2 rounded-lg bg-peachy-50 dark:bg-slate-800 border border-peachy-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-peachy-500"
         />
       </div>
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
+        className="w-full px-6 py-3 bg-peachy-500 hover:bg-peachy-600 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
       >
         {status === 'loading' ? 'Sending...' : 'Send Message'}
       </button>
-      {status === 'success' && <p className="text-green-600 dark:text-green-400">Message sent! 🎉</p>}
-      {status === 'error' && <p className="text-red-600 dark:text-red-400">Something went wrong. Try again!</p>}
+      {status === 'success' && <p class="text-peachy-600 dark:text-peachy-400">Message sent! 🎉</p>}
+      {status === 'error' && <p class="text-red-600 dark:text-red-400">Something went wrong. Try again!</p>}
     </form>
   );
 };
