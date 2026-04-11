@@ -183,6 +183,11 @@ export const SipsGame: React.FC = () => {
   const [kingsDrawn, setKingsDrawn] = useState(0);
   const [isKingsCup, setIsKingsCup] = useState(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [isFlying, setIsFlying] = useState(false);
+  const [flyDir, setFlyDir] = useState({ x: 0, y: 0 });
+  const [isEntering, setIsEntering] = useState(false);
 
   const startGame = useCallback(() => {
     setDeck(buildDeck());
@@ -226,6 +231,9 @@ export const SipsGame: React.FC = () => {
     } else {
       setIsKingsCup(false);
     }
+    setDragOffset({ x: 0, y: 0 });
+    setIsEntering(true);
+    requestAnimationFrame(() => requestAnimationFrame(() => setIsEntering(false)));
     setGameState('revealed');
   }, [currentCard, deck, kingsDrawn]);
 
@@ -264,24 +272,39 @@ export const SipsGame: React.FC = () => {
     const isRed = currentCard.color === 'red';
     const cardColor = isRed ? '#ef4444' : '#1e293b';
 
-    const handleTouchStart = (e: React.TouchEvent) => {
-      touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-    };
-    const handleTouchEnd = (e: React.TouchEvent) => {
-      if (!touchStart.current) return;
-      const dx = Math.abs(e.changedTouches[0].clientX - touchStart.current.x);
-      const dy = Math.abs(e.changedTouches[0].clientY - touchStart.current.y);
-      if (dx > 20 || dy > 20) drawNext();
-    };
-    const handleMouseDown = (e: React.MouseEvent) => {
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
       touchStart.current = { x: e.clientX, y: e.clientY };
+      setIsDragging(true);
+      setDragOffset({ x: 0, y: 0 });
+      e.currentTarget.setPointerCapture(e.pointerId);
     };
-    const handleMouseUp = (e: React.MouseEvent) => {
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
       if (!touchStart.current) return;
-      const dx = Math.abs(e.clientX - touchStart.current.x);
-      const dy = Math.abs(e.clientY - touchStart.current.y);
-      if (dx < 10 && dy < 10) drawNext();
-      else if (dx > 20 || dy > 20) drawNext();
+      setDragOffset({ x: e.clientX - touchStart.current.x, y: e.clientY - touchStart.current.y });
+    };
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+      if (!touchStart.current) return;
+      const dx = e.clientX - touchStart.current.x;
+      const dy = e.clientY - touchStart.current.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      touchStart.current = null;
+      setIsDragging(false);
+
+      if (dist < 10) {
+        // click — fly up
+        setFlyDir({ x: 0, y: -1 });
+        setIsFlying(true);
+        setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
+      } else if (dist > 40) {
+        // drag far enough — fly in drag direction
+        const norm = 1 / dist;
+        setFlyDir({ x: dx * norm, y: dy * norm });
+        setIsFlying(true);
+        setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
+      } else {
+        // not far enough — snap back
+        setDragOffset({ x: 0, y: 0 });
+      }
     };
 
     return (
@@ -294,11 +317,27 @@ export const SipsGame: React.FC = () => {
 
         <div style={s.center}>
           <div
-            style={{ ...s.card, cursor: 'pointer', userSelect: 'none' }}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
+            style={{
+              ...s.card,
+              cursor: isDragging ? 'grabbing' : 'grab',
+              userSelect: 'none',
+              transform: isEntering
+                ? 'scale(0.85) translateY(40px)'
+                : isFlying
+                ? `translate(${flyDir.x * 900}px, ${flyDir.y * 900}px) rotate(${flyDir.x * 25}deg)`
+                : `translate(${dragOffset.x}px, ${dragOffset.y}px) rotate(${dragOffset.x * 0.05}deg)`,
+              opacity: isEntering ? 0 : 1,
+              transition: isEntering
+                ? 'none'
+                : isFlying
+                ? 'transform 0.35s ease-in, opacity 0.35s ease-in'
+                : isDragging
+                ? 'none'
+                : 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease-out',
+            }}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
           >
             {/* Top corner */}
             <div style={{ color: cardColor, lineHeight: 1 }}>
