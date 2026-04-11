@@ -18,19 +18,19 @@ interface Rule {
 }
 
 const rules: Record<Value, Rule> = {
-  A:    { name: 'Waterfall',       emoji: '⛲',  description: 'Todo mundo bebe! Quem puxou começa, e todos continuam bebendo até a pessoa à sua direita parar.' },
-  '2':  { name: 'You',             emoji: '🫵',  description: 'Escolhe alguém para beber 2 goles.' },
-  '3':  { name: 'Me',              emoji: '☝️',  description: 'Quem puxou bebe 3 goles.' },
-  '4':  { name: 'Question Master', emoji: '🔮',  description: 'Quem puxou vira o Question Master — qualquer pessoa que responder às suas perguntas deve beber. Dura até o próximo 4 ser puxado.' },
-  '5':  { name: 'Temporary Rule',  emoji: '⏳',  description: 'Cria uma regra nova que todos devem seguir até o próximo 5 ser puxado.' },
-  '6':  { name: 'Heaven',          emoji: '🪽',  description: 'Aponta pro céu! O último a apontar bebe 2 goles.' },
-  '7':  { name: 'Lucky Charm',     emoji: '🍀',  description: 'Escolhe um "drinking buddy" — quando você bebe, ele bebe. Quando ele bebe, você bebe.' },
-  '8':  { name: 'Rhyme',           emoji: '🎵',  description: 'Fala uma palavra, todos precisam rimar. O primeiro a errar bebe 2 goles.' },
-  '9':  { name: 'Categories',      emoji: '🗂️', description: 'Escolhe uma categoria, todos citam itens. O primeiro a falhar bebe 3 goles.' },
-  '10': { name: 'Permanent Rule',  emoji: '📜',  description: 'Cria uma regra nova que todos devem seguir até o fim do jogo.' },
-  J:    { name: 'Gentlemen',       emoji: '🙋‍♂️', description: 'Todos os homens bebem um gole.' },
-  Q:    { name: 'Ladies',          emoji: '🙋‍♀️', description: 'Todas as mulheres bebem um gole.' },
-  K:    { name: "King's Cup",      emoji: '👑',  description: "Coloca um pouco da sua bebida no King's Cup. Quem puxar o 4º Rei bebe o copo inteiro!" },
+  A:    { name: 'Todos bebem',          emoji: '🍸',  description: 'Todo mundo bebe! Quem puxou começa, e todos continuam bebendo até a pessoa à sua direita parar.' },
+  '2':  { name: 'Você',                 emoji: '🫵',  description: 'Escolha um parceiro para beber um gole com você.' },
+  '3':  { name: 'Três mosqueteiros',    emoji: '🐭',  description: 'Escolha dois parceiros para beberem um gole com você.' },
+  '4':  { name: 'Mestre das Perguntas', emoji: '🔮', description: 'Quem puxou vira o Mestre das Perguntas — qualquer pessoa que responder às suas perguntas deve beber. Dura até o próximo 4 ser puxado.' },
+  '5':  { name: 'Regra Temporária',     emoji: '⏳',  description: 'Cria uma regra nova que todos devem seguir até o próximo 5 ser puxado.' },
+  '6':  { name: 'Céu',                  emoji: '🪽',  description: 'A qualquer momento, aponte pro céu! O último a apontar bebe 2 goles.' },
+  '7':  { name: 'Amuleto da Sorte',     emoji: '🍀',  description: 'Escolhe um parceiro de bebida — quando você bebe, ele bebe. Quando ele bebe, você bebe.' },
+  '8':  { name: 'Rima',                 emoji: '🎵',  description: 'Fala uma palavra, todos precisam rimar. O primeiro a errar bebe 2 goles.' },
+  '9':  { name: 'Categorias',           emoji: '🗂️', description: 'Escolhe uma categoria, todos citam itens. O primeiro a falhar bebe 3 goles.' },
+  '10': { name: 'Regra Permanente',     emoji: '📜',  description: 'Cria uma regra nova que todos devem seguir até o fim do jogo.' },
+  J:    { name: 'Rapazes',              emoji: '🙋‍♂️', description: 'Todos os homens bebem um gole.' },
+  Q:    { name: 'Meninas',              emoji: '🙋‍♀️', description: 'Todas as mulheres bebem um gole.' },
+  K:    { name: 'Cálice do Rei',        emoji: '👑',  description: 'Coloca um pouco da sua bebida no Cálice do Rei. Quem puxar o 4º Rei bebe o copo inteiro!' },
 };
 
 const suitEmoji: Record<Suit, string> = {
@@ -360,7 +360,7 @@ export const SipsGame: React.FC = () => {
     <div style={s.page}>
       <div style={s.header}>
         <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
-        <span style={s.title}>Drinking Game</span>
+        <span style={s.title}>Jogo da Bebida</span>
         <div style={{ width: '64px' }} />
       </div>
       <div style={s.center}>
@@ -423,7 +423,7 @@ export const SipsGame: React.FC = () => {
       <div style={s.page}>
         <div style={s.header}>
           <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
-          <span style={s.title}>Drinking Game</span>
+          <span style={s.title}>Jogo da Bebida</span>
           <div style={{ width: '64px' }} />
         </div>
 
