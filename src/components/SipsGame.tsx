@@ -358,11 +358,6 @@ export const SipsGame: React.FC = () => {
   // WATER CARD
   if (gameState === 'water') return (
     <div style={s.page}>
-      <div style={s.header}>
-        <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
-        <span style={s.title}>Jogo da Bebida</span>
-        <div style={{ width: '64px' }} />
-      </div>
       <div style={s.center}>
         <div
           style={{
@@ -421,12 +416,6 @@ export const SipsGame: React.FC = () => {
 
     return (
       <div style={s.page}>
-        <div style={s.header}>
-          <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
-          <span style={s.title}>Jogo da Bebida</span>
-          <div style={{ width: '64px' }} />
-        </div>
-
         <div style={s.center}>
           <div
             style={{
@@ -510,12 +499,6 @@ export const SipsGame: React.FC = () => {
   // PLAYING
   return (
     <div style={s.page}>
-      <div style={s.header}>
-        <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
-        <span style={s.title}>Drinking Game</span>
-        <div style={{ width: '64px' }} />
-      </div>
-
       <div style={s.center}>
         <button onClick={drawCard} style={s.drawArea}>
           <span style={{ fontSize: '48px' }}>🂠</span>
