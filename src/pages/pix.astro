@@ -50,11 +50,13 @@ import '../styles/global.css';
         padding: 16px;
         font-size: 11px;
         color: rgba(255,255,255,0.8);
-        word-break: break-all;
         text-align: left;
         line-height: 1.6;
         margin-bottom: 12px;
         font-family: monospace;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .copy-btn {
         width: 100%;
@@ -93,14 +95,14 @@ import '../styles/global.css';
       <h1>me pague um drink</h1>
       <p class="subtitle">copie a chave pix abaixo</p>
 
-      <p class="label">chave pix copia e cola</p>
-      <div class="pix-box" id="pix-key">
-        00020101021126580014br.gov.bcb.pix013690ec09c7-ce7a-48e7-a5eb-919d4716bde45204000053039865802BR5924CAROLINE JARDIM SIQUEIRA6009SAO PAULO622905251KNWBTFDP14K4X3DAFDH9Z1S06304209F
+      <div style="margin-bottom: 24px; display: flex; flex-direction: column; align-items: center;">
+        <p class="label" style="text-align:center; margin-bottom: 12px;">escaneie o qr code</p>
+        <img src="/pix-qr.png" alt="QR Code Pix" style="width: 180px; height: 180px; border-radius: 16px; object-fit: contain; background: #fff; padding: 8px;" />
       </div>
 
-      <div style="margin-bottom: 24px; display: flex; flex-direction: column; align-items: center;">
-        <p class="label" style="text-align:center; margin-bottom: 12px;">ou escaneie o qr code</p>
-        <img src="/pix-qr.png" alt="QR Code Pix" style="width: 180px; height: 180px; border-radius: 16px; object-fit: contain; background: #fff; padding: 8px;" />
+      <p class="label">ou copie a chave pix</p>
+      <div class="pix-box" id="pix-key">
+        00020101021126580014br.gov.bcb.pix013690ec09c7-ce7a-48e7-a5eb-919d4716bde45204000053039865802BR5924CAROLINE JARDIM SIQUEIRA6009SAO PAULO622905251KNWBTFDP14K4X3DAFDH9Z1S06304209F
       </div>
 
       <button class="copy-btn" id="copy-btn">
