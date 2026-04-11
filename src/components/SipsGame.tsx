@@ -382,9 +382,36 @@ export const SipsGame: React.FC = () => {
       <button onClick={startGame} style={{ ...s.primaryBtn, width: '100%', maxWidth: '360px', padding: '16px 40px', borderRadius: '9999px', fontSize: 'clamp(15px, 4vw, 18px)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
         <span>▶</span> Começar o jogo!
       </button>
-      <p style={{ marginTop: '20px', color: 'rgba(255,255,255,0.25)', fontSize: '11px', maxWidth: '280px' }}>
-        beba com responsabilidade. só para maiores de 18 anos.
-      </p>
+
+      <div style={{ marginTop: '20px', width: '100%', maxWidth: '360px', background: 'rgba(255,255,255,0.1)', borderRadius: '14px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{ fontSize: '20px', flexShrink: 0 }}>⚠️</span>
+        <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.8)', margin: 0, lineHeight: 1.5, textAlign: 'left' }}>
+          beba com responsabilidade. jogo destinado a maiores de 18 anos.
+        </p>
+      </div>
+
+      <div style={{ marginTop: '12px', width: '100%', maxWidth: '360px', display: 'flex', flexDirection: 'column' as const, gap: '8px' }}>
+        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', margin: 0, textAlign: 'center' }}>
+          gostou?{' '}
+          <a
+            href="https://docs.google.com/document/d/1p95efWjRx53pSZHt6K30qSa1ke8lig74P01etlKsr3Q/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, textDecoration: 'underline' }}
+          >
+            me pague um drink
+          </a>
+          {' '}ou
+        </p>
+        <a
+          href="https://buymeacoffee.com/caroljardims"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '12px 20px', borderRadius: '14px', border: '1px solid rgba(255,255,255,0.2)', background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.8)', fontSize: '13px', textDecoration: 'none', fontFamily: 'inherit', fontWeight: 600 }}
+        >
+          ☕ buy me a coffee
+        </a>
+      </div>
     </div>
   );
 
