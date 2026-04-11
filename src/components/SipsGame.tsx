@@ -54,7 +54,7 @@ const SupportLinks: React.FC = () => (
     <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: 0, textAlign: 'center' }}>
       gostou?{' '}
       <a
-        href="https://docs.google.com/document/d/1p95efWjRx53pSZHt6K30qSa1ke8lig74P01etlKsr3Q/edit?usp=sharing"
+        href="/pix"
         target="_blank"
         rel="noopener noreferrer"
         style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700, textDecoration: 'underline' }}
@@ -418,7 +418,7 @@ export const SipsGame: React.FC = () => {
         <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', margin: 0, textAlign: 'center' }}>
           gostou?{' '}
           <a
-            href="https://docs.google.com/document/d/1p95efWjRx53pSZHt6K30qSa1ke8lig74P01etlKsr3Q/edit?usp=sharing"
+            href="/pix"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, textDecoration: 'underline' }}
