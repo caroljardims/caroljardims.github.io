@@ -330,45 +330,59 @@ export const SipsGame: React.FC = () => {
 
   // SPLASH
   if (gameState === 'splash') return (
-    <div style={{ ...s.page, alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', overflowY: 'auto' as const }}>
-      <div style={{ fontSize: '72px', marginBottom: '16px' }}>🥂</div>
-      <h1 style={{ fontSize: '64px', fontWeight: 900, marginBottom: '8px', letterSpacing: '-2px' }}>Sips</h1>
-      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '32px', letterSpacing: '2px' }}>drinking game</p>
+    <div style={{
+      minHeight: '100vh',
+      width: '100%',
+      background: bg,
+      fontFamily: "'Inter', system-ui, sans-serif",
+      color: '#fff',
+      boxSizing: 'border-box' as const,
+      display: 'flex',
+      flexDirection: 'column' as const,
+      alignItems: 'center',
+      justifyContent: 'center',
+      textAlign: 'center',
+      padding: 'clamp(24px, 5vw, 48px)',
+      overflowY: 'auto' as const,
+    }}>
+      <div style={{ fontSize: 'clamp(48px, 12vw, 72px)', marginBottom: '12px' }}>🥂</div>
+      <h1 style={{ fontSize: 'clamp(40px, 14vw, 64px)', fontWeight: 900, marginBottom: '8px', letterSpacing: '-2px', margin: '0 0 8px' }}>Sips</h1>
+      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 'clamp(11px, 3vw, 14px)', marginBottom: '28px', letterSpacing: '2px' }}>drinking game</p>
 
-      <div style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: '24px', maxWidth: '320px', marginBottom: '32px', textAlign: 'left' }}>
-        <p style={{ fontWeight: 700, fontSize: '13px', color: 'rgba(255,255,255,0.9)', marginBottom: '16px', textTransform: 'uppercase' as const, letterSpacing: '1px' }}>como jogar</p>
-        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+      <div style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: 'clamp(16px, 4vw, 24px)', width: '100%', maxWidth: '360px', marginBottom: '28px', textAlign: 'left' }}>
+        <p style={{ fontWeight: 700, fontSize: '12px', color: 'rgba(255,255,255,0.9)', marginBottom: '14px', textTransform: 'uppercase' as const, letterSpacing: '1px', margin: '0 0 14px' }}>como jogar</p>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '10px' }}>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '18px' }}>🃏</span>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+            <span style={{ fontSize: '16px', flexShrink: 0 }}>🃏</span>
+            <p style={{ fontSize: 'clamp(12px, 3.2vw, 13px)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
               o baralho é embaralhado. cada jogador saca uma carta por vez.
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '18px' }}>📖</span>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+            <span style={{ fontSize: '16px', flexShrink: 0 }}>📖</span>
+            <p style={{ fontSize: 'clamp(12px, 3.2vw, 13px)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
               cada carta tem uma regra — leia em voz alta e cumpra com o grupo.
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '18px' }}>👆</span>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+            <span style={{ fontSize: '16px', flexShrink: 0 }}>👆</span>
+            <p style={{ fontSize: 'clamp(12px, 3.2vw, 13px)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
               arraste ou toque na carta para passar para a próxima.
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '18px' }}>👑</span>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+            <span style={{ fontSize: '16px', flexShrink: 0 }}>👑</span>
+            <p style={{ fontSize: 'clamp(12px, 3.2vw, 13px)', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
               quem puxar o 4º Rei bebe o Cálice do Rei — a bebida acumulada de todos os Reis anteriores!
             </p>
           </div>
         </div>
       </div>
 
-      <button onClick={startGame} style={{ ...s.primaryBtn, width: 'auto', padding: '16px 40px', borderRadius: '9999px', fontSize: '18px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <button onClick={startGame} style={{ ...s.primaryBtn, width: '100%', maxWidth: '360px', padding: '16px 40px', borderRadius: '9999px', fontSize: 'clamp(15px, 4vw, 18px)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
         <span>▶</span> Começar o jogo!
       </button>
-      <p style={{ marginTop: '24px', color: 'rgba(255,255,255,0.25)', fontSize: '12px', maxWidth: '280px' }}>
+      <p style={{ marginTop: '20px', color: 'rgba(255,255,255,0.25)', fontSize: '11px', maxWidth: '280px' }}>
         beba com responsabilidade. só para maiores de 18 anos.
       </p>
     </div>
