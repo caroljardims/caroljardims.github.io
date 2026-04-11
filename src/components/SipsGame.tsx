@@ -330,14 +330,45 @@ export const SipsGame: React.FC = () => {
 
   // SPLASH
   if (gameState === 'splash') return (
-    <div style={{ ...s.page, alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px' }}>
+    <div style={{ ...s.page, alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px', overflowY: 'auto' as const }}>
       <div style={{ fontSize: '72px', marginBottom: '16px' }}>🥂</div>
       <h1 style={{ fontSize: '64px', fontWeight: 900, marginBottom: '8px', letterSpacing: '-2px' }}>Sips</h1>
-      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '64px', letterSpacing: '2px' }}>drinking game</p>
+      <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', marginBottom: '32px', letterSpacing: '2px' }}>drinking game</p>
+
+      <div style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: '24px', maxWidth: '320px', marginBottom: '32px', textAlign: 'left' }}>
+        <p style={{ fontWeight: 700, fontSize: '13px', color: 'rgba(255,255,255,0.9)', marginBottom: '16px', textTransform: 'uppercase' as const, letterSpacing: '1px' }}>como jogar</p>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '18px' }}>🃏</span>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+              o baralho é embaralhado. cada jogador saca uma carta por vez.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '18px' }}>📖</span>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+              cada carta tem uma regra — leia em voz alta e cumpra com o grupo.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '18px' }}>👆</span>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+              arraste ou toque na carta para passar para a próxima.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+            <span style={{ fontSize: '18px' }}>👑</span>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, margin: 0 }}>
+              quem puxar o 4º Rei bebe o Cálice do Rei — a bebida acumulada de todos os Reis anteriores!
+            </p>
+          </div>
+        </div>
+      </div>
+
       <button onClick={startGame} style={{ ...s.primaryBtn, width: 'auto', padding: '16px 40px', borderRadius: '9999px', fontSize: '18px', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <span>▶</span> Começar o jogo!
       </button>
-      <p style={{ marginTop: '48px', color: 'rgba(255,255,255,0.25)', fontSize: '12px', maxWidth: '280px' }}>
+      <p style={{ marginTop: '24px', color: 'rgba(255,255,255,0.25)', fontSize: '12px', maxWidth: '280px' }}>
         beba com responsabilidade. só para maiores de 18 anos.
       </p>
     </div>
