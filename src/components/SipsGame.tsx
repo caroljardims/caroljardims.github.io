@@ -48,6 +48,31 @@ function buildDeck(): Card[] {
 }
 
 const bg = 'linear-gradient(160deg, #4c1d95 0%, #7c3aed 30%, #db2777 70%, #f97316 100%)';
+
+const SupportLinks: React.FC = () => (
+  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '6px' }}>
+    <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.5)', margin: 0, textAlign: 'center' }}>
+      gostou?{' '}
+      <a
+        href="https://docs.google.com/document/d/1p95efWjRx53pSZHt6K30qSa1ke8lig74P01etlKsr3Q/edit?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700, textDecoration: 'underline' }}
+      >
+        me pague um drink
+      </a>
+      {' '}ou
+    </p>
+    <a
+      href="https://buymeacoffee.com/caroljardims"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.7)', fontSize: '12px', textDecoration: 'none', fontFamily: 'inherit', fontWeight: 600 }}
+    >
+      ☕ buy me a coffee
+    </a>
+  </div>
+);
 const btnGrad = 'linear-gradient(90deg, #f97316, #db2777)';
 
 const s = {
@@ -562,6 +587,7 @@ export const SipsGame: React.FC = () => {
           {deck.length === 0 && (
             <button onClick={nextCard} style={s.primaryBtn}>Finalizar Jogo</button>
           )}
+          <SupportLinks />
         </div>
       </div>
     );
@@ -598,6 +624,7 @@ export const SipsGame: React.FC = () => {
         )}
 
         <button onClick={endGame} style={s.ghostBtn}>Finalizar Jogo</button>
+        <SupportLinks />
       </div>
     </div>
   );
