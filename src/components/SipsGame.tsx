@@ -338,39 +338,63 @@ export const SipsGame: React.FC = () => {
     const isRed = currentCard.color === 'red';
     const cardColor = isRed ? '#ef4444' : '#1e293b';
 
-    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const fly = (dx: number, dy: number) => {
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 10) {
+        setFlyDir({ x: 0, y: -1 });
+      } else {
+        const norm = 1 / dist;
+        setFlyDir({ x: dx * norm, y: dy * norm });
+      }
+      setIsDragging(false);
+      setIsFlying(true);
+      setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
+    };
+
+    // Mouse events (desktop)
+    const handleMouseDown = (e: React.MouseEvent) => {
       touchStart.current = { x: e.clientX, y: e.clientY };
       setIsDragging(true);
       setDragOffset({ x: 0, y: 0 });
-      e.currentTarget.setPointerCapture(e.pointerId);
     };
-    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const handleMouseMove = (e: React.MouseEvent) => {
       if (!touchStart.current) return;
       setDragOffset({ x: e.clientX - touchStart.current.x, y: e.clientY - touchStart.current.y });
     };
-    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const handleMouseUp = (e: React.MouseEvent) => {
       if (!touchStart.current) return;
       const dx = e.clientX - touchStart.current.x;
       const dy = e.clientY - touchStart.current.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
       touchStart.current = null;
-      setIsDragging(false);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 10 || dist > 40) fly(dx, dy);
+      else { setIsDragging(false); setDragOffset({ x: 0, y: 0 }); }
+    };
 
-      if (dist < 10) {
-        // click — fly up
-        setFlyDir({ x: 0, y: -1 });
-        setIsFlying(true);
-        setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
-      } else if (dist > 40) {
-        // drag far enough — fly in drag direction
-        const norm = 1 / dist;
-        setFlyDir({ x: dx * norm, y: dy * norm });
-        setIsFlying(true);
-        setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
-      } else {
-        // not far enough — snap back
-        setDragOffset({ x: 0, y: 0 });
-      }
+    // Touch events (mobile)
+    const handleTouchStart = (e: React.TouchEvent) => {
+      e.preventDefault();
+      const t = e.touches[0];
+      touchStart.current = { x: t.clientX, y: t.clientY };
+      setIsDragging(true);
+      setDragOffset({ x: 0, y: 0 });
+    };
+    const handleTouchMove = (e: React.TouchEvent) => {
+      e.preventDefault();
+      if (!touchStart.current) return;
+      const t = e.touches[0];
+      setDragOffset({ x: t.clientX - touchStart.current.x, y: t.clientY - touchStart.current.y });
+    };
+    const handleTouchEnd = (e: React.TouchEvent) => {
+      e.preventDefault();
+      if (!touchStart.current) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStart.current.x;
+      const dy = t.clientY - touchStart.current.y;
+      touchStart.current = null;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 10 || dist > 40) fly(dx, dy);
+      else { setIsDragging(false); setDragOffset({ x: 0, y: 0 }); }
     };
 
     return (
@@ -403,9 +427,12 @@ export const SipsGame: React.FC = () => {
                 ? 'none'
                 : 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease-out',
             }}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={handlePointerUp}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {/* Top corner */}
             <div style={{ color: cardColor, lineHeight: 1 }}>
