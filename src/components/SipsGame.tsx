@@ -3,7 +3,7 @@ import React, { useState, useCallback, useRef } from 'react';
 
 type Suit = '♠' | '♣' | '♥' | '♦';
 type Value = 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K';
-type GameState = 'splash' | 'playing' | 'revealed' | 'finished';
+type GameState = 'splash' | 'playing' | 'water' | 'revealed' | 'finished';
 
 interface Card {
   suit: Suit;
@@ -60,6 +60,9 @@ const s = {
     fontFamily: "'Inter', system-ui, sans-serif",
     color: '#fff',
     boxSizing: 'border-box' as const,
+    overflow: 'hidden',
+    position: 'fixed' as const,
+    inset: 0,
   },
   header: {
     display: 'flex',
@@ -188,6 +191,8 @@ export const SipsGame: React.FC = () => {
   const [isFlying, setIsFlying] = useState(false);
   const [flyDir, setFlyDir] = useState({ x: 0, y: 0 });
   const [isEntering, setIsEntering] = useState(false);
+  const [pendingCard, setPendingCard] = useState<Card | null>(null);
+  const cardsSinceWater = useRef(0);
 
   const startGame = useCallback(() => {
     setDeck(buildDeck());
@@ -195,23 +200,47 @@ export const SipsGame: React.FC = () => {
     setCurrentCard(null);
     setKingsDrawn(0);
     setIsKingsCup(false);
+    cardsSinceWater.current = 0;
     setGameState('playing');
+  }, []);
+
+  const revealCard = useCallback((card: Card, rest: Card[], kings: number) => {
+    setCurrentCard(card);
+    if (card.value === 'K') {
+      const n = kings + 1;
+      setKingsDrawn(n);
+      setIsKingsCup(n === 4);
+    } else {
+      setIsKingsCup(false);
+    }
+    setDragOffset({ x: 0, y: 0 });
+    setIsEntering(true);
+    requestAnimationFrame(() => requestAnimationFrame(() => setIsEntering(false)));
+    setGameState('revealed');
   }, []);
 
   const drawCard = useCallback(() => {
     if (deck.length === 0) { setGameState('finished'); return; }
     const [card, ...rest] = deck;
     setDeck(rest);
-    setCurrentCard(card);
-    if (card.value === 'K') {
-      const n = kingsDrawn + 1;
-      setKingsDrawn(n);
-      setIsKingsCup(n === 4);
-    } else {
-      setIsKingsCup(false);
+    cardsSinceWater.current += 1;
+    const shouldShowWater = rest.length > 0 && cardsSinceWater.current >= 5 && Math.random() < 0.25;
+    if (shouldShowWater) {
+      cardsSinceWater.current = 0;
+      setPendingCard(card);
+      setIsEntering(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setIsEntering(false)));
+      setGameState('water');
+      return;
     }
-    setGameState('revealed');
-  }, [deck, kingsDrawn]);
+    revealCard(card, rest, kingsDrawn);
+  }, [deck, kingsDrawn, revealCard]);
+
+  const dismissWater = useCallback(() => {
+    if (!pendingCard) return;
+    setPendingCard(null);
+    revealCard(pendingCard, deck, kingsDrawn);
+  }, [pendingCard, deck, kingsDrawn, revealCard]);
 
   const nextCard = useCallback(() => {
     if (currentCard) setHistory((h) => [currentCard, ...h].slice(0, 5));
@@ -223,19 +252,18 @@ export const SipsGame: React.FC = () => {
     if (deck.length === 0) { setGameState('finished'); return; }
     const [card, ...rest] = deck;
     setDeck(rest);
-    setCurrentCard(card);
-    if (card.value === 'K') {
-      const n = kingsDrawn + 1;
-      setKingsDrawn(n);
-      setIsKingsCup(n === 4);
-    } else {
-      setIsKingsCup(false);
+    cardsSinceWater.current += 1;
+    const shouldShowWaterNext = rest.length > 0 && cardsSinceWater.current >= 5 && Math.random() < 0.25;
+    if (shouldShowWaterNext) {
+      cardsSinceWater.current = 0;
+      setPendingCard(card);
+      setIsEntering(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setIsEntering(false)));
+      setGameState('water');
+      return;
     }
-    setDragOffset({ x: 0, y: 0 });
-    setIsEntering(true);
-    requestAnimationFrame(() => requestAnimationFrame(() => setIsEntering(false)));
-    setGameState('revealed');
-  }, [currentCard, deck, kingsDrawn]);
+    revealCard(card, rest, kingsDrawn);
+  }, [currentCard, deck, kingsDrawn, revealCard]);
 
   const endGame = useCallback(() => setGameState('splash'), []);
 
@@ -263,6 +291,44 @@ export const SipsGame: React.FC = () => {
       <button onClick={startGame} style={{ ...s.primaryBtn, width: 'auto', padding: '16px 40px', borderRadius: '9999px' }}>
         jogar de novo
       </button>
+    </div>
+  );
+
+  // WATER CARD
+  if (gameState === 'water') return (
+    <div style={s.page}>
+      <div style={s.header}>
+        <button onClick={endGame} style={s.backBtn}>‹ Voltar</button>
+        <span style={s.title}>Drinking Game</span>
+        <div style={{ width: '64px' }} />
+      </div>
+      <div style={s.center}>
+        <div
+          style={{
+            ...s.card,
+            cursor: 'grab',
+            userSelect: 'none',
+            background: 'linear-gradient(135deg, #e0f2fe, #bae6fd)',
+            transform: isEntering ? 'scale(0.85) translateY(40px)' : 'scale(1) translateY(0)',
+            opacity: isEntering ? 0 : 1,
+            transition: isEntering ? 'none' : 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease-out',
+          }}
+          onClick={dismissWater}
+        >
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '12px' }}>
+            <div style={{ fontSize: '56px' }}>💧</div>
+            <p style={{ fontSize: '22px', fontWeight: 900, color: '#0369a1' }}>hora de hidratar!</p>
+            <p style={{ fontSize: '13px', color: '#0284c7', lineHeight: 1.6 }}>beba um copo d'água antes de continuar. seu eu do amanhã agradece.</p>
+            <p style={{ fontSize: '12px', color: '#7dd3fc', marginTop: '8px' }}>toque para continuar</p>
+          </div>
+        </div>
+      </div>
+      <div style={s.footer}>
+        <div style={s.pill}>
+          <span>🃏</span>
+          <span>{deck.length} cartas restantes</span>
+        </div>
+      </div>
     </div>
   );
 
@@ -321,6 +387,8 @@ export const SipsGame: React.FC = () => {
               ...s.card,
               cursor: isDragging ? 'grabbing' : 'grab',
               userSelect: 'none',
+              touchAction: 'none',
+              WebkitUserSelect: 'none',
               transform: isEntering
                 ? 'scale(0.85) translateY(40px)'
                 : isFlying
