@@ -10,7 +10,7 @@ export interface Props {
 const { title, description, tags, link, type } = Astro.props;
 ---
 
-<a href={link} target="_blank" rel="noopener noreferrer" class="group block h-full">
+<a href={link} target={link.startsWith('http') ? '_blank' : '_self'} rel={link.startsWith('http') ? 'noopener noreferrer' : undefined} class="group block h-full">
   <div class="h-full p-6 rounded-lg bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 hover:shadow-lg hover:border-peachy-500 dark:hover:border-peachy-400 transition-all duration-300">
     <div class="flex items-start justify-between mb-3">
       <h3 class="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-peachy-600 dark:group-hover:text-peachy-400 transition-colors">

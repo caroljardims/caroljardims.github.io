@@ -17,4 +17,12 @@ export const projects: Project[] = [
     link: 'https://marketplace.visualstudio.com/items?itemName=caroljardims.peachy-theme',
     type: 'free',
   },
+  {
+    id: '2',
+    title: 'Sips',
+    description: 'Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade.',
+    tags: ['Web', 'Game', 'React'],
+    link: '/sips',
+    type: 'free',
+  },
 ];
