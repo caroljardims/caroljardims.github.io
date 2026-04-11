@@ -1,5 +1,5 @@
 // src/components/SipsGame.tsx
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 
 type Suit = '♠' | '♣' | '♥' | '♦';
 type Value = 'A' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'J' | 'Q' | 'K';
@@ -186,6 +186,7 @@ export const SipsGame: React.FC = () => {
   const [kingsDrawn, setKingsDrawn] = useState(0);
   const [isKingsCup, setIsKingsCup] = useState(false);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [isFlying, setIsFlying] = useState(false);
@@ -193,6 +194,7 @@ export const SipsGame: React.FC = () => {
   const [isEntering, setIsEntering] = useState(false);
   const [pendingCard, setPendingCard] = useState<Card | null>(null);
   const cardsSinceWater = useRef(0);
+  const drawNextRef = useRef<() => void>(() => {});
 
   const startGame = useCallback(() => {
     setDeck(buildDeck());
@@ -267,6 +269,65 @@ export const SipsGame: React.FC = () => {
 
   const endGame = useCallback(() => setGameState('splash'), []);
 
+  // keep ref always up to date
+  drawNextRef.current = drawNext;
+
+  const flyCard = useCallback((dx: number, dy: number) => {
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    setFlyDir(dist < 10 ? { x: 0, y: -1 } : { x: dx / dist, y: dy / dist });
+    setIsDragging(false);
+    setIsFlying(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isFlying) return;
+    const t = setTimeout(() => {
+      setIsFlying(false);
+      setDragOffset({ x: 0, y: 0 });
+      drawNextRef.current();
+    }, 350);
+    return () => clearTimeout(t);
+  }, [isFlying]);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el || gameState !== 'revealed') return;
+
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      const t = e.touches[0];
+      touchStart.current = { x: t.clientX, y: t.clientY };
+      setIsDragging(true);
+      setDragOffset({ x: 0, y: 0 });
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      if (!touchStart.current) return;
+      const t = e.touches[0];
+      setDragOffset({ x: t.clientX - touchStart.current.x, y: t.clientY - touchStart.current.y });
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      e.preventDefault();
+      if (!touchStart.current) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStart.current.x;
+      const dy = t.clientY - touchStart.current.y;
+      touchStart.current = null;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 10 || dist > 40) flyCard(dx, dy);
+      else { setIsDragging(false); setDragOffset({ x: 0, y: 0 }); }
+    };
+
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd, { passive: false });
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [gameState, flyCard]);
+
   // SPLASH
   if (gameState === 'splash') return (
     <div style={{ ...s.page, alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '32px' }}>
@@ -338,20 +399,7 @@ export const SipsGame: React.FC = () => {
     const isRed = currentCard.color === 'red';
     const cardColor = isRed ? '#ef4444' : '#1e293b';
 
-    const fly = (dx: number, dy: number) => {
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 10) {
-        setFlyDir({ x: 0, y: -1 });
-      } else {
-        const norm = 1 / dist;
-        setFlyDir({ x: dx * norm, y: dy * norm });
-      }
-      setIsDragging(false);
-      setIsFlying(true);
-      setTimeout(() => { setIsFlying(false); setDragOffset({ x: 0, y: 0 }); drawNext(); }, 350);
-    };
-
-    // Mouse events (desktop)
+    // Mouse events (desktop only — mobile handled via native listeners in useEffect)
     const handleMouseDown = (e: React.MouseEvent) => {
       touchStart.current = { x: e.clientX, y: e.clientY };
       setIsDragging(true);
@@ -367,33 +415,7 @@ export const SipsGame: React.FC = () => {
       const dy = e.clientY - touchStart.current.y;
       touchStart.current = null;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 10 || dist > 40) fly(dx, dy);
-      else { setIsDragging(false); setDragOffset({ x: 0, y: 0 }); }
-    };
-
-    // Touch events (mobile)
-    const handleTouchStart = (e: React.TouchEvent) => {
-      e.preventDefault();
-      const t = e.touches[0];
-      touchStart.current = { x: t.clientX, y: t.clientY };
-      setIsDragging(true);
-      setDragOffset({ x: 0, y: 0 });
-    };
-    const handleTouchMove = (e: React.TouchEvent) => {
-      e.preventDefault();
-      if (!touchStart.current) return;
-      const t = e.touches[0];
-      setDragOffset({ x: t.clientX - touchStart.current.x, y: t.clientY - touchStart.current.y });
-    };
-    const handleTouchEnd = (e: React.TouchEvent) => {
-      e.preventDefault();
-      if (!touchStart.current) return;
-      const t = e.changedTouches[0];
-      const dx = t.clientX - touchStart.current.x;
-      const dy = t.clientY - touchStart.current.y;
-      touchStart.current = null;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 10 || dist > 40) fly(dx, dy);
+      if (dist < 10 || dist > 40) flyCard(dx, dy);
       else { setIsDragging(false); setDragOffset({ x: 0, y: 0 }); }
     };
 
@@ -427,12 +449,10 @@ export const SipsGame: React.FC = () => {
                 ? 'none'
                 : 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease-out',
             }}
+            ref={cardRef}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
           >
             {/* Top corner */}
             <div style={{ color: cardColor, lineHeight: 1 }}>
