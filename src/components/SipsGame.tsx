@@ -345,8 +345,7 @@ export const SipsGame: React.FC = () => {
       padding: 'clamp(24px, 5vw, 48px)',
       overflowY: 'auto' as const,
     }}>
-      <div style={{ fontSize: 'clamp(48px, 12vw, 72px)', marginBottom: '12px' }}>🥂</div>
-      <h1 style={{ fontSize: 'clamp(40px, 14vw, 64px)', fontWeight: 900, marginBottom: '8px', letterSpacing: '-2px', margin: '0 0 8px' }}>Sips</h1>
+<h1 style={{ fontSize: 'clamp(40px, 14vw, 64px)', fontWeight: 900, marginBottom: '8px', letterSpacing: '-2px', margin: '0 0 8px' }}>Sips</h1>
       <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 'clamp(11px, 3vw, 14px)', marginBottom: '28px', letterSpacing: '2px' }}>drinking game</p>
 
       <div style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(8px)', borderRadius: '20px', padding: 'clamp(16px, 4vw, 24px)', width: '100%', maxWidth: '360px', marginBottom: '28px', textAlign: 'left' }}>
