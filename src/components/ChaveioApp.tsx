@@ -310,7 +310,7 @@ function SetupScreen({ onConfirm }: { onConfirm: (groups: number, teams: Team[])
 
       <button
         type="submit"
-        className="w-full py-3 px-6 bg-chaveio-900 text-chaveio-50 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
+        className="w-full py-3 px-6 bg-chaveio-500 text-chaveio-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
       >
         montar campeonato
       </button>
@@ -397,7 +397,7 @@ function ByeSelectScreen({
         className={[
           'w-full py-3 px-6 font-semibold rounded-full text-sm tracking-wide transition-all shadow-sm',
           ready
-            ? 'bg-chaveio-900 text-chaveio-50 hover:scale-105'
+            ? 'bg-chaveio-500 text-chaveio-900 hover:scale-105'
             : 'bg-chaveio-700/50 text-chaveio-100/50 cursor-not-allowed',
         ].join(' ')}
       >
@@ -462,7 +462,7 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
 
       <button
         onClick={onNext}
-        className="self-start py-3 px-8 bg-chaveio-900 text-chaveio-50 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
+        className="self-start py-3 px-8 bg-chaveio-500 text-chaveio-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
       >
         registrar pontuação →
       </button>
@@ -625,7 +625,7 @@ function StandingsScreen({
         className={[
           'self-start py-3 px-8 font-semibold rounded-full text-sm tracking-wide transition-all shadow-sm',
           allResolved
-            ? 'bg-chaveio-900 text-chaveio-50 hover:scale-105'
+            ? 'bg-chaveio-500 text-chaveio-900 hover:scale-105'
             : 'bg-chaveio-700/50 text-chaveio-100/50 cursor-not-allowed',
         ].join(' ')}
       >
