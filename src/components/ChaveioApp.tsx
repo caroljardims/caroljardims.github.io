@@ -20,6 +20,7 @@ type AppState =
   | { screen: 'setup' }
   | { screen: 'bye-select'; teams: Team[]; byeCount: number; groups: number; byeType: ByeType }
   | { screen: 'groups'; teams: Team[]; groups: Group[]; bracket: Round[]; byeTeams: Team[] }
+  | { screen: 'standings'; teams: Team[]; groups: Group[]; byeTeams: Team[] }
   | { screen: 'bracket'; teams: Team[]; groups: Group[]; bracket: Round[] };
 
 type Group = { name: string; teams: Team[] };
@@ -463,6 +464,171 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
         onClick={onNext}
         className="self-start py-3 px-8 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
       >
+        registrar pontuação →
+      </button>
+    </div>
+  );
+}
+
+function StandingsScreen({
+  groups,
+  byeTeams,
+  onConfirm,
+}: {
+  groups: Group[];
+  byeTeams: Team[];
+  onConfirm: (advancing: Team[]) => void;
+}) {
+  const ADVANCE = 2;
+
+  // points[gi][teamId] = raw string from input
+  const [pts, setPts] = useState<Record<number, Record<string, string>>>({});
+  // tieChoice[gi] = Set of teamIds manually selected to advance from tie
+  const [tieChoice, setTieChoice] = useState<Record<number, Set<string>>>({});
+
+  function getPoints(gi: number, teamId: string): number {
+    return parseInt(pts[gi]?.[teamId] ?? '0', 10) || 0;
+  }
+
+  function setPoint(gi: number, teamId: string, val: string) {
+    setPts((prev) => ({ ...prev, [gi]: { ...prev[gi], [teamId]: val } }));
+    // Reset tie choice for this group when points change
+    setTieChoice((prev) => { const next = { ...prev }; delete next[gi]; return next; });
+  }
+
+  function toggleTie(gi: number, teamId: string, spotsAtCut: number) {
+    setTieChoice((prev) => {
+      const cur = new Set(prev[gi] ?? []);
+      if (cur.has(teamId)) {
+        cur.delete(teamId);
+      } else if (cur.size < spotsAtCut) {
+        cur.add(teamId);
+      }
+      return { ...prev, [gi]: cur };
+    });
+  }
+
+  function getGroupResult(gi: number, group: Group) {
+    const advance = Math.min(ADVANCE, group.teams.length);
+    const sorted = [...group.teams].sort((a, b) => getPoints(gi, b.id) - getPoints(gi, a.id));
+    if (sorted.length <= advance) return { sorted, advancing: sorted, atCut: [], spotsAtCut: 0, hasTie: false, resolved: true };
+
+    const cutScore = getPoints(gi, sorted[advance - 1].id);
+    const aboveCut = sorted.filter((t) => getPoints(gi, t.id) > cutScore);
+    const atCut = sorted.filter((t) => getPoints(gi, t.id) === cutScore);
+    const spotsAtCut = advance - aboveCut.length;
+    const hasTie = atCut.length > spotsAtCut;
+
+    const choices = tieChoice[gi] ?? new Set<string>();
+    const fromTie = atCut.filter((t) => choices.has(t.id));
+    const advancing = hasTie ? [...aboveCut, ...fromTie] : sorted.slice(0, advance);
+    const resolved = !hasTie || fromTie.length === spotsAtCut;
+
+    return { sorted, advancing, atCut, spotsAtCut, hasTie, resolved };
+  }
+
+  const results = groups.map((g, gi) => getGroupResult(gi, g));
+  const allResolved = results.every((r) => r.resolved);
+
+  function handleConfirm() {
+    if (!allResolved) return;
+    onConfirm(results.flatMap((r) => r.advancing));
+  }
+
+  return (
+    <div className="max-w-2xl w-full mx-auto px-6 py-12 flex flex-col gap-8">
+      <div>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">classificação dos grupos</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm">
+          insira os pontos de cada time. os 2 melhores de cada grupo avançam.
+        </p>
+      </div>
+
+      {groups.map((group, gi) => {
+        const { sorted, advancing, atCut, spotsAtCut, hasTie } = results[gi];
+        const advancingIds = new Set(advancing.map((t) => t.id));
+        const choices = tieChoice[gi] ?? new Set<string>();
+
+        return (
+          <div key={gi} className="bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4">
+            <h3 className="text-sm font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest">{group.name}</h3>
+
+            {/* Point inputs */}
+            <div className="flex flex-col gap-2">
+              {sorted.map((team) => {
+                const isAdvancing = advancingIds.has(team.id);
+                return (
+                  <div key={team.id} className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isAdvancing ? 'bg-peachy-100 dark:bg-slate-700' : 'bg-peachy-50 dark:bg-slate-750'}`}>
+                    <span className={`flex-1 text-sm font-medium ${isAdvancing ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
+                      {isAdvancing && <span className="text-peachy-500 mr-1">→</span>}
+                      {team.name}
+                    </span>
+                    <input
+                      type="number"
+                      min="0"
+                      value={pts[gi]?.[team.id] ?? ''}
+                      onChange={(e) => setPoint(gi, team.id, e.target.value)}
+                      placeholder="0"
+                      className="w-16 text-center px-2 py-1 rounded-lg border border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-peachy-400"
+                    />
+                    <span className="text-xs text-slate-400 w-3">pts</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Tiebreaker */}
+            {hasTie && (
+              <div className="border-t border-peachy-100 dark:border-slate-700 pt-4 flex flex-col gap-2">
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  empate — escolha {spotsAtCut === 1 ? 'qual time avança' : `quais ${spotsAtCut} times avançam'`} ({choices.size}/{spotsAtCut})
+                </p>
+                <div className="flex flex-col gap-1">
+                  {atCut.map((team) => {
+                    const on = choices.has(team.id);
+                    const blocked = !on && choices.size >= spotsAtCut;
+                    return (
+                      <button
+                        key={team.id}
+                        onClick={() => toggleTie(gi, team.id, spotsAtCut)}
+                        disabled={blocked}
+                        className={[
+                          'w-full text-left px-3 py-2 rounded-lg border text-sm font-medium transition-all',
+                          on ? 'border-peachy-400 bg-peachy-100 dark:bg-slate-700 text-slate-900 dark:text-white'
+                            : blocked ? 'border-peachy-100 dark:border-slate-700 text-slate-400 opacity-50 cursor-not-allowed bg-white dark:bg-slate-800'
+                            : 'border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-peachy-400 cursor-pointer',
+                        ].join(' ')}
+                      >
+                        {team.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {byeTeams.length > 0 && (
+        <div className="bg-white dark:bg-slate-800 border border-dashed border-peachy-300 dark:border-slate-600 rounded-xl px-5 py-4 flex items-center gap-3 flex-wrap">
+          <span className="text-xs font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest">bye</span>
+          {byeTeams.map((t) => (
+            <span key={t.id} className="text-sm text-slate-600 dark:text-slate-300 px-3 py-1 rounded-lg bg-peachy-50 dark:bg-slate-700">{t.name}</span>
+          ))}
+        </div>
+      )}
+
+      <button
+        onClick={handleConfirm}
+        disabled={!allResolved}
+        className={[
+          'self-start py-3 px-8 font-semibold rounded-full text-sm tracking-wide transition-all shadow-sm',
+          allResolved
+            ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-105'
+            : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed',
+        ].join(' ')}
+      >
         ir para as chaves →
       </button>
     </div>
@@ -671,7 +837,16 @@ export function ChaveioApp() {
 
   const handleGroupsNext = useCallback(() => {
     if (state.screen !== 'groups') return;
-    setState({ screen: 'bracket', teams: state.teams, groups: state.groups, bracket: state.bracket });
+    setState({ screen: 'standings', teams: state.teams, groups: state.groups, byeTeams: state.byeTeams });
+  }, [state]);
+
+  const handleStandingsConfirm = useCallback((advancing: Team[]) => {
+    if (state.screen !== 'standings') return;
+    const { teams, groups, byeTeams } = state;
+    // Todos os times juntos — padSlots garante que BYEs nunca ficam pareados entre si
+    const slots = padSlots(shuffle([...advancing, ...byeTeams]));
+    const bracket = buildBracket(slots);
+    setState({ screen: 'bracket', teams, groups, bracket });
   }, [state]);
 
   const handleWinner = useCallback(
@@ -727,6 +902,10 @@ export function ChaveioApp() {
 
         {state.screen === 'groups' && (
           <GroupsScreen groups={state.groups} byeTeams={state.byeTeams} onNext={handleGroupsNext} />
+        )}
+
+        {state.screen === 'standings' && (
+          <StandingsScreen groups={state.groups} byeTeams={state.byeTeams} onConfirm={handleStandingsConfirm} />
         )}
 
         {state.screen === 'bracket' && (
