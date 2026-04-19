@@ -8,110 +8,61 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Pix para Carol Jardim" />
-    <title>pix 💸</title>
+    <title>pix · caroljardims</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
-    <style>
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body {
-        min-height: 100vh;
-        font-family: 'Inter', system-ui, sans-serif;
-        background: linear-gradient(160deg, #4c1d95 0%, #7c3aed 30%, #db2777 70%, #f97316 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 32px 24px;
-        color: #fff;
-      }
-      .card {
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(12px);
-        border-radius: 24px;
-        padding: 40px 32px;
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-      }
-      .icon { font-size: 56px; margin-bottom: 16px; }
-      h1 { font-size: 32px; font-weight: 900; margin-bottom: 8px; }
-      .subtitle { color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 32px; }
-      .label {
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: rgba(255,255,255,0.5);
-        margin-bottom: 10px;
-        text-align: left;
-      }
-      .pix-box {
-        background: rgba(0,0,0,0.2);
-        border-radius: 14px;
-        padding: 16px;
-        font-size: 11px;
-        color: rgba(255,255,255,0.8);
-        text-align: left;
-        line-height: 1.6;
-        margin-bottom: 12px;
-        font-family: monospace;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .copy-btn {
-        width: 100%;
-        padding: 16px;
-        border-radius: 14px;
-        border: none;
-        background: linear-gradient(90deg, #f97316, #db2777);
-        color: #fff;
-        font-weight: 700;
-        font-size: 16px;
-        cursor: pointer;
-        font-family: inherit;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: opacity 0.2s;
-      }
-      .copy-btn:active { opacity: 0.8; }
-      .success {
-        margin-top: 12px;
-        font-size: 13px;
-        color: rgba(255,255,255,0.6);
-        min-height: 20px;
-      }
-      .name {
-        margin-top: 24px;
-        font-size: 13px;
-        color: rgba(255,255,255,0.4);
-      }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
   </head>
-  <body>
-    <div class="card">
-      <div class="icon">💸</div>
-      <h1>me pague um drink</h1>
-      <p class="subtitle">copie a chave pix abaixo</p>
+  <body class="bg-peachy-50 dark:bg-slate-900 min-h-screen flex flex-col items-center justify-center px-6 py-12" style="font-family:'Inter',system-ui,sans-serif;">
 
-      <div style="margin-bottom: 24px; display: flex; flex-direction: column; align-items: center;">
-        <p class="label" style="text-align:center; margin-bottom: 12px;">escaneie o qr code</p>
-        <img src="/pix-qr.png" alt="QR Code Pix" style="width: 180px; height: 180px; border-radius: 16px; object-fit: contain; background: #fff; padding: 8px;" />
+    <div class="w-full max-w-sm flex flex-col gap-6">
+
+      <!-- Back -->
+      <a href="javascript:history.back()" class="text-slate-500 dark:text-slate-400 hover:text-peachy-600 dark:hover:text-peachy-400 transition-colors text-sm font-medium self-start">
+        ← voltar
+      </a>
+
+      <!-- Card -->
+      <div class="bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 rounded-2xl p-8 flex flex-col items-center gap-6 shadow-sm">
+
+        <div class="text-5xl">💸</div>
+
+        <div class="text-center">
+          <h1 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-1">obrigada pelo carinho</h1>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">copie a chave pix ou escaneie o qr code</p>
+        </div>
+
+        <!-- QR Code -->
+        <img
+          src="/pix-qr.png"
+          alt="QR Code Pix"
+          class="w-44 h-44 rounded-xl border border-peachy-200 dark:border-slate-600 object-contain bg-white p-2"
+        />
+
+        <!-- Pix key -->
+        <div class="w-full flex flex-col gap-2">
+          <p class="text-xs font-bold uppercase tracking-widest text-peachy-600 dark:text-peachy-400">chave pix</p>
+          <div
+            id="pix-key"
+            class="w-full px-4 py-3 rounded-xl bg-peachy-50 dark:bg-slate-700 border border-peachy-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 text-xs font-mono truncate"
+          >
+            00020101021126580014br.gov.bcb.pix013690ec09c7-ce7a-48e7-a5eb-919d4716bde45204000053039865802BR5924CAROLINE JARDIM SIQUEIRA6009SAO PAULO622905251KNWBTFDP14K4X3DAFDH9Z1S06304209F
+          </div>
+        </div>
+
+        <!-- Copy button -->
+        <button
+          id="copy-btn"
+          class="w-full py-3 px-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm flex items-center justify-center gap-2"
+        >
+          <span id="btn-icon">📋</span>
+          <span id="btn-text">copiar chave</span>
+        </button>
+
+        <p id="success-msg" class="text-sm text-peachy-600 dark:text-peachy-400 min-h-[20px] text-center"></p>
+
+        <p class="text-slate-400 dark:text-slate-600 text-xs">@caroljardims</p>
       </div>
 
-      <p class="label">ou copie a chave pix</p>
-      <div class="pix-box" id="pix-key">
-        00020101021126580014br.gov.bcb.pix013690ec09c7-ce7a-48e7-a5eb-919d4716bde45204000053039865802BR5924CAROLINE JARDIM SIQUEIRA6009SAO PAULO622905251KNWBTFDP14K4X3DAFDH9Z1S06304209F
-      </div>
-
-      <button class="copy-btn" id="copy-btn">
-        <span id="btn-icon">📋</span>
-        <span id="btn-text">copiar chave</span>
-      </button>
-      <p class="success" id="success-msg"></p>
-
-      <p class="name">@caroljardims</p>
     </div>
 
     <script>
@@ -125,7 +76,7 @@ import '../styles/global.css';
         await navigator.clipboard.writeText(key);
         icon.textContent = '✅';
         text.textContent = 'copiado!';
-        msg.textContent = 'chave copiada — agora é só colar no seu banco 🥂';
+        msg.textContent = 'chave copiada — agora é só colar no seu banco';
         setTimeout(() => {
           icon.textContent = '📋';
           text.textContent = 'copiar chave';
