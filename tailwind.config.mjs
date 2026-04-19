@@ -21,6 +21,13 @@ export default {
         },
         primary: '#FEC89A',
         dark: '#0f172a',
+        chaveio: {
+          50:  '#9fd86b',
+          100: '#53ba83',
+          500: '#059b9a',
+          700: '#095169',
+          900: '#0c0636',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

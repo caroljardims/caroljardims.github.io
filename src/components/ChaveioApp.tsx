@@ -201,7 +201,7 @@ function MatchCard({
   const teams: (Team | 'BYE' | null)[] = [match.team1, match.team2];
 
   return (
-    <div className="bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm">
+    <div className="bg-chaveio-700 border border-chaveio-500/40 rounded-xl overflow-hidden shadow-sm">
       {teams.map((t, idx) => {
         const isBye = t === 'BYE';
         const team = isBye ? null : (t as Team | null);
@@ -216,11 +216,11 @@ function MatchCard({
             style={{ height: ROW_H }}
             className={[
               'w-full text-left px-3 flex items-center justify-between transition-colors',
-              idx === 0 ? 'border-b border-peachy-100 dark:border-slate-700' : '',
+              idx === 0 ? 'border-b border-chaveio-700' : '',
               isWinner
-                ? 'bg-peachy-100 dark:bg-slate-700 text-slate-900 dark:text-white font-semibold'
-                : 'text-slate-600 dark:text-slate-300',
-              canClick && !isWinner ? 'hover:bg-peachy-50 cursor-pointer' : 'cursor-default',
+                ? 'bg-chaveio-500/20 text-white font-semibold'
+                : 'text-chaveio-50/80',
+              canClick && !isWinner ? 'hover:bg-chaveio-50/10 cursor-pointer' : 'cursor-default',
               isBye ? 'opacity-40 italic' : '',
             ]
               .filter(Boolean)
@@ -230,7 +230,7 @@ function MatchCard({
               {isBye ? 'bye' : team ? team.name : <span className="opacity-40 italic text-xs">a definir</span>}
             </span>
             {isWinner && (
-              <span className="text-peachy-500 dark:text-peachy-400 text-sm flex-shrink-0 ml-1">→</span>
+              <span className="text-chaveio-100 text-sm flex-shrink-0 ml-1">→</span>
             )}
           </button>
         );
@@ -269,17 +269,17 @@ function SetupScreen({ onConfirm }: { onConfirm: (groups: number, teams: Team[])
   return (
     <form onSubmit={handleSubmit} className="max-w-md w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">
+        <h2 className="text-2xl font-bold text-white mb-1 tracking-tight">
           novo campeonato
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-chaveio-100/70 text-sm">
           configure os times e a estrutura da competição
         </p>
       </div>
 
       <div className="flex flex-col gap-6">
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+          <label className="block text-sm font-medium text-chaveio-50/80 mb-2">
             quantos grupos?
           </label>
           <input
@@ -288,20 +288,20 @@ function SetupScreen({ onConfirm }: { onConfirm: (groups: number, teams: Team[])
             value={groupsInput}
             onChange={(e) => setGroupsInput(e.target.value)}
             placeholder="0 = sem fase de grupos"
-            className="w-full px-4 py-3 rounded-xl border border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-peachy-400 dark:focus:ring-peachy-600 placeholder-slate-400"
+            className="w-full px-4 py-3 rounded-xl border border-chaveio-500/40 bg-chaveio-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-chaveio-500 placeholder-slate-400"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-            equipes <span className="text-slate-400 font-normal">(uma por linha)</span>
+          <label className="block text-sm font-medium text-chaveio-50/80 mb-2">
+            equipes <span className="text-chaveio-100/50 font-normal">(uma por linha)</span>
           </label>
           <textarea
             rows={8}
             value={teamsInput}
             onChange={(e) => setTeamsInput(e.target.value)}
             placeholder={'Inter\nGrêmio\nCaxias\nJuventude'}
-            className="w-full px-4 py-3 rounded-xl border border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-peachy-400 dark:focus:ring-peachy-600 placeholder-slate-400 resize-none font-mono"
+            className="w-full px-4 py-3 rounded-xl border border-chaveio-500/40 bg-chaveio-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-chaveio-500 placeholder-slate-400 resize-none font-mono"
           />
         </div>
       </div>
@@ -310,7 +310,7 @@ function SetupScreen({ onConfirm }: { onConfirm: (groups: number, teams: Team[])
 
       <button
         type="submit"
-        className="w-full py-3 px-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
+        className="w-full py-3 px-6 bg-chaveio-900 text-chaveio-50 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
       >
         montar campeonato
       </button>
@@ -356,10 +356,10 @@ function ByeSelectScreen({
   return (
     <div className="max-w-md w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">
+        <h2 className="text-2xl font-bold text-white mb-1 tracking-tight">
           {title}
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-chaveio-100/70 text-sm">
           {subtitle}
         </p>
       </div>
@@ -376,15 +376,15 @@ function ByeSelectScreen({
               className={[
                 'w-full text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all',
                 on
-                  ? 'border-peachy-400 bg-peachy-100 dark:bg-slate-700 text-slate-900 dark:text-white'
+                  ? 'border-chaveio-100 bg-chaveio-500/20 text-white'
                   : blocked
-                  ? 'border-peachy-100 dark:border-slate-700 text-slate-400 cursor-not-allowed opacity-50 bg-white dark:bg-slate-800'
-                  : 'border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-peachy-400 cursor-pointer',
+                  ? 'border-chaveio-700 text-chaveio-100/50 cursor-not-allowed opacity-50 bg-chaveio-700'
+                  : 'border-chaveio-500/40 bg-chaveio-700 text-chaveio-50/80 hover:border-chaveio-100 cursor-pointer',
               ].join(' ')}
             >
               <span className="flex items-center justify-between">
                 {t.name}
-                {on && <span className="text-peachy-600 dark:text-peachy-400 text-xs font-bold uppercase">bye</span>}
+                {on && <span className="text-chaveio-50 text-xs font-bold uppercase">bye</span>}
               </span>
             </button>
           );
@@ -397,8 +397,8 @@ function ByeSelectScreen({
         className={[
           'w-full py-3 px-6 font-semibold rounded-full text-sm tracking-wide transition-all shadow-sm',
           ready
-            ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-105'
-            : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed',
+            ? 'bg-chaveio-900 text-chaveio-50 hover:scale-105'
+            : 'bg-chaveio-700/50 text-chaveio-100/50 cursor-not-allowed',
         ].join(' ')}
       >
         confirmar ({selected.size}/{byeCount})
@@ -411,10 +411,10 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
   return (
     <div className="max-w-2xl w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">
+        <h2 className="text-2xl font-bold text-white mb-1 tracking-tight">
           fase de grupos
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <p className="text-chaveio-100/70 text-sm">
           times sorteados nos grupos. quando a fase de grupos acabar, avance para as chaves.
         </p>
       </div>
@@ -423,16 +423,16 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
         {groups.map((g) => (
           <div
             key={g.name}
-            className="bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 rounded-xl p-5"
+            className="bg-chaveio-700 border border-chaveio-500/40 rounded-xl p-5"
           >
-            <h3 className="text-sm font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest mb-3">
+            <h3 className="text-sm font-bold text-chaveio-50 uppercase tracking-widest mb-3">
               {g.name}
             </h3>
             <ul className="flex flex-col gap-2">
               {g.teams.map((t) => (
                 <li
                   key={t.id}
-                  className="text-sm text-slate-700 dark:text-slate-300 px-3 py-2 rounded-lg bg-peachy-50 dark:bg-slate-700"
+                  className="text-sm text-chaveio-50/80 px-3 py-2 rounded-lg bg-chaveio-700/60"
                 >
                   {t.name}
                 </li>
@@ -443,15 +443,15 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
       </div>
 
       {byeTeams.length > 0 && (
-        <div className="bg-white dark:bg-slate-800 border border-dashed border-peachy-300 dark:border-slate-600 rounded-xl p-5">
-          <h3 className="text-sm font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest mb-3">
+        <div className="bg-chaveio-700 border border-dashed border-chaveio-500/40 rounded-xl p-5">
+          <h3 className="text-sm font-bold text-chaveio-50 uppercase tracking-widest mb-3">
             bye — passam direto pras chaves
           </h3>
           <ul className="flex flex-wrap gap-2">
             {byeTeams.map((t) => (
               <li
                 key={t.id}
-                className="text-sm text-slate-700 dark:text-slate-300 px-3 py-2 rounded-lg bg-peachy-50 dark:bg-slate-700"
+                className="text-sm text-chaveio-50/80 px-3 py-2 rounded-lg bg-chaveio-700/60"
               >
                 {t.name}
               </li>
@@ -462,7 +462,7 @@ function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams:
 
       <button
         onClick={onNext}
-        className="self-start py-3 px-8 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
+        className="self-start py-3 px-8 bg-chaveio-900 text-chaveio-50 font-semibold rounded-full text-sm tracking-wide hover:scale-105 transition-transform shadow-sm"
       >
         registrar pontuação →
       </button>
@@ -538,8 +538,8 @@ function StandingsScreen({
   return (
     <div className="max-w-2xl w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">classificação dos grupos</h2>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
+        <h2 className="text-2xl font-bold text-white mb-1 tracking-tight">classificação dos grupos</h2>
+        <p className="text-chaveio-100/70 text-sm">
           insira os pontos de cada time. os 2 melhores de cada grupo avançam.
         </p>
       </div>
@@ -550,17 +550,17 @@ function StandingsScreen({
         const choices = tieChoice[gi] ?? new Set<string>();
 
         return (
-          <div key={gi} className="bg-white dark:bg-slate-800 border border-peachy-200 dark:border-slate-700 rounded-xl p-5 flex flex-col gap-4">
-            <h3 className="text-sm font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest">{group.name}</h3>
+          <div key={gi} className="bg-chaveio-700 border border-chaveio-500/40 rounded-xl p-5 flex flex-col gap-4">
+            <h3 className="text-sm font-bold text-chaveio-50 uppercase tracking-widest">{group.name}</h3>
 
             {/* Point inputs */}
             <div className="flex flex-col gap-2">
               {sorted.map((team) => {
                 const isAdvancing = advancingIds.has(team.id);
                 return (
-                  <div key={team.id} className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isAdvancing ? 'bg-peachy-100 dark:bg-slate-700' : 'bg-peachy-50 dark:bg-slate-750'}`}>
-                    <span className={`flex-1 text-sm font-medium ${isAdvancing ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
-                      {isAdvancing && <span className="text-peachy-500 mr-1">→</span>}
+                  <div key={team.id} className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${isAdvancing ? 'bg-chaveio-500/20' : 'bg-chaveio-700/50'}`}>
+                    <span className={`flex-1 text-sm font-medium ${isAdvancing ? 'text-white' : 'text-chaveio-100/70'}`}>
+                      {isAdvancing && <span className="text-chaveio-100 mr-1">→</span>}
                       {team.name}
                     </span>
                     <input
@@ -569,9 +569,9 @@ function StandingsScreen({
                       value={pts[gi]?.[team.id] ?? ''}
                       onChange={(e) => setPoint(gi, team.id, e.target.value)}
                       placeholder="0"
-                      className="w-16 text-center px-2 py-1 rounded-lg border border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-peachy-400"
+                      className="w-16 text-center px-2 py-1 rounded-lg border border-chaveio-500/40 bg-chaveio-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-chaveio-500"
                     />
-                    <span className="text-xs text-slate-400 w-3">pts</span>
+                    <span className="text-xs text-chaveio-100/50 w-3">pts</span>
                   </div>
                 );
               })}
@@ -579,8 +579,8 @@ function StandingsScreen({
 
             {/* Tiebreaker */}
             {hasTie && (
-              <div className="border-t border-peachy-100 dark:border-slate-700 pt-4 flex flex-col gap-2">
-                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              <div className="border-t border-chaveio-700 pt-4 flex flex-col gap-2">
+                <p className="text-xs font-semibold text-chaveio-100/70">
                   empate — escolha {spotsAtCut === 1 ? 'qual time avança' : `quais ${spotsAtCut} times avançam'`} ({choices.size}/{spotsAtCut})
                 </p>
                 <div className="flex flex-col gap-1">
@@ -594,9 +594,9 @@ function StandingsScreen({
                         disabled={blocked}
                         className={[
                           'w-full text-left px-3 py-2 rounded-lg border text-sm font-medium transition-all',
-                          on ? 'border-peachy-400 bg-peachy-100 dark:bg-slate-700 text-slate-900 dark:text-white'
-                            : blocked ? 'border-peachy-100 dark:border-slate-700 text-slate-400 opacity-50 cursor-not-allowed bg-white dark:bg-slate-800'
-                            : 'border-peachy-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-peachy-400 cursor-pointer',
+                          on ? 'border-chaveio-100 bg-chaveio-500/20 text-white'
+                            : blocked ? 'border-chaveio-700 text-chaveio-100/50 opacity-50 cursor-not-allowed bg-chaveio-700'
+                            : 'border-chaveio-500/40 bg-chaveio-700 text-chaveio-50/80 hover:border-chaveio-100 cursor-pointer',
                         ].join(' ')}
                       >
                         {team.name}
@@ -611,10 +611,10 @@ function StandingsScreen({
       })}
 
       {byeTeams.length > 0 && (
-        <div className="bg-white dark:bg-slate-800 border border-dashed border-peachy-300 dark:border-slate-600 rounded-xl px-5 py-4 flex items-center gap-3 flex-wrap">
-          <span className="text-xs font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest">bye</span>
+        <div className="bg-chaveio-700 border border-dashed border-chaveio-500/40 rounded-xl px-5 py-4 flex items-center gap-3 flex-wrap">
+          <span className="text-xs font-bold text-chaveio-50 uppercase tracking-widest">bye</span>
           {byeTeams.map((t) => (
-            <span key={t.id} className="text-sm text-slate-600 dark:text-slate-300 px-3 py-1 rounded-lg bg-peachy-50 dark:bg-slate-700">{t.name}</span>
+            <span key={t.id} className="text-sm text-chaveio-50/80 px-3 py-1 rounded-lg bg-chaveio-700/60">{t.name}</span>
           ))}
         </div>
       )}
@@ -625,8 +625,8 @@ function StandingsScreen({
         className={[
           'self-start py-3 px-8 font-semibold rounded-full text-sm tracking-wide transition-all shadow-sm',
           allResolved
-            ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:scale-105'
-            : 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed',
+            ? 'bg-chaveio-900 text-chaveio-50 hover:scale-105'
+            : 'bg-chaveio-700/50 text-chaveio-100/50 cursor-not-allowed',
         ].join(' ')}
       >
         ir para as chaves →
@@ -641,16 +641,16 @@ function BracketScreen({ bracket, onWinner }: { bracket: Round[]; onWinner: (ri:
   const bh = bracketHeight(round0Count);
 
   // SVG color tokens (can't use Tailwind inside SVG stroke attr)
-  const stroke = 'rgb(252,213,206)'; // peachy-200 approx
+  const stroke = 'rgb(5,155,154)'; // peachy-200 approx
 
   return (
     <div className="px-6 py-12 flex flex-col gap-8 min-w-0">
       {champion && (
-        <div className="max-w-2xl mx-auto w-full bg-peachy-100 dark:bg-slate-700 border border-peachy-300 dark:border-peachy-600 rounded-2xl px-8 py-6 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-peachy-600 dark:text-peachy-400 mb-1">
+        <div className="max-w-2xl mx-auto w-full bg-chaveio-500/20 border border-chaveio-100/50 rounded-2xl px-8 py-6 text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-chaveio-50 mb-1">
             campeão
           </p>
-          <p className="text-2xl font-bold text-slate-900 dark:text-white">{champion.name}</p>
+          <p className="text-2xl font-bold text-white">{champion.name}</p>
         </div>
       )}
 
@@ -662,7 +662,7 @@ function BracketScreen({ bracket, onWinner }: { bracket: Round[]; onWinner: (ri:
             {/* ── Round column ── */}
             <div style={{ width: COL_W }}>
               <div
-                className="flex items-center justify-center text-xs font-bold uppercase tracking-widest text-peachy-600 dark:text-peachy-400"
+                className="flex items-center justify-center text-xs font-bold uppercase tracking-widest text-chaveio-50"
                 style={{ height: HEADER_H, marginBottom: 12 }}
               >
                 {round.name}
@@ -692,7 +692,7 @@ function BracketScreen({ bracket, onWinner }: { bracket: Round[]; onWinner: (ri:
                       <div
                         key={`sep-${si}`}
                         style={{ position: 'absolute', top: sepY, width: '100%' }}
-                        className="border-t border-dashed border-peachy-200 dark:border-slate-700"
+                        className="border-t border-dashed border-chaveio-500/40"
                       />
                     );
                   })}
@@ -865,22 +865,22 @@ export function ChaveioApp() {
   const showBack = state.screen !== 'setup';
 
   return (
-    <div className="min-h-screen bg-peachy-50 dark:bg-slate-900 flex flex-col">
+    <div className="min-h-screen bg-chaveio-900 flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-peachy-200 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-10 bg-chaveio-900/90 backdrop-blur-md border-b border-chaveio-500/40 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <a
             href="/"
-            className="text-slate-500 dark:text-slate-400 hover:text-peachy-600 dark:hover:text-peachy-400 transition-colors text-sm font-medium"
+            className="text-chaveio-100/70 hover:text-chaveio-100 dark:hover:text-chaveio-50 transition-colors text-sm font-medium"
           >
             ← voltar
           </a>
-          <h1 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">chaveio</h1>
+          <h1 className="text-lg font-bold text-white tracking-tight">chaveio</h1>
         </div>
         {showBack && (
           <button
             onClick={reset}
-            className="text-xs text-slate-400 hover:text-peachy-600 dark:hover:text-peachy-400 transition-colors font-medium"
+            className="text-xs text-chaveio-100/50 hover:text-chaveio-100 dark:hover:text-chaveio-50 transition-colors font-medium"
           >
             novo campeonato
           </button>
@@ -914,14 +914,14 @@ export function ChaveioApp() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 px-6 border-t border-peachy-100 dark:border-slate-800 flex flex-col items-center gap-4">
-        <p className="text-slate-400 dark:text-slate-600 text-sm">
+      <footer className="py-8 px-6 border-t border-chaveio-700 flex flex-col items-center gap-4">
+        <p className="text-chaveio-500/60 text-sm">
           gostou?{' '}
           <a
             href="/pix"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-500 dark:text-slate-400 font-semibold underline hover:text-peachy-600 dark:hover:text-peachy-400 transition-colors"
+            className="text-chaveio-100/70 font-semibold underline hover:text-chaveio-100 dark:hover:text-chaveio-50 transition-colors"
           >
             me pague a pipoca da próxima partida
           </a>
@@ -931,11 +931,11 @@ export function ChaveioApp() {
           href="https://buymeacoffee.com/caroljardims"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-peachy-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-semibold hover:border-peachy-400 hover:text-peachy-600 dark:hover:text-peachy-400 transition-all"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-chaveio-500/40 bg-chaveio-700 text-chaveio-100/70 text-xs font-semibold hover:border-chaveio-100 hover:text-chaveio-100 dark:hover:text-chaveio-50 transition-all"
         >
           ☕ buy me a coffee
         </a>
-        <p className="text-slate-400 dark:text-slate-600 text-xs">© 2026 Carol Jardim · feito com carinho</p>
+        <p className="text-chaveio-500/60 text-xs">© 2026 Carol Jardim · feito com carinho</p>
       </footer>
     </div>
   );
