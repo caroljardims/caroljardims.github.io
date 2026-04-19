@@ -25,4 +25,12 @@ export const projects: Project[] = [
     link: '/sips',
     type: 'free',
   },
+  {
+    id: '3',
+    title: 'Campeonato',
+    description: 'Monte seu campeonato do zero: cadastre os times, defina as regras e deixe a disputa rolar. Em construção.',
+    tags: ['Web', 'Esportes', 'React'],
+    link: '/campeonato',
+    type: 'free',
+  },
 ];
