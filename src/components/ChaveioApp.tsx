@@ -14,10 +14,12 @@ type Match = {
 
 type Round = { name: string; matches: Match[] };
 
+type ByeType = 'group' | 'bracket';
+
 type AppState =
   | { screen: 'setup' }
-  | { screen: 'bye-select'; teams: Team[]; byeCount: number; groups: number }
-  | { screen: 'groups'; teams: Team[]; groups: Group[]; bracket: Round[] }
+  | { screen: 'bye-select'; teams: Team[]; byeCount: number; groups: number; byeType: ByeType }
+  | { screen: 'groups'; teams: Team[]; groups: Group[]; bracket: Round[]; byeTeams: Team[] }
   | { screen: 'bracket'; teams: Team[]; groups: Group[]; bracket: Round[] };
 
 type Group = { name: string; teams: Team[] };
@@ -129,6 +131,18 @@ function propagateClear(rounds: Round[], roundIdx: number, matchIdx: number) {
   }
 }
 
+/** Garante que o array de slots tenha tamanho potência de 2, preenchendo com BYEs corretamente pareados. */
+function padSlots(teams: Team[]): (Team | 'BYE')[] {
+  const p2 = nextPow2(teams.length);
+  const extraByes = p2 - teams.length;
+  const regulars = teams.slice(0, teams.length - extraByes);
+  const withBye = teams.slice(teams.length - extraByes);
+  return [
+    ...regulars,
+    ...withBye.flatMap((t): (Team | 'BYE')[] => [t, 'BYE']),
+  ];
+}
+
 function makeGroups(teams: Team[], count: number): Group[] {
   const shuffled = shuffle(teams);
   const groups: Group[] = Array.from({ length: count }, (_, i) => ({
@@ -141,19 +155,21 @@ function makeGroups(teams: Team[], count: number): Group[] {
 
 // ─── Bracket layout constants ────────────────────────────────────────────────
 
-const ROW_H = 36;    // px — height of one team row (h-9)
+const ROW_H = 36;         // px — height of one team row (h-9)
 const MATCH_H = ROW_H * 2; // 72px — one match card (2 rows)
-const PAIR_SEP = 33; // px — gap between pairs: 16 (my-4 top) + 1 (border) + 16 (my-4 bottom)
-const COL_W = 188;   // px — width of each round column
-const CONN_W = 36;   // px — width of the connector column between rounds
-const HEADER_H = 32; // px — round name header
+const MATCH_GAP = 10;     // px — gap between match cards within a pair
+const PAIR_H = 2 * MATCH_H + MATCH_GAP; // 154px — full height of one bracket pair
+const PAIR_SEP = 33;      // px — gap between consecutive pairs
+const COL_W = 188;        // px — width of each round column
+const CONN_W = 36;        // px — width of the connector column between rounds
+const HEADER_H = 32;      // px — round name header
 
 /** Vertical center (in px) of match [matchIdx] in round [roundIdx], relative to bracket top. */
 function matchCenterY(roundIdx: number, matchIdx: number): number {
   if (roundIdx === 0) {
     const pairIdx = Math.floor(matchIdx / 2);
     const posInPair = matchIdx % 2;
-    return pairIdx * (2 * MATCH_H + PAIR_SEP) + posInPair * MATCH_H + ROW_H;
+    return pairIdx * (PAIR_H + PAIR_SEP) + posInPair * (MATCH_H + MATCH_GAP) + ROW_H;
   }
   return (
     matchCenterY(roundIdx - 1, matchIdx * 2) +
@@ -167,7 +183,7 @@ function matchTopY(roundIdx: number, matchIdx: number): number {
 
 function bracketHeight(round0MatchCount: number): number {
   const pairs = round0MatchCount / 2;
-  return pairs * 2 * MATCH_H + (pairs - 1) * PAIR_SEP;
+  return pairs * PAIR_H + (pairs - 1) * PAIR_SEP;
 }
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -304,10 +320,12 @@ function SetupScreen({ onConfirm }: { onConfirm: (groups: number, teams: Team[])
 function ByeSelectScreen({
   teams,
   byeCount,
+  byeType,
   onConfirm,
 }: {
   teams: Team[];
   byeCount: number;
+  byeType: ByeType;
   onConfirm: (byeTeams: Team[]) => void;
 }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -326,15 +344,22 @@ function ByeSelectScreen({
 
   const ready = selected.size === byeCount;
 
+  const title = byeType === 'group'
+    ? 'quem passa direto pras chaves?'
+    : 'escolha os times com bye';
+
+  const subtitle = byeType === 'group'
+    ? `com ${teams.length} times, sobra ${byeCount === 1 ? '1 time' : `${byeCount} times`} na divisão dos grupos — ${byeCount === 1 ? 'esse time passa' : 'esses times passam'} direto pras chaves.`
+    : `com ${teams.length} times, ${byeCount} ${byeCount === 1 ? 'time pula' : 'times pulam'} a primeira rodada. escolha ${byeCount === 1 ? 'qual' : 'quais'}.`;
+
   return (
     <div className="max-w-md w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
         <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-1 tracking-tight">
-          escolha os times que já passaram de fase.
+          {title}
         </h2>
         <p className="text-slate-500 dark:text-slate-400 text-sm">
-          com {teams.length} times, {byeCount} {byeCount === 1 ? 'time passa direto' : 'times passam direto'} para
-          a próxima fase. escolha {byeCount === 1 ? 'qual' : 'quais'}.
+          {subtitle}
         </p>
       </div>
 
@@ -381,7 +406,7 @@ function ByeSelectScreen({
   );
 }
 
-function GroupsScreen({ groups, onNext }: { groups: Group[]; onNext: () => void }) {
+function GroupsScreen({ groups, byeTeams, onNext }: { groups: Group[]; byeTeams: Team[]; onNext: () => void }) {
   return (
     <div className="max-w-2xl w-full mx-auto px-6 py-12 flex flex-col gap-8">
       <div>
@@ -415,6 +440,24 @@ function GroupsScreen({ groups, onNext }: { groups: Group[]; onNext: () => void 
           </div>
         ))}
       </div>
+
+      {byeTeams.length > 0 && (
+        <div className="bg-white dark:bg-slate-800 border border-dashed border-peachy-300 dark:border-slate-600 rounded-xl p-5">
+          <h3 className="text-sm font-bold text-peachy-600 dark:text-peachy-400 uppercase tracking-widest mb-3">
+            bye — passam direto pras chaves
+          </h3>
+          <ul className="flex flex-wrap gap-2">
+            {byeTeams.map((t) => (
+              <li
+                key={t.id}
+                className="text-sm text-slate-700 dark:text-slate-300 px-3 py-2 rounded-lg bg-peachy-50 dark:bg-slate-700"
+              >
+                {t.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <button
         onClick={onNext}
@@ -561,48 +604,65 @@ export function ChaveioApp() {
 
   const handleSetup = useCallback((groupCount: number, teams: Team[]) => {
     const shuffled = shuffle(teams);
-    const p2 = nextPow2(shuffled.length);
-    const byeCount = p2 - shuffled.length;
 
-    if (byeCount > 0) {
-      setState({ screen: 'bye-select', teams: shuffled, byeCount, groups: groupCount });
-    } else if (groupCount > 0) {
-      const groups = makeGroups(shuffled, groupCount);
-      // Build bracket placeholder (no byes)
-      const slots: (Team | 'BYE')[] = shuffle(shuffled);
-      const bracket = buildBracket(slots);
-      setState({ screen: 'groups', teams: shuffled, groups, bracket });
+    if (groupCount > 0) {
+      const remainder = shuffled.length % groupCount;
+      const p2 = nextPow2(shuffled.length);
+      const bracketByes = p2 - shuffled.length;
+
+      if (remainder > 0) {
+        // Times sobram na divisão por grupos → passam direto pras chaves
+        setState({ screen: 'bye-select', teams: shuffled, byeCount: remainder, groups: groupCount, byeType: 'group' });
+      } else if (bracketByes > 0) {
+        // Divisão perfeita, mas bracket precisa de potência de 2 → bye de chave
+        setState({ screen: 'bye-select', teams: shuffled, byeCount: bracketByes, groups: groupCount, byeType: 'bracket' });
+      } else {
+        const groups = makeGroups(shuffled, groupCount);
+        const bracket = buildBracket(padSlots(shuffle(shuffled)));
+        setState({ screen: 'groups', teams: shuffled, groups, bracket, byeTeams: [] });
+      }
     } else {
-      const slots: (Team | 'BYE')[] = shuffle(shuffled);
-      const bracket = buildBracket(slots);
-      setState({ screen: 'bracket', teams: shuffled, groups: [], bracket });
+      const p2 = nextPow2(shuffled.length);
+      const byeCount = p2 - shuffled.length;
+      if (byeCount > 0) {
+        setState({ screen: 'bye-select', teams: shuffled, byeCount, groups: 0, byeType: 'bracket' });
+      } else {
+        const bracket = buildBracket(shuffle(shuffled));
+        setState({ screen: 'bracket', teams: shuffled, groups: [], bracket });
+      }
     }
   }, []);
 
   const handleByeConfirm = useCallback(
-    (byeTeams: Team[]) => {
+    (selectedByes: Team[]) => {
       if (state.screen !== 'bye-select') return;
-      const { teams, groups: groupCount } = state;
-
-      const byeIds = new Set(byeTeams.map((t) => t.id));
+      const { teams, groups: groupCount, byeType } = state;
+      const byeIds = new Set(selectedByes.map((t) => t.id));
       const regulars = teams.filter((t) => !byeIds.has(t.id));
 
-      // interleave: regular matches first, then byes fill remainder
-      const slots: (Team | 'BYE')[] = [];
-      const shuffledRegulars = shuffle(regulars);
-      const shuffledByes = shuffle(byeTeams);
-
-      // pair each bye with a "BYE" slot at the end of the bracket
-      // so byes appear cleanly
-      for (const t of shuffledRegulars) slots.push(t);
-      for (const t of shuffledByes) { slots.push(t); slots.push('BYE'); }
-
-      const bracket = buildBracket(slots);
-
       if (groupCount > 0) {
-        const groupsData = makeGroups(teams, groupCount);
-        setState({ screen: 'groups', teams, groups: groupsData, bracket });
+        if (byeType === 'group') {
+          // Times com bye pulam os grupos e vão direto pras chaves
+          const groups = makeGroups(regulars, groupCount);
+          const bracket = buildBracket(padSlots(shuffle(regulars)));
+          setState({ screen: 'groups', teams, groups, bracket, byeTeams: selectedByes });
+        } else {
+          // Bye de bracket com grupos: apenas regulars entram nos grupos, byes pulam round 1
+          const groups = makeGroups(regulars, groupCount);
+          const slots: (Team | 'BYE')[] = [
+            ...shuffle(regulars),
+            ...shuffle(selectedByes).flatMap((t): (Team | 'BYE')[] => [t, 'BYE']),
+          ];
+          const bracket = buildBracket(slots);
+          setState({ screen: 'groups', teams, groups, bracket, byeTeams: selectedByes });
+        }
       } else {
+        // Sem grupos: bye de bracket
+        const slots: (Team | 'BYE')[] = [
+          ...shuffle(regulars),
+          ...shuffle(selectedByes).flatMap((t): (Team | 'BYE')[] => [t, 'BYE']),
+        ];
+        const bracket = buildBracket(slots);
         setState({ screen: 'bracket', teams, groups: [], bracket });
       }
     },
@@ -660,12 +720,13 @@ export function ChaveioApp() {
           <ByeSelectScreen
             teams={state.teams}
             byeCount={state.byeCount}
+            byeType={state.byeType}
             onConfirm={handleByeConfirm}
           />
         )}
 
         {state.screen === 'groups' && (
-          <GroupsScreen groups={state.groups} onNext={handleGroupsNext} />
+          <GroupsScreen groups={state.groups} byeTeams={state.byeTeams} onNext={handleGroupsNext} />
         )}
 
         {state.screen === 'bracket' && (
