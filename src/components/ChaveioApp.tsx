@@ -674,8 +674,28 @@ export function ChaveioApp() {
       </main>
 
       {/* Footer */}
-      <footer className="py-6 px-6 border-t border-peachy-100 dark:border-slate-800 text-center text-slate-400 dark:text-slate-600 text-sm">
-        <p>© 2026 Carol Jardim · feito com carinho</p>
+      <footer className="py-8 px-6 border-t border-peachy-100 dark:border-slate-800 flex flex-col items-center gap-4">
+        <p className="text-slate-400 dark:text-slate-600 text-sm">
+          gostou?{' '}
+          <a
+            href="/pix"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-500 dark:text-slate-400 font-semibold underline hover:text-peachy-600 dark:hover:text-peachy-400 transition-colors"
+          >
+            me pague a pipoca da próxima partida
+          </a>
+          {' '}ou
+        </p>
+        <a
+          href="https://buymeacoffee.com/caroljardims"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-peachy-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-semibold hover:border-peachy-400 hover:text-peachy-600 dark:hover:text-peachy-400 transition-all"
+        >
+          ☕ buy me a coffee
+        </a>
+        <p className="text-slate-400 dark:text-slate-600 text-xs">© 2026 Carol Jardim · feito com carinho</p>
       </footer>
     </div>
   );
