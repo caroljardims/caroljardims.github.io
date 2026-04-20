@@ -321,6 +321,16 @@ h1,h2,h3,h4 {
   padding: 18px;
   box-shadow: 0 10px 30px -12px rgba(58,36,24,.3);
   animation: bob 6s ease-in-out infinite;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.hero .hero-sticker.dragging {
+  animation: none;
+  cursor: grabbing;
+  opacity: 0.85;
+  transition: opacity 0.1s;
 }
 @keyframes bob {
   0%,100% { transform: rotate(8deg) translateY(0); }
@@ -820,7 +830,7 @@ h1,h2,h3,h4 {
     </div>
 
     <!-- Sticker -->
-    <div class="hero-sticker">
+    <div class="hero-sticker" id="hero-sticker">
       everything<br>here is<br><strong style="font-size:34px;display:block;margin:4px 0;">free</strong> ♡
     </div>
 
@@ -1128,6 +1138,84 @@ h1,h2,h3,h4 {
 
 
 <script>
+/* ==================================================
+   Draggable sticker
+   ================================================== */
+(function () {
+  var el = document.getElementById('hero-sticker');
+  if (!el) return;
+
+  var dragging = false;
+  var startX, startY, origLeft, origTop;
+
+  function getPos() {
+    var rect = el.getBoundingClientRect();
+    return { left: rect.left + window.scrollX, top: rect.top + window.scrollY };
+  }
+
+  function startDrag(cx, cy) {
+    dragging = true;
+    var pos = getPos();
+    origLeft = pos.left;
+    origTop  = pos.top;
+    startX = cx;
+    startY = cy;
+    el.classList.add('dragging');
+    // switch from right/top % to fixed left/top px so it moves freely
+    el.style.right   = 'auto';
+    el.style.left    = origLeft + 'px';
+    el.style.top     = origTop  + 'px';
+    el.style.position = 'fixed';
+  }
+
+  function moveDrag(cx, cy) {
+    if (!dragging) return;
+    el.style.left = (origLeft + cx - startX) + 'px';
+    el.style.top  = (origTop  + cy - startY) + 'px';
+  }
+
+  function endDrag(cx, cy) {
+    if (!dragging) return;
+    dragging = false;
+    el.classList.remove('dragging');
+    var finalLeft = origLeft + cx - startX;
+    var finalTop  = origTop  + cy - startY;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var size = el.offsetWidth;
+    // if dragged mostly off screen, fade out and hide
+    if (finalLeft + size < 20 || finalLeft > w - 20 || finalTop + size < 20 || finalTop > h - 20) {
+      el.style.transition = 'opacity 0.3s';
+      el.style.opacity = '0';
+      setTimeout(function () { el.style.display = 'none'; }, 300);
+    }
+  }
+
+  // Mouse
+  el.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    startDrag(e.clientX, e.clientY);
+  });
+  document.addEventListener('mousemove', function (e) { moveDrag(e.clientX, e.clientY); });
+  document.addEventListener('mouseup',   function (e) { endDrag(e.clientX, e.clientY); });
+
+  // Touch
+  el.addEventListener('touchstart', function (e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    startDrag(t.clientX, t.clientY);
+  }, { passive: false });
+  el.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+    var t = e.touches[0];
+    moveDrag(t.clientX, t.clientY);
+  }, { passive: false });
+  el.addEventListener('touchend', function (e) {
+    var t = e.changedTouches[0];
+    endDrag(t.clientX, t.clientY);
+  });
+})();
+
 /* ==================================================
    Language toggle
    ================================================== */
