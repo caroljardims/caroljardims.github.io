@@ -26,6 +26,14 @@ export const projects: Project[] = [
     type: 'free',
   },
   {
+    id: '4',
+    title: 'Decifragem',
+    description: 'Party game inspirado em Imagem & Ação: um jogador encena, os outros tentam adivinhar. Sem papel, sem caneta, sem desculpa — só o celular, o grupo e muita cara de pau. 🎭',
+    tags: ['Web', 'Game', 'Party', 'React'],
+    link: '/decifragem',
+    type: 'free',
+  },
+  {
     id: '3',
     title: 'Chaveio',
     description: 'Monte seu campeonato do zero: cadastre os times, defina grupos e deixe o sorteio montar as chaves. Clique nos vencedores e acompanhe até a final.',

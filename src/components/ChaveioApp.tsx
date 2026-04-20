@@ -45,15 +45,18 @@ const CONSENT_KEY = 'chaveio:consent';
 type CurrentSession = { state: AppState; champName: string; editingId: string | null; history: AppState[] };
 
 function loadSaved(): SavedChampionship[] {
+  if (typeof window === 'undefined') return [];
   try { return JSON.parse(localStorage.getItem(SAVED_KEY) ?? '[]'); }
   catch { return []; }
 }
 
 function persistSaved(list: SavedChampionship[]) {
+  if (typeof window === 'undefined') return;
   localStorage.setItem(SAVED_KEY, JSON.stringify(list));
 }
 
 function loadCurrent(): CurrentSession | null {
+  if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem(CURRENT_KEY);
     return raw ? JSON.parse(raw) : null;
@@ -61,6 +64,7 @@ function loadCurrent(): CurrentSession | null {
 }
 
 function persistCurrent(session: CurrentSession) {
+  if (typeof window === 'undefined') return;
   if (session.state.screen === 'list') {
     localStorage.removeItem(CURRENT_KEY);
   } else {
@@ -968,7 +972,9 @@ export function ChaveioApp() {
   const [history, setHistory] = useState<AppState[]>(() => loadCurrent()?.history ?? []);
   const [saved, setSaved] = useState<SavedChampionship[]>(loadSaved);
   const [saveFlash, setSaveFlash] = useState(false);
-  const [consentGiven, setConsentGiven] = useState<boolean>(() => localStorage.getItem(CONSENT_KEY) === 'yes');
+  const [consentGiven, setConsentGiven] = useState<boolean>(
+    () => typeof window !== 'undefined' && localStorage.getItem(CONSENT_KEY) === 'yes'
+  );
 
   function acceptConsent() {
     localStorage.setItem(CONSENT_KEY, 'yes');
