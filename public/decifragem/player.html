@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Jogador — Decifragem" />
+    <title>Decifragem — Jogador</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-wrap">
+      <header class="brand">
+        <h1 class="brand__title">DECIFRAGEM</h1>
+        <p class="brand__tagline">Você: <span id="player-name">—</span></p>
+      </header>
+
+      <p class="status-line"><a href="jogo.html">← Sair / início</a></p>
+
+      <div id="phase-waiting">
+        <section class="panel">
+          <h2 class="panel__title">Sala</h2>
+          <p class="status-line" style="text-align: left">Quem já entrou:</p>
+          <ul class="list" id="lobby-list"></ul>
+        </section>
+      </div>
+
+      <div id="phase-sorteio" class="hidden">
+        <section class="panel">
+          <h2 class="panel__title">Seu grupo</h2>
+          <p class="status-line" style="text-align: left">
+            <span class="pill" id="my-group">—</span>
+          </p>
+          <p class="status-line" style="text-align: left; margin-top: 0.75rem">Colegas:</p>
+          <ul class="list" id="group-mates"></ul>
+        </section>
+      </div>
+
+      <div id="phase-jogo" class="hidden">
+        <section class="panel">
+          <h2 class="panel__title">Placar</h2>
+          <div class="scoreboard" id="scoreboard-mini"></div>
+        </section>
+
+        <section class="panel">
+          <h2 class="panel__title">Rodada</h2>
+          <p class="status-line" id="status-rodada">—</p>
+          <div class="timer" id="timer-player">1:30</div>
+          <p class="prompt-reveal hidden" id="public-guess"></p>
+        </section>
+
+        <section class="panel hidden" id="actor-panel">
+          <h2 class="panel__title">Você é o encenador</h2>
+          <button type="button" class="btn btn--primary btn-block" id="btn-sou-eu">Sou eu que vou!</button>
+          <p class="status-line hidden" id="actor-tema" style="text-align: left; margin-top: 0.7rem"></p>
+          <div id="prompt-scramble" class="prompt-reveal prompt-reveal--scramble" style="margin-top: 1rem"></div>
+          <p id="prompt-final" class="prompt-reveal hidden" style="margin-top: 1rem"></p>
+          <div id="select-grupo-acertou" class="hidden" style="margin-top: 1rem"></div>
+        </section>
+      </div>
+
+      <div id="phase-encerrado" class="hidden">
+        <section class="panel win-banner">
+          <p class="status-line" id="player-win-msg">Fim de jogo!</p>
+        </section>
+      </div>
+
+      <footer class="site-footer">
+        Gostou?
+        <a href="/pix">Me pague um café via Pix</a>
+        ou
+        <a href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+        ☕
+      </footer>
+    </div>
+
+    <script type="module">
+      import { initPlayer } from "./game.js";
+      initPlayer().catch((e) => console.error(e));
+    </script>
+  </body>
+</html>

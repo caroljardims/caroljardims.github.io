@@ -6,6 +6,9 @@ node_modules/
 .env.local
 .env.*.local
 
+# Decifragem — config Firebase local (não commitar credenciais)
+public/decifragem/firebase-config.js
+
 # build output
 dist/
 .astro/

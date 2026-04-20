@@ -1,0 +1,24 @@
+---
+/**
+ * /decifragem e /decifragem/ → jogo em public/decifragem/jogo.html
+ * HTML relativo ao site para funcionar em localhost e no GitHub Pages.
+ */
+const base = import.meta.env.BASE_URL;
+const jogo = `${base}decifragem/jogo.html`.replace(/\/{2,}/g, '/');
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content={`0;url=${jogo}`} />
+    <title>Decifragem</title>
+    <script is:inline define:vars={{ jogo }}>
+      location.replace(jogo);
+    </script>
+  </head>
+  <body style="font-family: system-ui; padding: 2rem; background: #0a0b12; color: #e8e9f2">
+    <p><a href={jogo} style="color: #c4b5fd">Abrir Decifragem</a></p>
+  </body>
+</html>

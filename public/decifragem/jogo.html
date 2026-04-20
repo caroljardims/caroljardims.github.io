@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Decifragem — party game de mímica e adivinhação em tempo real" />
+    <title>Decifragem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-wrap">
+      <header class="brand">
+        <h1 class="brand__title">DECIFRAGEM</h1>
+        <p class="brand__tagline">Mímica, desenho e palpites — em tempo real.</p>
+      </header>
+
+      <section class="panel">
+        <h2 class="panel__title">Entrar na sala</h2>
+        <div class="field-row field-row--2">
+          <div>
+            <label for="join-code">Código (4 letras)</label>
+            <input type="text" id="join-code" maxlength="4" autocomplete="off" placeholder="Ex: ABCD" />
+          </div>
+          <div>
+            <label for="join-name">Seu nome</label>
+            <input type="text" id="join-name" maxlength="32" autocomplete="name" placeholder="Como quer ser chamado" />
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn--primary btn-block" id="btn-join-room">Entrar na sala</button>
+        </div>
+        <p class="error-msg" id="err-join"></p>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel__title">Criar sala</h2>
+        <p class="status-line" style="text-align: left; margin-top: 0">
+          Mestre: crie a sala no computador ou TV e compartilhe o código. Você também joga e entra num grupo no sorteio.
+        </p>
+        <div style="margin-bottom: 0.75rem">
+          <label for="host-name">Seu nome (mestre e jogador)</label>
+          <input type="text" id="host-name" maxlength="32" autocomplete="name" placeholder="Como aparece na sala" />
+        </div>
+        <button type="button" class="btn btn--ghost btn-block" id="btn-create-room">Criar sala</button>
+        <p class="error-msg" id="err-host"></p>
+      </section>
+
+      <footer class="site-footer">
+        Gostou?
+        <a href="/pix">Me pague um café via Pix</a>
+        ou
+        <a href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a>
+        ☕
+      </footer>
+    </div>
+
+    <script type="module">
+      import { initIndex } from "./game.js";
+      initIndex().catch((e) => {
+        console.error(e);
+        const joinErr = document.getElementById("err-join");
+        const hostErr = document.getElementById("err-host");
+        const msg = e?.message || String(e);
+        if (joinErr) joinErr.textContent = msg;
+        if (hostErr) hostErr.textContent = msg;
+      });
+    </script>
+  </body>
+</html>
