@@ -30,7 +30,7 @@ export const projects: Project[] = [
     title: 'Decifragem',
     description: 'Party game inspirado em Imagem & Ação: um jogador encena, os outros tentam adivinhar. Sem papel, sem caneta, sem desculpa — só o celular, o grupo e muita cara de pau. 🎭',
     tags: ['Web', 'Game', 'Party', 'React'],
-    link: '/decifragem',
+    link: 'https://decifragem.web.app',
     type: 'free',
   },
   {
