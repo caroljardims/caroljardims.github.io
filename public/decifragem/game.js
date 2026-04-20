@@ -266,6 +266,10 @@ export async function initHost() {
   const roundCat = document.getElementById("round-categoria");
   const roundPrompt = document.getElementById("round-prompt-host");
   const timerHost = document.getElementById("timer-host");
+  const hostActorPanel = document.getElementById("host-actor-panel");
+  const hostActorTema = document.getElementById("host-actor-tema");
+  const hostActorPrompt = document.getElementById("host-actor-prompt");
+  const hostActorGroupSelect = document.getElementById("host-actor-group-select");
   const btnProxima = document.getElementById("btn-proxima-rodada");
   const pendingWinner = document.getElementById("pending-winner");
   const btnConfirmPonto = document.getElementById("btn-confirmar-ponto");
@@ -401,14 +405,47 @@ export async function initHost() {
     if (!r) {
       roundCat.textContent = "—";
       roundPrompt.textContent = "Nenhuma rodada em andamento.";
+      if (hostActorPanel) hostActorPanel.classList.add("hidden");
       pendingWinner.classList.add("hidden");
       btnProxima.disabled = state.config?.status !== "jogando";
       if (btnProxima) btnProxima.textContent = "Iniciar rodada";
       return;
     }
     roundCat.innerHTML = `<span class="round-meta__emoji">${r.emoji || "🎭"}</span>${r.categoria || ""}`;
-    // Host não vê o prompt para não vazar resposta durante a rodada.
-    roundPrompt.textContent = "Prompt oculto (visível apenas para o encenador).";
+    const hostIsActor = !!hostPlayerId && r.encenador === hostPlayerId && r.status === "encenando";
+    // Host não vê o prompt, exceto quando ele próprio é o encenador.
+    roundPrompt.textContent = hostIsActor
+      ? "Você está encenando. Use os controles abaixo."
+      : "Prompt oculto (visível apenas para o encenador).";
+
+    if (hostActorPanel) {
+      if (hostIsActor) {
+        hostActorPanel.classList.remove("hidden");
+        if (hostActorTema) hostActorTema.textContent = `${r.emoji || "🎭"} ${r.categoria || "Tema"}`;
+        if (hostActorPrompt) hostActorPrompt.textContent = r.prompt || "—";
+        if (hostActorGroupSelect) {
+          hostActorGroupSelect.innerHTML = "";
+          Object.keys(state.grupos || {})
+            .sort()
+            .forEach((gid) => {
+              const b = document.createElement("button");
+              b.type = "button";
+              b.className = "btn btn--ghost btn-block";
+              b.style.marginBottom = "0.4rem";
+              b.textContent = state.grupos[gid].nome;
+              b.addEventListener("click", async () => {
+                await update(ref(db, `salas/${code}/rodadaAtual`), {
+                  grupoAcertou: gid,
+                  status: "confirmando",
+                });
+              });
+              hostActorGroupSelect.appendChild(b);
+            });
+        }
+      } else {
+        hostActorPanel.classList.add("hidden");
+      }
+    }
 
     const canNext =
       state.config?.status === "jogando" &&
@@ -434,6 +471,7 @@ export async function initHost() {
   }
 
   let timerHandle = null;
+  let timeoutClosing = false;
   function tickTimer() {
     const r = state.rodada;
     if (!timerHost) return;
@@ -444,6 +482,7 @@ export async function initHost() {
         clearInterval(timerHandle);
         timerHandle = null;
       }
+      timeoutClosing = false;
       return;
     }
     const start = r.timerInicio;
@@ -457,6 +496,16 @@ export async function initHost() {
     if (left <= 0) {
       timerHost.textContent = "0:00";
       timerHost.classList.add("timer--crit");
+      // Tempo esgotado: encerra rodada sem pontuar ninguém.
+      if (r.status === "encenando" && !r.grupoAcertou && !timeoutClosing) {
+        timeoutClosing = true;
+        update(ref(db, `salas/${code}/rodadaAtual`), {
+          status: "encerrada",
+          grupoAcertou: null,
+        }).finally(() => {
+          timeoutClosing = false;
+        });
+      }
     }
   }
 
@@ -515,9 +564,7 @@ export async function initHost() {
     if (!contestSelect) return;
     contestSelect.innerHTML = "";
     const keys = Object.keys(state.grupos || {}).sort();
-    const enc = state.rodada?.grupoEncenando;
     keys.forEach((gid) => {
-      if (enc && gid === enc) return;
       const o = document.createElement("option");
       o.value = gid;
       o.textContent = state.grupos[gid].nome;
@@ -979,7 +1026,6 @@ export async function initPlayer() {
       Object.keys(state.grupos || {})
         .sort()
         .forEach((gid) => {
-          if (gid === r.grupoEncenando) return;
           const b = document.createElement("button");
           b.type = "button";
           b.className = "btn btn--ghost btn-block";
