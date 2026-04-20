@@ -190,6 +190,22 @@ h1,h2,h3,h4 {
 }
 .nav a:hover::after { transform: scaleX(1); }
 
+.lang-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  line-height: 1;
+  opacity: 0.75;
+  transition: opacity .2s, transform .2s;
+  margin-left: 4px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+.lang-toggle:hover { opacity: 1; transform: scale(1.2); }
+
 /* =========================================================
    Organic blob backgrounds
    ========================================================= */
@@ -772,12 +788,13 @@ h1,h2,h3,h4 {
        Topbar
        ================================================== -->
   <div class="topbar">
-    <div class="signature"><span class="dot"></span>@caroljardims</div>
+    <a class="signature" href="https://instagram.com/caroljardims" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;"><span class="dot"></span>@caroljardims</a>
     <nav class="nav">
-      <a href="#about">olá</a>
-      <a href="#portfolio">coisinhas</a>
-      <a href="#coffee">café</a>
-      <a href="#contact">recado</a>
+      <a href="#about" data-en="hello" data-pt="olá">olá</a>
+      <a href="#portfolio" data-en="thingies" data-pt="coisinhas">coisinhas</a>
+      <a href="#coffee" data-en="coffee" data-pt="café">café</a>
+      <a href="#contact" data-en="contact" data-pt="recado">recado</a>
+      <button id="lang-toggle" class="lang-toggle">🇺🇸</button>
     </nav>
   </div>
 
@@ -785,32 +802,26 @@ h1,h2,h3,h4 {
        Hero / Presentation
        ================================================== -->
   <section class="hero" id="about">
-    <span class="hero-label">well, hello there —</span>
-    <h1>
-      i make small <em>experiments</em>
-      <br>to keep my world <em>a little less boring.</em>
-      <span class="wiggle">(ok, a lot less)</span>
+    <span class="hero-label" data-en="well, hello there!" data-pt="oie!"></span>
+    <h1 data-en="i like to create <em>tech thingies </em><br>for myself to play<span class='wiggle'>(I hope you can enjoy it too!)
+      
+    </span>" data-pt="gosto de criar <em>coisinhas</em><br>pra me divertir <span class='wiggle'>(espero que você também goste!)</span>">
     </h1>
 
-    <p class="hero-sub">
-      I'm Carol. Former developer, now a team lead helping others thrive —
-      which mostly means I listen a lot and bring snacks to meetings.
-      On the side I make <strong>games</strong>, the occasional <strong>poem</strong>,
-      and tiny tools dressed as <strong>objects of fascination</strong>.
-      Part nerd, part somebody who cares <em>a lot</em> about the shade of beige.
-      <span class="aside">⤷ mostly here to share the things I've been tinkering with.</span>
+    <p class="hero-sub" data-en="I'm Carol. Former (but never <i>really</i> former, right?) developer, now a team lead helping people thrive. On the side I make <strong>casual games 💅</strong>, and tiny tools dressed as <strong>objects of fascination</strong>. Somebody who <em>cares</em>.<span class='aside'>⤷ mostly here to share the things I've been tinkering with.
+
+    </span>" data-pt="Sou a Carol. Ex-dev (mas nunca ex dev <i>mesmo</i>, né?), hoje lidero pessoas. Nas horas vagas faço <strong>jogos casuais 💅</strong>, e ferramentinhas disfarçadas de <strong>objetos de fascínio</strong>. 
+    <span class='aside'>⤷ criei este sítio pra compartilhar as coisinhas que fico inventando.</span>">
     </p>
 
     <div class="hero-meta">
-      <div><span class="pulse"></span> accepting serendipity</div>
+      <div data-en="<span class='pulse'></span> accepting serendipity" data-pt="<span class='pulse'></span> aberta ao acaso"><span class="pulse"></span> accepting serendipity</div>
       <div>based in brazil 🍂</div>
-      <div>last updated · oct '25</div>
     </div>
 
     <!-- Sticker -->
     <div class="hero-sticker">
-      everything<br>here is<br><strong style="font-size:34px;display:block;margin:4px 0;">free</strong>
-      grátis ♡
+      everything<br>here is<br><strong style="font-size:34px;display:block;margin:4px 0;">free</strong> ♡
     </div>
 
     <!-- Doodle arrow -->
@@ -825,11 +836,13 @@ h1,h2,h3,h4 {
        Portfolio
        ================================================== -->
   <section class="section portfolio" id="portfolio">
-    <span class="section-label">the portfolio —</span>
-    <h2 class="section-title">things i've made <em>on purpose</em>, mostly.</h2>
+    <span class="section-label" data-en="the portfolio —" data-pt="portfólio —">the portfolio —</span>
+    <h2 class="section-title" data-en="things i've made <em>on purpose</em>, mostly." 
+      data-pt="coisas que fiz <em>de propósito</em>, na maioria das vezes."></h2>
     <p class="section-kicker">
-      A rotating collection of projects, party games, and one very opinionated VS Code theme.
-      <span class="whisper">(everything's free — pay me in compliments or in coffee, see below)</span>
+      <span data-en="A rotating collection of projects, party games, and one very opinionated VS Code theme." 
+      data-pt="Uma coleção rotativa de projetos, jogos de festa e um tema de VS Code bem opinativo."></span>
+      <span class="whisper" data-en="(everything's free — pay me in compliments or in coffee, see below)" data-pt="(tudo de graça — me paga num elogio ou num café, veja abaixo)"></span>
     </p>
 
     <!-- POLAROID STAGE -->
@@ -854,9 +867,9 @@ h1,h2,h3,h4 {
         </div>
         <div class="caption">
           <h3>Peachy Theme</h3>
-          <span class="price">grátis ♡</span>
+          <span class="price" data-en="free ♡" data-pt="grátis ♡">grátis ♡</span>
         </div>
-        <p class="desc">A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Built on natural beiges and linen tones, with blush pink that shows up only when it has something to say. ✨</p>
+        <p class="desc" data-en="A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Built on natural beiges and linen tones, with blush pink that shows up only when it has something to say. ✨" data-pt="Um tema de VS Code que parece uma manhã devagar — luz quente, sem pressa. Feito em beges naturais e tons de linho, com rosa só quando tem algo a dizer. ✨">A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Built on natural beiges and linen tones, with blush pink that shows up only when it has something to say. ✨</p>
         <div class="tags">
           <span class="tag">VS Code</span>
           <span class="tag">Theme</span>
@@ -879,9 +892,9 @@ h1,h2,h3,h4 {
         </div>
         <div class="caption">
           <h3>Sips</h3>
-          <span class="price">grátis</span>
+          <span class="price" data-en="free" data-pt="grátis">grátis</span>
         </div>
-        <p class="desc">Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺</p>
+        <p class="desc" data-en="A card drinking game to play with friends. Draw a card, follow the rule, drink responsibly. 🍺" data-pt="Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺">Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺</p>
         <div class="tags">
           <span class="tag">Web</span>
           <span class="tag">Game</span>
@@ -907,9 +920,9 @@ h1,h2,h3,h4 {
         </div>
         <div class="caption">
           <h3>Decifragem</h3>
-          <span class="price">grátis</span>
+          <span class="price" data-en="free" data-pt="grátis">grátis</span>
         </div>
-        <p class="desc">Party game inspirado em Imagem &amp; Ação: um jogador encena, os outros tentam adivinhar. Sem papel, sem caneta, sem desculpa — só o celular, o grupo e muita cara de pau. 🎭</p>
+        <p class="desc" data-en="A party game inspired by charades: one player acts it out, the others guess. No paper, no pen, no excuses — just your phone, your crew, and zero shame. 🎭" data-pt="Party game inspirado em Imagem &amp; Ação: um jogador encena, os outros tentam adivinhar. Sem papel, sem caneta, sem desculpa — só o celular, o grupo e muita cara de pau. 🎭">Party game inspirado em Imagem &amp; Ação: um jogador encena, os outros tentam adivinhar. Sem papel, sem caneta, sem desculpa — só o celular, o grupo e muita cara de pau. 🎭</p>
         <div class="tags">
           <span class="tag">Web</span>
           <span class="tag">Game</span>
@@ -943,9 +956,9 @@ h1,h2,h3,h4 {
         </div>
         <div class="caption">
           <h3>Chaveio</h3>
-          <span class="price">grátis</span>
+          <span class="price" data-en="free" data-pt="grátis">grátis</span>
         </div>
-        <p class="desc">Monte seu campeonato do zero: cadastre os times, defina grupos e deixe o sorteio montar as chaves. Clique nos vencedores e acompanhe até a final. 🏆</p>
+        <p class="desc" data-en="Build your tournament from scratch: add teams, set up groups, and let the draw do its thing. Click the winners and follow along to the final. 🏆" data-pt="Monte seu campeonato do zero: cadastre os times, defina grupos e deixe o sorteio montar as chaves. Clique nos vencedores e acompanhe até a final. 🏆">Monte seu campeonato do zero: cadastre os times, defina grupos e deixe o sorteio montar as chaves. Clique nos vencedores e acompanhe até a final. 🏆</p>
         <div class="tags">
           <span class="tag">Web</span>
           <span class="tag">Tournament</span>
@@ -959,32 +972,32 @@ h1,h2,h3,h4 {
       <article class="grid-card">
         <div class="thumb thumb-peachy">peachy.</div>
         <div class="body">
-          <h3>Peachy Theme <span class="price">grátis ♡</span></h3>
-          <p class="desc">A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Blush pink only shows up when it has something to say. ✨</p>
+          <h3>Peachy Theme <span class="price" data-en="free ♡" data-pt="grátis ♡">grátis ♡</span></h3>
+          <p class="desc" data-en="A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Blush pink only shows up when it has something to say. ✨" data-pt="Um tema de VS Code que parece uma manhã devagar — luz quente, sem pressa. Rosa só aparece quando tem algo a dizer. ✨">A VS Code theme that feels like a slow morning — warm light through sheer curtains, nowhere to be. Blush pink only shows up when it has something to say. ✨</p>
           <div class="tags"><span class="tag">VS Code</span><span class="tag">Theme</span><span class="tag">UI/UX</span></div>
         </div>
       </article>
       <article class="grid-card">
         <div class="thumb thumb-sips">sips.</div>
         <div class="body">
-          <h3>Sips <span class="price">grátis</span></h3>
-          <p class="desc">Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺</p>
+          <h3>Sips <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
+          <p class="desc" data-en="A card drinking game to play with friends. Draw a card, follow the rule, drink responsibly. 🍺" data-pt="Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺">Um drinking game de cartas pra jogar com os amigos. Saque uma carta, siga a regra, beba com responsabilidade. 🍺</p>
           <div class="tags"><span class="tag">Web</span><span class="tag">Game</span><span class="tag">React</span></div>
         </div>
       </article>
       <article class="grid-card">
         <div class="thumb thumb-decifra">decifra?</div>
         <div class="body">
-          <h3>Decifragem <span class="price">grátis</span></h3>
-          <p class="desc">Party game inspirado em Imagem &amp; Ação. Um encena, os outros adivinham. Só o celular, o grupo e muita cara de pau. 🎭</p>
+          <h3>Decifragem <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
+          <p class="desc" data-en="Charades-style party game. One acts, others guess. Just your phone, your crew, zero shame. 🎭" data-pt="Party game inspirado em Imagem &amp; Ação. Um encena, os outros adivinham. Só o celular, o grupo e muita cara de pau. 🎭">Party game inspirado em Imagem &amp; Ação. Um encena, os outros adivinham. Só o celular, o grupo e muita cara de pau. 🎭</p>
           <div class="tags"><span class="tag">Web</span><span class="tag">Game</span><span class="tag">Party</span><span class="tag">React</span></div>
         </div>
       </article>
       <article class="grid-card">
         <div class="thumb thumb-chaveio">chaveio.</div>
         <div class="body">
-          <h3>Chaveio <span class="price">grátis</span></h3>
-          <p class="desc">Monte seu campeonato do zero. Times, grupos, sorteio automático, clique nos vencedores — até a final. 🏆</p>
+          <h3>Chaveio <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
+          <p class="desc" data-en="Build your tournament from scratch. Teams, groups, auto draw, click winners — all the way to the final. 🏆" data-pt="Monte seu campeonato do zero. Times, grupos, sorteio automático, clique nos vencedores — até a final. 🏆">Monte seu campeonato do zero. Times, grupos, sorteio automático, clique nos vencedores — até a final. 🏆</p>
           <div class="tags"><span class="tag">Web</span><span class="tag">Tournament</span><span class="tag">Tool</span></div>
         </div>
       </article>
@@ -996,37 +1009,37 @@ h1,h2,h3,h4 {
         <span class="num">01</span>
         <div>
           <h3>Peachy Theme</h3>
-          <p class="desc">A VS Code theme that feels like a slow morning. Warm beiges, linen tones, blush pink only when it has something to say.</p>
+          <p class="desc" data-en="A VS Code theme that feels like a slow morning. Warm beiges, linen tones, blush pink only when it has something to say." data-pt="Um tema de VS Code que parece uma manhã devagar. Beges quentes, tons de linho, rosa só quando tem algo a dizer.">A VS Code theme that feels like a slow morning. Warm beiges, linen tones, blush pink only when it has something to say.</p>
         </div>
         <div class="tags">VS Code · Theme · UI/UX</div>
-        <div class="price">grátis ♡</div>
+        <div class="price" data-en="free ♡" data-pt="grátis ♡">grátis ♡</div>
       </div>
       <div class="list-row">
         <span class="num">02</span>
         <div>
           <h3>Sips</h3>
-          <p class="desc">Drinking game de cartas. Saque, siga a regra, beba com responsabilidade.</p>
+          <p class="desc" data-en="Card drinking game. Draw, follow the rule, drink responsibly." data-pt="Drinking game de cartas. Saque, siga a regra, beba com responsabilidade.">Drinking game de cartas. Saque, siga a regra, beba com responsabilidade.</p>
         </div>
         <div class="tags">Web · Game · React</div>
-        <div class="price">grátis</div>
+        <div class="price" data-en="free" data-pt="grátis">grátis</div>
       </div>
       <div class="list-row">
         <span class="num">03</span>
         <div>
           <h3>Decifragem</h3>
-          <p class="desc">Party game no estilo Imagem &amp; Ação. Um encena, os outros adivinham. Muita cara de pau.</p>
+          <p class="desc" data-en="Charades-style party game. One acts, others guess. Zero shame." data-pt="Party game no estilo Imagem &amp; Ação. Um encena, os outros adivinham. Muita cara de pau.">Party game no estilo Imagem &amp; Ação. Um encena, os outros adivinham. Muita cara de pau.</p>
         </div>
         <div class="tags">Web · Game · Party</div>
-        <div class="price">grátis</div>
+        <div class="price" data-en="free" data-pt="grátis">grátis</div>
       </div>
       <div class="list-row">
         <span class="num">04</span>
         <div>
           <h3>Chaveio</h3>
-          <p class="desc">Gerador de chaveamento de campeonatos. Cadastre times, sorteie, acompanhe até a final.</p>
+          <p class="desc" data-en="Tournament bracket generator. Add teams, draw, follow to the final." data-pt="Gerador de chaveamento de campeonatos. Cadastre times, sorteie, acompanhe até a final.">Gerador de chaveamento de campeonatos. Cadastre times, sorteie, acompanhe até a final.</p>
         </div>
         <div class="tags">Web · Tournament · Tool</div>
-        <div class="price">grátis</div>
+        <div class="price" data-en="free" data-pt="grátis">grátis</div>
       </div>
     </div>
 
@@ -1055,18 +1068,22 @@ h1,h2,h3,h4 {
     </svg>
 
     <div class="coffee-inner">
-      <span class="section-label">a small favor —</span>
-      <h2>you could <em>buy me a coffee.</em></h2>
+      <span class="section-label" data-en="a small favor —" data-pt="um pequeno favor —">a small favor —</span>
+      <h2 data-en="you could <em>buy me a coffee.</em>" data-pt="você pode <em>me pagar um café.</em>">you could <em>buy me a coffee.</em></h2>
       <p>
-        Everything here is free, but caffeine is not. A coffee pays for a few
-        extra hours of tinkering, one more game, one more theme, one more
-        tiny poem that lives in an about page for no good reason.
-        <span class="hand">and i will like you very much for it.</span>
+        <span data-en="Everything here is free, but can't go further without caffeine. A coffee pays for a few extra hours of tinkering, one more game, one more theme, one more tiny poem that lives in an about page for no good reason." 
+        data-pt="Tudo aqui é de graça, mas não vai muito longe sem cafeína. Um café paga algumas horas extras de invenção, mais um jogo, mais um tema, mais um poeminha que mora numa página sem motivo."></span>
+        <span class="hand" data-en="and i will like you very much for it." data-pt="e eu vou gostar mais de você por isso."></span>
       </p>
-      <a class="cta" href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener">
-        <span class="cup">☕</span> buy me a coffee
-      </a>
-      <p class="caveat">(no pressure though — a kind note is also a very acceptable currency ♡)</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <a class="cta" href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener">
+          <span class="cup">☕</span> <span data-en="buy me a coffee" data-pt="me paga um café">buy me a coffee</span>
+        </a>
+        <a class="cta" href="/pix" style="background:var(--bg-2);color:var(--ink);box-shadow:none;">
+          <span class="cup">💸</span> <span data-en="pix (brazil)" data-pt="pagar via pix">pagar via pix</span>
+        </a>
+      </div>
+      <p class="caveat" data-en="(no pressure though — a kind note is also a very acceptable currency ♡)" data-pt="(sem pressão — um recado carinhoso também é uma moeda muito aceitável ♡)">(no pressure though — a kind note is also a very acceptable currency ♡)</p>
     </div>
   </section>
 
@@ -1076,38 +1093,65 @@ h1,h2,h3,h4 {
   <section class="section contact" id="contact">
     <div class="contact-inner">
       <div>
-        <span class="section-label">one last thing —</span>
-        <h2>let's <em>say hi.</em></h2>
+        <span class="section-label" data-en="one last thing —" data-pt="mais uma coisinha —">one last thing —</span>
+        <h2 data-en="let's <em>say hi.</em>" data-pt="vamos <em>nos falar.</em>">let's <em>say hi.</em></h2>
         <p>
-          If you want to chat about team leadership, weird little side projects,
+          <span data-en="If you want to chat about team leadership, weird little side projects, or the exact right shade of peach — I'm around. No cold pitches, please. Warm pitches welcome. Tea-temperature pitches, ideal." data-pt="Se quiser conversar sobre liderança de times, projetinhos malucos, ou o tom exato certo de pessego — estou por aqui. Sem pitch frio, por favor. Pitch morno, bem-vindo. Pitch na temperatura do chá, ideal.">If you want to chat about team leadership, weird little side projects,
           or the exact right shade of peach — I'm around. No cold pitches, please.
-          Warm pitches welcome. Tea-temperature pitches, ideal.
+          Warm pitches welcome. Tea-temperature pitches, ideal.</span>
         </p>
       </div>
 
       <div class="contact-card">
-        <div class="label">the easiest place to find me —</div>
+        <div class="label" data-en="the easiest place to find me —" data-pt="o jeito mais fácil de me achar —">the easiest place to find me —</div>
         <a class="big" href="https://linkedin.com/in/caroline-jsiqueira/" target="_blank" rel="noopener">
           linkedin.com/in/caroline-jsiqueira/ →
         </a>
         <div class="divider"></div>
         <div class="small">
-          I usually reply within a few days. If I don't,
-          <span class="hand">it's not personal — probably just stuck in a spreadsheet somewhere.</span>
-          Try again, I don't mind.
+          <span data-en="I usually reply within a few days. If I don't," data-pt="Costumo responder em alguns dias. Se não responder,">I usually reply within a few days. If I don't,</span>
+          <span class="hand" data-en="it's not personal — probably just stuck in a spreadsheet somewhere." data-pt="não é pessoal — provavelmente só tô presa numa planilha em algum lugar.">it's not personal — probably just stuck in a spreadsheet somewhere.</span>
+          <span data-en="Try again, I don't mind." data-pt="Tenta de novo, não me importo.">Try again, I don't mind.</span>
         </div>
       </div>
     </div>
 
     <!-- Footer -->
     <div class="footer">
-      <div class="sign">made with care, at a sensible pace ♡</div>
-      <div>© 2025 · carol jardim · last crumb of content: autumn</div>
+      <div class="sign" data-en="made with care, at a sensible pace ♡" data-pt="feito com carinho, num ritmo tranquilo ♡">made with care, at a sensible pace ♡</div>
+      <div data-en="© 2026 · caroljardims · last crumb of content: autumn" data-pt="© 2026 · caroljardims · última migalha de conteúdo: outono">© 2026 · caroljardims · last crumb of content: autumn</div>
     </div>
   </section>
 
 </div>
 
+
+
+<script>
+/* ==================================================
+   Language toggle
+   ================================================== */
+(function () {
+  var lang = localStorage.getItem('lang') || 'pt';
+
+  function applyLang(l) {
+    lang = l;
+    localStorage.setItem('lang', l);
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      el.innerHTML = el.dataset[l];
+    });
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = l === 'pt' ? '🇺🇸' : '🇧🇷';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyLang(lang);
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.addEventListener('click', function () {
+      applyLang(lang === 'pt' ? 'en' : 'pt');
+    });
+  });
+})();
 
 /* ==================================================
    Smooth scroll for nav
