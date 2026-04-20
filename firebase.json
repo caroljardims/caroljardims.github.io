@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "decifragem",
+    "public": "public/decifragem",
+    "ignore": [
+      "firebase.json",
+      "README.md",
+      "firebase-config.example.js"
+    ],
+    "rewrites": [
+      {
+        "source": "/",
+        "destination": "/jogo.html"
+      }
+    ]
+  }
+}
