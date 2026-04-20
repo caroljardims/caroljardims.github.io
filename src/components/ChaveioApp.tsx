@@ -40,6 +40,7 @@ type SavedChampionship = {
 
 const SAVED_KEY = 'chaveio:saved';
 const CURRENT_KEY = 'chaveio:current';
+const CONSENT_KEY = 'chaveio:consent';
 
 type CurrentSession = { state: AppState; champName: string; editingId: string | null; history: AppState[] };
 
@@ -967,6 +968,12 @@ export function ChaveioApp() {
   const [history, setHistory] = useState<AppState[]>(() => loadCurrent()?.history ?? []);
   const [saved, setSaved] = useState<SavedChampionship[]>(loadSaved);
   const [saveFlash, setSaveFlash] = useState(false);
+  const [consentGiven, setConsentGiven] = useState<boolean>(() => localStorage.getItem(CONSENT_KEY) === 'yes');
+
+  function acceptConsent() {
+    localStorage.setItem(CONSENT_KEY, 'yes');
+    setConsentGiven(true);
+  }
 
   // Auto-persist current session
   useEffect(() => {
@@ -1227,6 +1234,21 @@ export function ChaveioApp() {
           )}
         </div>
       </header>
+
+      {/* Consent banner */}
+      {!consentGiven && (
+        <div className="bg-chaveio-700/80 border-b border-chaveio-500/40 px-6 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-sm text-chaveio-100/80">
+          <span className="flex-1">
+            🍪 Este app salva seus campeonatos <strong className="text-chaveio-100">no cache do seu navegador</strong> (localStorage) para que você possa continuar de onde parou. Nenhum dado é enviado para servidores.
+          </span>
+          <button
+            onClick={acceptConsent}
+            className="flex-shrink-0 bg-chaveio-500 hover:bg-chaveio-400 text-chaveio-900 font-semibold text-xs px-4 py-1.5 rounded-full transition-colors"
+          >
+            Entendi, pode salvar
+          </button>
+        </div>
+      )}
 
       {/* Screens */}
       <main className="flex-1 flex flex-col items-center">
