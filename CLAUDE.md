@@ -63,6 +63,26 @@ Exemplo de componente de rodapé:
 | `/chaveio` | App de chaveamento de torneios |
 | `/sips` | Jogo Sips |
 | `/pix` | Página de pagamento Pix (QR code + chave) |
+| `/escritas` | Sessão de textinhos — embeds do Notion em modal |
+
+## Escritas — como adicionar um novo texto
+
+Quando Carol trouxer um novo embed do Notion, adicionar no **começo** do array em **dois arquivos**:
+
+1. `public/index.html` — array `textos` no script de Escritas (seção da home)
+2. `src/data/textos.ts` — array `textos` (página `/escritas`)
+
+```ts
+// src/data/textos.ts — novo texto sempre no índice 0
+{ slug: "slug-do-texto", title: "Título", date: "YYYY-MM-DD", notionUrl: "https://..." }
+```
+
+```js
+// public/index.html — mesmo objeto, sem slug/date
+{ title: "Título", notionUrl: "https://..." }
+```
+
+A home mostra os 3 primeiros. Com 4+, aparece botão "ver mais →" apontando para `/escritas`.
 
 ## Comportamento esperado
 

@@ -737,6 +737,134 @@ h1,h2,h3,h4 {
   letter-spacing: .05em;
 }
 
+/* =========================================================
+   ESCRITAS — journal pages
+   ========================================================= */
+.escritas-grid {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.page-card {
+  width: 260px;
+  background: var(--cream);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.04),
+    0 18px 40px -18px rgba(58,36,24,.35),
+    0 2px 6px -2px rgba(58,36,24,.15);
+  cursor: pointer;
+  transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+  position: relative;
+  overflow: hidden;
+}
+.page-card:hover {
+  transform: rotate(0deg) translateY(-6px) scale(1.02) !important;
+  z-index: 10;
+  box-shadow:
+    0 1px 0 rgba(0,0,0,.04),
+    0 30px 60px -20px rgba(58,36,24,.45),
+    0 4px 10px -2px rgba(58,36,24,.2);
+}
+.page-card::before {
+  content: '';
+  position: absolute;
+  top: -12px; left: 50%;
+  width: 70px; height: 22px;
+  background: rgba(217,154,61,.45);
+  transform: translateX(-50%) rotate(-2deg);
+  box-shadow: 0 1px 2px rgba(0,0,0,.08);
+  z-index: 2;
+}
+.page-card:nth-child(2)::before { transform: translateX(-50%) rotate(3deg); background: rgba(240,180,138,.55); }
+.page-card:nth-child(3)::before { transform: translateX(-50%) rotate(-4deg); background: rgba(198,93,58,.35); }
+.page-card:nth-child(1) { transform: rotate(-2deg); }
+.page-card:nth-child(2) { transform: rotate(1.5deg); }
+.page-card:nth-child(3) { transform: rotate(-1deg); }
+.page-card .preview {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  background: #f9f5ef;
+}
+.page-card .preview iframe {
+  width: 200%;
+  height: 200%;
+  border: none;
+  transform: scale(0.5) translateY(-50px);
+  transform-origin: top left;
+  pointer-events: none;
+}
+.page-card .preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, var(--cream));
+}
+
+.page-card-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 260px;
+  height: 200px;
+  border: 2px dashed var(--line);
+  border-radius: 2px;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s, border-color .2s;
+  align-self: center;
+}
+.page-card-more:hover { color: var(--accent); border-color: var(--accent); }
+
+/* Modal */
+.escritas-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(58,36,24,.5);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.escritas-modal-backdrop.open { display: flex; }
+.escritas-modal {
+  background: var(--cream);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px;
+  height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 40px 80px -20px rgba(58,36,24,.5);
+}
+.escritas-modal-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 14px 0;
+  flex-shrink: 0;
+}
+.escritas-modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--muted);
+  line-height: 1;
+  transition: color .2s;
+}
+.escritas-modal-close:hover { color: var(--ink); }
+.escritas-modal iframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+}
+
 /* Responsive nudges */
 @media (max-width: 860px) {
   .page { padding: 28px 24px 80px; }
@@ -802,6 +930,7 @@ h1,h2,h3,h4 {
     <nav class="nav">
       <a href="#about" data-en="hello" data-pt="olá">olá</a>
       <a href="#portfolio" data-en="thingies" data-pt="coisinhas">coisinhas</a>
+      <a href="#escritas" data-en="writings" data-pt="escritas">escritas</a>
       <a href="#coffee" data-en="coffee" data-pt="café">café</a>
       <a href="#contact" data-en="contact" data-pt="recado">recado</a>
       <button id="lang-toggle" class="lang-toggle">🇺🇸</button>
@@ -1061,6 +1190,29 @@ h1,h2,h3,h4 {
   </section>
 
   <!-- ==================================================
+       Escritas
+       ================================================== -->
+  <section class="section" id="escritas">
+    <span class="section-label" data-en="writings —" data-pt="escritas —">escritas —</span>
+    <h2 class="section-title" data-en="things i wrote <em>down.</em>" data-pt="coisas que escrevi <em>por aí.</em>">coisas que escrevi <em>por aí.</em></h2>
+    <p class="section-kicker">
+      <span data-en="Small texts, loose thoughts, things that felt worth keeping." data-pt="Textinhos, pensamentos soltos, coisas que pareciam valer guardar.">Textinhos, pensamentos soltos, coisas que pareciam valer guardar.</span>
+    </p>
+
+    <div class="escritas-grid" id="escritas-grid"></div>
+  </section>
+
+  <!-- Modal -->
+  <div class="escritas-modal-backdrop" id="escritas-modal-backdrop">
+    <div class="escritas-modal">
+      <div class="escritas-modal-bar">
+        <button class="escritas-modal-close" id="escritas-modal-close">✕</button>
+      </div>
+      <iframe id="escritas-modal-iframe" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- ==================================================
        Buy me a coffee
        ================================================== -->
   <section class="section coffee" id="coffee">
@@ -1138,6 +1290,59 @@ h1,h2,h3,h4 {
 
 
 <script>
+/* ==================================================
+   Escritas
+   ================================================== */
+(function () {
+  var textos = [
+    {
+      title: "Primeiro texto",
+      notionUrl: "https://fearless-azimuth-8e7.notion.site/ebd//3490709ee5458057979bd48f8524fd17"
+    }
+  ];
+
+  var grid = document.getElementById('escritas-grid');
+  var backdrop = document.getElementById('escritas-modal-backdrop');
+  var modalIframe = document.getElementById('escritas-modal-iframe');
+  var closeBtn = document.getElementById('escritas-modal-close');
+
+  var visible = textos.slice(0, 3);
+  visible.forEach(function (t) {
+    var card = document.createElement('div');
+    card.className = 'page-card';
+    card.innerHTML =
+      '<div class="preview">' +
+        '<iframe src="' + t.notionUrl + '" tabindex="-1" aria-hidden="true"></iframe>' +
+      '</div>';
+    card.addEventListener('click', function () {
+      modalIframe.src = t.notionUrl;
+      backdrop.classList.add('open');
+    });
+    grid.appendChild(card);
+  });
+
+  if (textos.length > 3) {
+    var more = document.createElement('a');
+    more.href = '/escritas';
+    more.className = 'page-card-more';
+    more.setAttribute('data-en', 'see all →');
+    more.setAttribute('data-pt', 'ver mais →');
+    more.textContent = 'ver mais →';
+    grid.appendChild(more);
+  }
+
+  closeBtn.addEventListener('click', function () {
+    backdrop.classList.remove('open');
+    modalIframe.src = '';
+  });
+  backdrop.addEventListener('click', function (e) {
+    if (e.target === backdrop) {
+      backdrop.classList.remove('open');
+      modalIframe.src = '';
+    }
+  });
+})();
+
 /* ==================================================
    Draggable sticker
    ================================================== */
