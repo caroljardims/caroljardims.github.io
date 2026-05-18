@@ -384,7 +384,7 @@ h1,h2,h3,h4 {
 /* Polaroid layout */
 .polaroid-stage {
   position: relative;
-  min-height: 1100px;
+  min-height: 1300px;
   margin-top: 20px;
 }
 .polaroid {
@@ -461,6 +461,7 @@ h1,h2,h3,h4 {
 .polaroid:nth-child(2) { top:  60px; left: 400px; transform: rotate(3deg);  z-index: 2; }
 .polaroid:nth-child(3) { top: 380px; left: 200px; transform: rotate(-2deg); z-index: 4; }
 .polaroid:nth-child(4) { top: 500px; left: 600px; transform: rotate(4deg);  z-index: 2; }
+.polaroid:nth-child(5) { top: 780px; left:  80px; transform: rotate(-3deg); z-index: 1; }
 
 /* Tape */
 .polaroid::before {
@@ -475,12 +476,14 @@ h1,h2,h3,h4 {
 .polaroid:nth-child(2)::before { transform: translateX(-50%) rotate(3deg); background: rgba(240,180,138,.55); }
 .polaroid:nth-child(3)::before { transform: translateX(-50%) rotate(-4deg); background: rgba(198,93,58,.35); }
 .polaroid:nth-child(4)::before { transform: translateX(-50%) rotate(2deg); background: rgba(126,122,62,.4); }
+.polaroid:nth-child(5)::before { transform: translateX(-50%) rotate(-3deg); background: rgba(196,149,106,.5); }
 
 /* thumb backgrounds */
 .thumb-peachy   { background: linear-gradient(135deg, #F5D9BE 0%, #F0B48A 100%); }
 .thumb-sips     { background: linear-gradient(135deg, #C65D3A 0%, #A8482A 100%); color: var(--cream); }
 .thumb-decifra  { background: linear-gradient(135deg, #D99A3D 0%, #C68526 100%); color: var(--plum); }
 .thumb-chaveio  { background: linear-gradient(135deg, #7E7A3E 0%, #5C6B30 100%); color: var(--cream); }
+.thumb-folhetim { background: linear-gradient(135deg, #C4956A 0%, #2C1810 100%); color: #E8D5B7; }
 
 /* Grid layout (alt) */
 .grid-layout {
@@ -1103,6 +1106,37 @@ h1,h2,h3,h4 {
           <span class="tag">Tool</span>
         </div>
       </article>
+
+      <!-- Folhetim de Bucaré -->
+      <article class="polaroid" style="cursor:pointer;" onclick="window.open('https://folhetimdebucare.com.br','_blank')">
+        <div class="thumb thumb-folhetim">
+          <svg viewBox="0 0 200 140" style="width:100%;height:100%;">
+            <rect width="200" height="140" fill="#2C1810"></rect>
+            <rect x="18" y="14" width="164" height="112" rx="2" fill="#E8D5B7"></rect>
+            <rect x="18" y="14" width="164" height="30" rx="2" fill="#C4956A"></rect>
+            <rect x="28" y="21" width="90" height="7" rx="2" fill="#2C1810" opacity=".75"></rect>
+            <rect x="28" y="32" width="60" height="4" rx="2" fill="#2C1810" opacity=".4"></rect>
+            <line x1="18" y1="50" x2="182" y2="50" stroke="#C4956A" stroke-width="1"></line>
+            <rect x="28" y="57" width="144" height="3" rx="1.5" fill="#8B6356" opacity=".6"></rect>
+            <rect x="28" y="65" width="130" height="3" rx="1.5" fill="#8B6356" opacity=".6"></rect>
+            <rect x="28" y="73" width="144" height="3" rx="1.5" fill="#8B6356" opacity=".6"></rect>
+            <rect x="28" y="81" width="115" height="3" rx="1.5" fill="#8B6356" opacity=".6"></rect>
+            <rect x="28" y="96" width="144" height="3" rx="1.5" fill="#8B6356" opacity=".4"></rect>
+            <rect x="28" y="104" width="125" height="3" rx="1.5" fill="#8B6356" opacity=".4"></rect>
+            <rect x="28" y="112" width="138" height="3" rx="1.5" fill="#8B6356" opacity=".4"></rect>
+          </svg>
+        </div>
+        <div class="caption">
+          <h3>Folhetim de Bucaré</h3>
+          <span class="price" data-en="free" data-pt="grátis">grátis</span>
+        </div>
+        <p class="desc" data-en="A literary publication from the depths of Bucaré. Stories, essays, and loose thoughts worth keeping." data-pt="Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.">Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.</p>
+        <div class="tags">
+          <span class="tag">Web</span>
+          <span class="tag">Literatura</span>
+          <span class="tag">Blog</span>
+        </div>
+      </article>
     </div>
 
     <!-- GRID (alt layout) -->
@@ -1137,6 +1171,14 @@ h1,h2,h3,h4 {
           <h3>Chaveio <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
           <p class="desc" data-en="Build your tournament from scratch. Teams, groups, auto draw, click winners — all the way to the final. 🏆" data-pt="Monte seu campeonato do zero. Times, grupos, sorteio automático, clique nos vencedores — até a final. 🏆">Monte seu campeonato do zero. Times, grupos, sorteio automático, clique nos vencedores — até a final. 🏆</p>
           <div class="tags"><span class="tag">Web</span><span class="tag">Tournament</span><span class="tag">Tool</span></div>
+        </div>
+      </article>
+      <article class="grid-card" style="cursor:pointer;" onclick="window.open('https://folhetimdebucare.com.br','_blank')">
+        <div class="thumb thumb-folhetim">folhetim.</div>
+        <div class="body">
+          <h3>Folhetim de Bucaré <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
+          <p class="desc" data-en="A literary publication from the depths of Bucaré. Stories, essays, and loose thoughts worth keeping." data-pt="Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.">Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.</p>
+          <div class="tags"><span class="tag">Web</span><span class="tag">Literatura</span><span class="tag">Blog</span></div>
         </div>
       </article>
     </div>
@@ -1177,6 +1219,15 @@ h1,h2,h3,h4 {
           <p class="desc" data-en="Tournament bracket generator. Add teams, draw, follow to the final." data-pt="Gerador de chaveamento de campeonatos. Cadastre times, sorteie, acompanhe até a final.">Gerador de chaveamento de campeonatos. Cadastre times, sorteie, acompanhe até a final.</p>
         </div>
         <div class="tags">Web · Tournament · Tool</div>
+        <div class="price" data-en="free" data-pt="grátis">grátis</div>
+      </div>
+      <div class="list-row" style="cursor:pointer;" onclick="window.open('https://folhetimdebucare.com.br','_blank')">
+        <span class="num">05</span>
+        <div>
+          <h3>Folhetim de Bucaré</h3>
+          <p class="desc" data-en="A literary publication from the depths of Bucaré. Stories, essays, and loose thoughts worth keeping." data-pt="Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.">Uma publicação literária das profundezas do Bucaré. Histórias, ensaios e pensamentos soltos que valeu guardar.</p>
+        </div>
+        <div class="tags">Web · Literatura · Blog</div>
         <div class="price" data-en="free" data-pt="grátis">grátis</div>
       </div>
     </div>
