@@ -41,4 +41,20 @@ export const projects: Project[] = [
     link: '/chaveio',
     type: 'free',
   },
+  {
+    id: '5',
+    title: 'Bombolão',
+    description: 'Organize bolões entre amigos de um jeito simples: cadastre os participantes, registre os palpites e acompanhe o placar até descobrir quem leva o prêmio.',
+    tags: ['Web', 'Esportes', 'React'],
+    link: 'https://bombolao-9ea22.web.app/',
+    type: 'free',
+  },
+  {
+    id: '6',
+    title: 'Party Game CAH',
+    description: 'Cartas Contra a Humanidade pra jogar direto do celular com a galera: combine cartas absurdas e engraçadas e veja quem tem o humor mais sem noção.',
+    tags: ['Web', 'Game', 'Party', 'React'],
+    link: 'https://party-game-cah.web.app/',
+    type: 'free',
+  },
 ];
