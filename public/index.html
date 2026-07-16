@@ -384,7 +384,7 @@ h1,h2,h3,h4 {
 /* Polaroid layout */
 .polaroid-stage {
   position: relative;
-  min-height: 1300px;
+  min-height: 1900px;
   margin-top: 20px;
 }
 .polaroid {
@@ -462,6 +462,8 @@ h1,h2,h3,h4 {
 .polaroid:nth-child(3) { top: 380px; left: 200px; transform: rotate(-2deg); z-index: 4; }
 .polaroid:nth-child(4) { top: 500px; left: 600px; transform: rotate(4deg);  z-index: 2; }
 .polaroid:nth-child(5) { top: 780px; left:  80px; transform: rotate(-3deg); z-index: 1; }
+.polaroid:nth-child(6) { top: 1080px; left: 480px; transform: rotate(2deg);  z-index: 3; }
+.polaroid:nth-child(7) { top: 1300px; left: 150px; transform: rotate(-4deg); z-index: 2; }
 
 /* Tape */
 .polaroid::before {
@@ -477,6 +479,8 @@ h1,h2,h3,h4 {
 .polaroid:nth-child(3)::before { transform: translateX(-50%) rotate(-4deg); background: rgba(198,93,58,.35); }
 .polaroid:nth-child(4)::before { transform: translateX(-50%) rotate(2deg); background: rgba(126,122,62,.4); }
 .polaroid:nth-child(5)::before { transform: translateX(-50%) rotate(-3deg); background: rgba(196,149,106,.5); }
+.polaroid:nth-child(6)::before { transform: translateX(-50%) rotate(2deg); background: rgba(74,139,124,.4); }
+.polaroid:nth-child(7)::before { transform: translateX(-50%) rotate(-4deg); background: rgba(26,26,26,.3); }
 
 /* thumb backgrounds */
 .thumb-peachy   { background: linear-gradient(135deg, #F5D9BE 0%, #F0B48A 100%); }
