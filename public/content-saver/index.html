@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nécessaire — guarde o que você quer reler</title>
-<meta name="description" content="Nécessaire: a extensão de navegador que guarda artigos, trechos e links num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Google Drive.">
+<meta name="description" content="Nécessaire (Trousse no Mac e no celular): a extensão de navegador que guarda artigos, trechos e links num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Google Drive.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -202,6 +202,37 @@ h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
 .lede strong { color: var(--accent); }
 
 /* =========================================================
+   Nécessaire = Trousse
+   ========================================================= */
+.aka {
+  margin-top: 46px; padding: 28px 30px;
+  border: 1px dashed var(--line); border-radius: 20px;
+  background: linear-gradient(180deg, rgba(240,180,138,.10), transparent);
+}
+.aka-head { margin-bottom: 20px; }
+.aka-head h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.02em; }
+.aka-head h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.aka-pair { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.aka-card {
+  flex: 1 1 200px; background: var(--cream); border: 1px solid var(--line);
+  border-radius: 16px; padding: 16px 18px;
+}
+.aka-name { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.01em; }
+.aka-where { color: var(--ink-soft); font-size: 14.5px; margin-top: 2px; }
+.aka-status {
+  display: inline-block; margin-top: 10px; font-size: 12.5px; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--olive);
+  border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px;
+}
+.aka-status.soon { color: var(--accent); }
+.aka-equals { font-family: var(--font-display); font-size: 30px; color: var(--accent); }
+.aka-why { color: var(--ink-soft); font-size: 15.5px; margin: 20px 0 0; max-width: 62ch; }
+
+@media (max-width: 560px) {
+  .aka-equals { width: 100%; text-align: center; }
+}
+
+/* =========================================================
    Features
    ========================================================= */
 section { padding: 70px 0 0; }
@@ -346,6 +377,30 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     </div>
 
     <div class="lede" data-en="<strong>There is no server behind this.</strong> No account to create, no database holding your reading, no analytics. Everything saves to your own browser first, so it is instant and works offline. Connect your Google Drive and it syncs between browsers through your own account." data-pt="<strong>Não existe servidor atrás disso.</strong> Nenhuma conta pra criar, nenhum banco de dados guardando suas leituras, nenhum analytics. Tudo é salvo primeiro no seu próprio navegador — então é instantâneo e funciona offline. Se quiser, conecte seu Google Drive e sincronize entre navegadores pela sua própria conta."><strong>Não existe servidor atrás disso.</strong> Nenhuma conta pra criar, nenhum banco de dados guardando suas leituras, nenhum analytics. Tudo é salvo primeiro no seu próprio navegador — então é instantâneo e funciona offline. Se quiser, conecte seu Google Drive e sincronize entre navegadores pela sua própria conta.</div>
+
+    <!-- ==================================================
+         Nécessaire = Trousse
+         ================================================== -->
+    <div class="aka">
+      <div class="aka-head">
+        <span class="section-label" data-en="one thing, two labels —" data-pt="uma coisa só, duas etiquetas —">uma coisa só, duas etiquetas —</span>
+        <h2 data-en="Nécessaire and Trousse are <em>the same thing.</em>" data-pt="Nécessaire e Trousse são <em>a mesma coisa.</em>">Nécessaire e Trousse são <em>a mesma coisa.</em></h2>
+      </div>
+      <div class="aka-pair">
+        <div class="aka-card">
+          <div class="aka-name">Nécessaire</div>
+          <div class="aka-where" data-en="browser extension" data-pt="extensão de navegador">extensão de navegador</div>
+          <div class="aka-status" data-en="available now" data-pt="disponível agora">disponível agora</div>
+        </div>
+        <div class="aka-equals" aria-hidden="true">=</div>
+        <div class="aka-card">
+          <div class="aka-name">Trousse</div>
+          <div class="aka-where" data-en="Mac and mobile app" data-pt="app pra Mac e celular">app pra Mac e celular</div>
+          <div class="aka-status soon" data-en="coming soon" data-pt="em breve">em breve</div>
+        </div>
+      </div>
+      <p class="aka-why" data-en="Same project, same captures, same person looking after it. The app goes by Trousse because Nécessaire was already taken in the United States — so if you meet it under the other name, you have not met a different thing." data-pt="Mesmo projeto, mesmas capturas, mesma pessoa cuidando. O app se chama Trousse porque Nécessaire já estava tomado nos Estados Unidos — então, se você encontrar o outro nome por aí, não é outra coisa.">Mesmo projeto, mesmas capturas, mesma pessoa cuidando. O app se chama Trousse porque Nécessaire já estava tomado nos Estados Unidos — então, se você encontrar o outro nome por aí, não é outra coisa.</p>
+    </div>
   </div>
 
   <!-- ==================================================
