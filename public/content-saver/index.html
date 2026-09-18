@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nécessaire — guarde o que você quer reler</title>
-<meta name="description" content="Nécessaire (Trousse no Mac e no celular): a extensão de navegador que guarda artigos, trechos e links num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Google Drive.">
+<meta name="description" content="Nécessaire: a extensão de navegador que guarda artigos, trechos e links num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Google Drive.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,6 +204,8 @@ h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
 /* =========================================================
    Nécessaire = Trousse
    ========================================================= */
+.en-only { display: none; }
+:root[lang="en"] .en-only { display: block; }
 .aka {
   margin-top: 46px; padding: 28px 30px;
   border: 1px dashed var(--line); border-radius: 20px;
@@ -381,7 +383,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     <!-- ==================================================
          Nécessaire = Trousse
          ================================================== -->
-    <div class="aka">
+    <div class="aka en-only">
       <div class="aka-head">
         <span class="section-label" data-en="one thing, two labels —" data-pt="uma coisa só, duas etiquetas —">uma coisa só, duas etiquetas —</span>
         <h2 data-en="Nécessaire and Trousse are <em>the same thing.</em>" data-pt="Nécessaire e Trousse são <em>a mesma coisa.</em>">Nécessaire e Trousse são <em>a mesma coisa.</em></h2>
