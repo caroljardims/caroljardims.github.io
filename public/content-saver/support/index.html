@@ -169,7 +169,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   <div class="topbar">
     <a class="brand-home" href="/">@caroljardims</a>
     <div class="topbar-right">
-      <a class="back" href="/content-saver" data-en="← back to Nécessaire" data-pt="← voltar pra Nécessaire">← voltar pra Nécessaire</a>
+      <a class="back" href="/content-saver" data-en="← back to Trousse" data-pt="← voltar pra Nécessaire">← voltar pra Nécessaire</a>
       <button id="lang-toggle" aria-label="language">🇺🇸</button>
     </div>
   </div>
@@ -182,7 +182,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
         <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
         <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
       </svg>
-      Nécessaire
+      <span data-en="Trousse" data-pt="Nécessaire">Nécessaire</span>
     </span>
     <span class="section-label" data-en="support —" data-pt="suporte —">suporte —</span>
     <h1 data-en="something broke? <em>tell me.</em>" data-pt="quebrou alguma coisa? <em>me conta.</em>">quebrou alguma coisa? <em>me conta.</em></h1>
@@ -281,7 +281,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   <footer>
     <div class="sign" data-en="made with care, at a sensible pace ♡" data-pt="feito com carinho, num ritmo tranquilo ♡">feito com carinho, num ritmo tranquilo ♡</div>
     <div>
-      <a href="/content-saver">Nécessaire</a> ·
+      <a href="/content-saver"><span data-en="Trousse" data-pt="Nécessaire">Nécessaire</span></a> ·
       <a href="/content-saver/privacy" data-en="privacy" data-pt="privacidade">privacidade</a> ·
       <a href="/content-saver/terms" data-en="terms" data-pt="termos">termos</a>
     </div>
@@ -298,6 +298,10 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   var MAIL = 'caroljardims@gmail.com';
 
   function val(id) { return (document.getElementById(id).value || '').trim(); }
+
+  function brand() {
+    return document.documentElement.lang === 'en' ? 'Trousse' : 'Nécessaire';
+  }
 
   function compose() {
     var lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
@@ -329,7 +333,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   document.getElementById('go-email').addEventListener('click', function () {
     var t = compose();
     window.location.href = 'mailto:' + MAIL +
-      '?subject=' + encodeURIComponent('Nécessaire — ' + t.title) +
+      '?subject=' + encodeURIComponent(brand() + ' — ' + t.title) +
       '&body=' + encodeURIComponent(t.body.replace(/\*\*/g, ''));
   });
 })();
@@ -351,6 +355,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     lang = l;
     save(l);
     document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    document.title = l === 'pt' ? 'Suporte — Nécessaire' : 'Support — Trousse';
     document.querySelectorAll('[data-en]').forEach(function (el) {
       el.innerHTML = el.dataset[l];
     });
