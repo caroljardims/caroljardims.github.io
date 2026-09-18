@@ -311,12 +311,12 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
             <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
             <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
           </svg>
-          <span data-en="Trousse" data-pt="Nécessaire">Nécessaire</span>
+          Nécessaire
         </span>
         <span class="section-label" data-en="a tiny tool —" data-pt="uma ferramentinha —">uma ferramentinha —</span>
         <h1 data-en="save what you want to <em>come back to.</em>" data-pt="guarde o que você quer <em>reler depois.</em>">guarde o que você quer <em>reler depois.</em></h1>
         <p class="kicker" data-en="A browser extension that keeps articles, selections and links somewhere that is actually yours — not on somebody else's server." data-pt="Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.">Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.</p>
-        <p class="name-note" data-en="<span class='hand'>trousse</span> — the little case where you keep the things you'd hate to lose. Same idea, for the internet." data-pt="<span class='hand'>nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet."><span class="hand">nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet.</p>
+        <p class="name-note" data-en="<span class='hand'>nécessaire</span> — the little pouch where you keep the things you'd hate to lose. Same idea, for the internet." data-pt="<span class='hand'>nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet."><span class="hand">nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet.</p>
         <div class="badges">
           <span class="badge" data-en="<strong>free</strong> ♡" data-pt="<strong>grátis</strong> ♡"><strong>grátis</strong> ♡</span>
           <span class="badge" data-en="open source" data-pt="código aberto">código aberto</span>
@@ -436,7 +436,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
     document.title = l === 'pt'
       ? 'Nécessaire — guarde o que você quer reler'
-      : 'Trousse — save what you want to come back to';
+      : 'Nécessaire — save what you want to come back to';
     document.querySelectorAll('[data-en]').forEach(function (el) {
       el.innerHTML = el.dataset[l];
     });
