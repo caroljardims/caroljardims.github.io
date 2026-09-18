@@ -202,39 +202,6 @@ h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
 .lede strong { color: var(--accent); }
 
 /* =========================================================
-   Nécessaire = Trousse
-   ========================================================= */
-.en-only { display: none; }
-:root[lang="en"] .en-only { display: block; }
-.aka {
-  margin-top: 46px; padding: 28px 30px;
-  border: 1px dashed var(--line); border-radius: 20px;
-  background: linear-gradient(180deg, rgba(240,180,138,.10), transparent);
-}
-.aka-head { margin-bottom: 20px; }
-.aka-head h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 400; letter-spacing: -0.02em; }
-.aka-head h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
-.aka-pair { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.aka-card {
-  flex: 1 1 200px; background: var(--cream); border: 1px solid var(--line);
-  border-radius: 16px; padding: 16px 18px;
-}
-.aka-name { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.01em; }
-.aka-where { color: var(--ink-soft); font-size: 14.5px; margin-top: 2px; }
-.aka-status {
-  display: inline-block; margin-top: 10px; font-size: 12.5px; letter-spacing: .04em;
-  text-transform: uppercase; color: var(--olive);
-  border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px;
-}
-.aka-status.soon { color: var(--accent); }
-.aka-equals { font-family: var(--font-display); font-size: 30px; color: var(--accent); }
-.aka-why { color: var(--ink-soft); font-size: 15.5px; margin: 20px 0 0; max-width: 62ch; }
-
-@media (max-width: 560px) {
-  .aka-equals { width: 100%; text-align: center; }
-}
-
-/* =========================================================
    Features
    ========================================================= */
 section { padding: 70px 0 0; }
@@ -344,12 +311,12 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
             <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
             <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
           </svg>
-          Nécessaire
+          <span data-en="Necessaire" data-pt="Nécessaire">Nécessaire</span>
         </span>
         <span class="section-label" data-en="a tiny tool —" data-pt="uma ferramentinha —">uma ferramentinha —</span>
         <h1 data-en="save what you want to <em>come back to.</em>" data-pt="guarde o que você quer <em>reler depois.</em>">guarde o que você quer <em>reler depois.</em></h1>
         <p class="kicker" data-en="A browser extension that keeps articles, selections and links somewhere that is actually yours — not on somebody else's server." data-pt="Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.">Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.</p>
-        <p class="name-note" data-en="<span class='hand'>nécessaire</span> — the little pouch where you keep the things you'd hate to lose. Same idea, for the internet." data-pt="<span class='hand'>nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet."><span class="hand">nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet.</p>
+        <p class="name-note" data-en="<span class='hand'>necessaire</span> — the little pouch where you keep the things you'd hate to lose. Same idea, for the internet." data-pt="<span class='hand'>nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet."><span class="hand">nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet.</p>
         <div class="badges">
           <span class="badge" data-en="<strong>free</strong> ♡" data-pt="<strong>grátis</strong> ♡"><strong>grátis</strong> ♡</span>
           <span class="badge" data-en="open source" data-pt="código aberto">código aberto</span>
@@ -380,29 +347,6 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
 
     <div class="lede" data-en="<strong>There is no server behind this.</strong> No account to create, no database holding your reading, no analytics. Everything saves to your own browser first, so it is instant and works offline. Connect your Google Drive and it syncs between browsers through your own account." data-pt="<strong>Não existe servidor atrás disso.</strong> Nenhuma conta pra criar, nenhum banco de dados guardando suas leituras, nenhum analytics. Tudo é salvo primeiro no seu próprio navegador — então é instantâneo e funciona offline. Se quiser, conecte seu Google Drive e sincronize entre navegadores pela sua própria conta."><strong>Não existe servidor atrás disso.</strong> Nenhuma conta pra criar, nenhum banco de dados guardando suas leituras, nenhum analytics. Tudo é salvo primeiro no seu próprio navegador — então é instantâneo e funciona offline. Se quiser, conecte seu Google Drive e sincronize entre navegadores pela sua própria conta.</div>
 
-    <!-- ==================================================
-         Nécessaire = Trousse
-         ================================================== -->
-    <div class="aka en-only">
-      <div class="aka-head">
-        <span class="section-label" data-en="one thing, two labels —" data-pt="uma coisa só, duas etiquetas —">uma coisa só, duas etiquetas —</span>
-        <h2 data-en="Nécessaire and Trousse are <em>the same thing.</em>" data-pt="Nécessaire e Trousse são <em>a mesma coisa.</em>">Nécessaire e Trousse são <em>a mesma coisa.</em></h2>
-      </div>
-      <div class="aka-pair">
-        <div class="aka-card">
-          <div class="aka-name">Nécessaire</div>
-          <div class="aka-where" data-en="browser extension" data-pt="extensão de navegador">extensão de navegador</div>
-          <div class="aka-status" data-en="available now" data-pt="disponível agora">disponível agora</div>
-        </div>
-        <div class="aka-equals" aria-hidden="true">=</div>
-        <div class="aka-card">
-          <div class="aka-name">Trousse</div>
-          <div class="aka-where" data-en="Mac and mobile app" data-pt="app pra Mac e celular">app pra Mac e celular</div>
-          <div class="aka-status soon" data-en="coming soon" data-pt="em breve">em breve</div>
-        </div>
-      </div>
-      <p class="aka-why" data-en="Same project, same captures, same person looking after it. The app goes by Trousse because Nécessaire was already taken in the United States — so if you meet it under the other name, you have not met a different thing." data-pt="Mesmo projeto, mesmas capturas, mesma pessoa cuidando. O app se chama Trousse porque Nécessaire já estava tomado nos Estados Unidos — então, se você encontrar o outro nome por aí, não é outra coisa.">Mesmo projeto, mesmas capturas, mesma pessoa cuidando. O app se chama Trousse porque Nécessaire já estava tomado nos Estados Unidos — então, se você encontrar o outro nome por aí, não é outra coisa.</p>
-    </div>
   </div>
 
   <!-- ==================================================
@@ -493,7 +437,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
     document.title = l === 'pt'
       ? 'Nécessaire — guarde o que você quer reler'
-      : 'Nécessaire — save what you want to come back to';
+      : 'Necessaire — save what you want to come back to';
     document.querySelectorAll('[data-en]').forEach(function (el) {
       el.innerHTML = el.dataset[l];
     });

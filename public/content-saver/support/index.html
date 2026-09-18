@@ -79,13 +79,6 @@ h1, h2, h3 {
 h1 { font-size: clamp(36px, 5.5vw, 60px); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 16px; }
 h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
 .kicker { color: var(--ink-soft); max-width: 52ch; font-size: 18px; }
-.en-only { display: none; }
-:root[lang="en"] .en-only { display: block; }
-.same-thing {
-  color: var(--ink-soft); font-size: 15px; max-width: 56ch;
-  margin: 16px 0 0; padding: 10px 14px;
-  background: var(--cream); border: 1px dashed var(--line); border-radius: 12px;
-}
 
 /* Ticket composer */
 .composer {
@@ -176,7 +169,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   <div class="topbar">
     <a class="brand-home" href="/">@caroljardims</a>
     <div class="topbar-right">
-      <a class="back" href="/content-saver" data-en="← back to Nécessaire" data-pt="← voltar pra Nécessaire">← voltar pra Nécessaire</a>
+      <a class="back" href="/content-saver" data-en="← back to Necessaire" data-pt="← voltar pra Nécessaire">← voltar pra Nécessaire</a>
       <button id="lang-toggle" aria-label="language">🇺🇸</button>
     </div>
   </div>
@@ -189,12 +182,11 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
         <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
         <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
       </svg>
-      Nécessaire
+      <span data-en="Necessaire" data-pt="Nécessaire">Nécessaire</span>
     </span>
     <span class="section-label" data-en="support —" data-pt="suporte —">suporte —</span>
     <h1 data-en="something broke? <em>tell me.</em>" data-pt="quebrou alguma coisa? <em>me conta.</em>">quebrou alguma coisa? <em>me conta.</em></h1>
     <p class="kicker" data-en="Write it here and send it wherever you prefer: it opens a ticket on GitHub already filled in, or arrives in my inbox. Same message, your pick." data-pt="Escreve aqui e manda por onde preferir: abre um chamado no GitHub já preenchido, ou cai direto no meu email. Mesma mensagem, você escolhe.">Escreve aqui e manda por onde preferir: abre um chamado no GitHub já preenchido, ou cai direto no meu email. Mesma mensagem, você escolhe.</p>
-    <p class="same-thing en-only" data-en="Nécessaire (the browser extension) and Trousse (the Mac and mobile app, coming soon) are the same project — support here covers both." data-pt="Nécessaire (a extensão de navegador) e Trousse (o app pra Mac e celular, em breve) são o mesmo projeto — o suporte aqui atende os dois.">Nécessaire (a extensão de navegador) e Trousse (o app pra Mac e celular, em breve) são o mesmo projeto — o suporte aqui atende os dois.</p>
   </div>
 
   <!-- ==================================================
@@ -289,7 +281,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   <footer>
     <div class="sign" data-en="made with care, at a sensible pace ♡" data-pt="feito com carinho, num ritmo tranquilo ♡">feito com carinho, num ritmo tranquilo ♡</div>
     <div>
-      <a href="/content-saver">Nécessaire</a> ·
+      <a href="/content-saver"><span data-en="Necessaire" data-pt="Nécessaire">Nécessaire</span></a> ·
       <a href="/content-saver/privacy" data-en="privacy" data-pt="privacidade">privacidade</a> ·
       <a href="/content-saver/terms" data-en="terms" data-pt="termos">termos</a>
     </div>
@@ -306,6 +298,10 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   var MAIL = 'caroljardims@gmail.com';
 
   function val(id) { return (document.getElementById(id).value || '').trim(); }
+
+  function brand() {
+    return document.documentElement.lang === 'en' ? 'Necessaire' : 'Nécessaire';
+  }
 
   function compose() {
     var lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
@@ -337,7 +333,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   document.getElementById('go-email').addEventListener('click', function () {
     var t = compose();
     window.location.href = 'mailto:' + MAIL +
-      '?subject=' + encodeURIComponent('Nécessaire — ' + t.title) +
+      '?subject=' + encodeURIComponent(brand() + ' — ' + t.title) +
       '&body=' + encodeURIComponent(t.body.replace(/\*\*/g, ''));
   });
 })();
@@ -359,7 +355,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
     lang = l;
     save(l);
     document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
-    document.title = l === 'pt' ? 'Suporte — Nécessaire' : 'Support — Nécessaire';
+    document.title = l === 'pt' ? 'Suporte — Nécessaire' : 'Support — Necessaire';
     document.querySelectorAll('[data-en]').forEach(function (el) {
       el.innerHTML = el.dataset[l];
     });
