@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suporte — Nécessaire</title>
+<meta name="description" content="Suporte da Nécessaire: abra um chamado no GitHub ou fale direto por email.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:        #F6EBD8;
+  --bg-2:      #EFDFC4;
+  --ink:       #3A2418;
+  --ink-soft:  #6B4632;
+  --muted:     #9A7A62;
+  --line:      #D9BC97;
+  --terracotta:#C65D3A;
+  --sienna:    #A8482A;
+  --mustard:   #D99A3D;
+  --olive:     #7E7A3E;
+  --peach:     #F0B48A;
+  --blush:     #E89B78;
+  --cream:     #FBEFDB;
+  --accent:    var(--terracotta);
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-hand:    'Caveat', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-palette="harvest"]) {
+    --bg: #2A1D18; --bg-2: #3A2921; --ink: #F3E3CC; --ink-soft: #D9BC97;
+    --muted: #A88871; --line: #5B3E32; --terracotta: #E38160; --sienna: #C86A47;
+    --mustard: #E8B35F; --olive: #B0A860; --peach: #F4B895; --blush: #F0A07D; --cream: #3A2921;
+  }
+}
+:root[data-palette="dusk"] {
+  --bg: #2A1D18; --bg-2: #3A2921; --ink: #F3E3CC; --ink-soft: #D9BC97;
+  --muted: #A88871; --line: #5B3E32; --terracotta: #E38160; --sienna: #C86A47;
+  --mustard: #E8B35F; --olive: #B0A860; --peach: #F4B895; --blush: #F0A07D; --cream: #3A2921;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body);
+  font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+::selection { background: var(--blush); color: var(--ink); }
+a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; transition: all .2s; }
+a:hover { color: var(--accent); }
+h1, h2, h3 {
+  font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em;
+  line-height: 1.05; margin: 0; font-variation-settings: "opsz" 120, "SOFT" 100;
+}
+.wrap { max-width: 780px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
+.blob { position: absolute; z-index: 0; pointer-events: none; opacity: .5; }
+.blob svg { display: block; width: 100%; height: 100%; }
+
+/* Topbar */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0 0; }
+.brand-home { font-family: var(--font-display); font-size: 19px; text-decoration: none; color: var(--ink); }
+.brand-home:hover { color: var(--accent); }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.back { font-family: var(--font-hand); font-size: 21px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--accent); }
+#lang-toggle { background: var(--cream); border: 1px solid var(--line); border-radius: 999px; font-size: 15px; line-height: 1; padding: 7px 11px; cursor: pointer; }
+
+/* Hero */
+.hero { padding: 48px 0 8px; }
+.mark {
+  display: flex; align-items: center; gap: 9px; width: fit-content;
+  font-family: var(--font-display); font-size: 21px; color: var(--accent); margin-bottom: 14px;
+}
+.section-label { font-family: var(--font-hand); color: var(--accent); font-size: 28px; margin-bottom: 6px; display: inline-block; transform: rotate(-1.5deg); }
+h1 { font-size: clamp(36px, 5.5vw, 60px); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 16px; }
+h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.kicker { color: var(--ink-soft); max-width: 52ch; font-size: 18px; }
+
+/* Ticket composer */
+.composer {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 18px;
+  padding: 26px; margin-top: 40px;
+}
+.composer h2 { font-size: 24px; margin-bottom: 4px; }
+.composer .sub { color: var(--muted); font-size: 15px; margin: 0 0 20px; }
+.field { margin-bottom: 16px; }
+.field label { display: block; font-size: 14px; font-weight: 500; color: var(--ink-soft); margin-bottom: 6px; }
+.field input, .field textarea, .field select {
+  width: 100%; font-family: var(--font-body); font-size: 15.5px; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+  padding: 11px 14px; line-height: 1.5;
+}
+.field textarea { min-height: 130px; resize: vertical; }
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(198,93,58,.14);
+}
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; border-radius: 999px;
+  padding: 12px 22px; font-family: var(--font-body); font-size: 15px;
+  text-decoration: none; cursor: pointer; border: 1px solid var(--line);
+  background: var(--cream); color: var(--ink); transition: transform .2s;
+}
+.btn:hover { transform: translateY(-2px); color: var(--ink); }
+.btn.primary {
+  background: var(--ink); color: var(--bg); border-color: var(--ink); font-weight: 600;
+  box-shadow: 0 10px 26px -14px rgba(58,36,24,.7);
+}
+.hint { color: var(--muted); font-size: 13.5px; margin-top: 14px; }
+
+/* Channels */
+.channels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 44px; }
+.channel {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 18px;
+  padding: 22px; transition: transform .2s, box-shadow .2s;
+}
+.channel:hover { transform: translateY(-3px); box-shadow: 0 16px 34px -24px rgba(58,36,24,.8); }
+.channel .ico { font-size: 22px; line-height: 1; }
+.channel h3 { font-size: 19px; margin: 10px 0 6px; }
+.channel p { margin: 0 0 14px; color: var(--ink-soft); font-size: 15px; }
+.channel a.chan-link { font-size: 15px; overflow-wrap: anywhere; }
+
+/* FAQ */
+section { padding: 60px 0 0; }
+.section-title { font-size: clamp(26px, 3.4vw, 38px); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 24px; }
+.section-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+details {
+  background: var(--cream); border: 1px solid var(--line); border-radius: 14px;
+  padding: 14px 18px; margin-bottom: 10px;
+}
+details summary { cursor: pointer; font-weight: 500; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details summary::before { content: "+ "; color: var(--accent); font-family: var(--font-hand); font-size: 22px; }
+details[open] summary::before { content: "– "; }
+details p { margin: 10px 0 2px; color: var(--ink-soft); font-size: 15.5px; }
+
+/* Coffee */
+.coffee { text-align: center; padding: 80px 0 30px; }
+.coffee h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 400; margin-bottom: 14px; }
+.coffee h2 em { font-style: italic; color: var(--accent); font-weight: 300; }
+.coffee p { color: var(--ink-soft); max-width: 42ch; margin: 0 auto 24px; }
+.coffee-btns { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.caveat { margin-top: 18px; color: var(--muted); font-size: 14px; }
+
+footer {
+  margin-top: 60px; padding: 26px 0 60px; border-top: 1px solid var(--line);
+  color: var(--muted); font-size: 14px; text-align: center;
+}
+footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--accent); margin-bottom: 6px; }
+
+@media (max-width: 680px) {
+  .channels { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob" style="width:380px; height:380px; top:-130px; right:-140px; color:var(--peach);">
+  <svg viewBox="0 0 200 200"><path fill="currentColor" d="M43,-58C55,-49,63,-35,68,-19C72,-4,72,14,65,29C57,44,43,56,26,63C9,70,-10,72,-27,66C-44,60,-58,46,-66,29C-73,12,-73,-8,-66,-25C-59,-42,-45,-55,-29,-63C-13,-71,4,-73,20,-70C36,-67,31,-67,43,-58Z" transform="translate(100 100)"/></svg>
+</div>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="brand-home" href="/">@caroljardims</a>
+    <div class="topbar-right">
+      <a class="back" href="/content-saver" data-en="← back to Nécessaire" data-pt="← voltar pra Nécessaire">← voltar pra Nécessaire</a>
+      <button id="lang-toggle" aria-label="language">🇺🇸</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <span class="mark">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3.4 11.2c0-3.4 3.9-5.7 8.6-5.7s8.6 2.3 8.6 5.7c0 4.2-3.9 7.1-8.6 7.1s-8.6-2.9-8.6-7.1z" />
+        <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
+        <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
+      </svg>
+      Nécessaire
+    </span>
+    <span class="section-label" data-en="support —" data-pt="suporte —">suporte —</span>
+    <h1 data-en="something broke? <em>tell me.</em>" data-pt="quebrou alguma coisa? <em>me conta.</em>">quebrou alguma coisa? <em>me conta.</em></h1>
+    <p class="kicker" data-en="Write it here and send it wherever you prefer: it opens a ticket on GitHub already filled in, or arrives in my inbox. Same message, your pick." data-pt="Escreve aqui e manda por onde preferir: abre um chamado no GitHub já preenchido, ou cai direto no meu email. Mesma mensagem, você escolhe.">Escreve aqui e manda por onde preferir: abre um chamado no GitHub já preenchido, ou cai direto no meu email. Mesma mensagem, você escolhe.</p>
+  </div>
+
+  <!-- ==================================================
+       Ticket composer
+       ================================================== -->
+  <div class="composer">
+    <h2 data-en="Write your ticket" data-pt="Escreva seu chamado">Escreva seu chamado</h2>
+    <p class="sub" data-en="Nothing is sent from this page — it just fills the form for you." data-pt="Nada é enviado por esta página — ela só preenche o formulário pra você.">Nada é enviado por esta página — ela só preenche o formulário pra você.</p>
+
+    <div class="field">
+      <label for="t-title" data-en="What happened?" data-pt="O que aconteceu?">O que aconteceu?</label>
+      <input id="t-title" type="text" data-ph-en="In one line, e.g. 'the save button does nothing on Medium'" data-ph-pt="Em uma linha, ex: 'o botão de salvar não faz nada no Medium'">
+    </div>
+
+    <div class="field">
+      <label for="t-browser" data-en="Browser" data-pt="Navegador">Navegador</label>
+      <select id="t-browser">
+        <option value="Chrome">Chrome</option>
+        <option value="Edge">Edge</option>
+        <option value="Brave">Brave</option>
+        <option value="Opera">Opera</option>
+        <option value="Firefox">Firefox</option>
+        <option value="" data-en="Other / not sure" data-pt="Outro / não sei">Outro / não sei</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="t-body" data-en="Tell me more" data-pt="Me conta mais">Me conta mais</label>
+      <textarea id="t-body" data-ph-en="What you were doing, what you expected, what happened instead. No need to be formal." data-ph-pt="O que você estava fazendo, o que esperava, o que aconteceu no lugar. Não precisa ser formal."></textarea>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="go-github">🐙 <span data-en="open the ticket on GitHub" data-pt="abrir o chamado no GitHub">abrir o chamado no GitHub</span></button>
+      <button class="btn" id="go-email">✉️ <span data-en="send it by email" data-pt="mandar por email">mandar por email</span></button>
+    </div>
+    <p class="hint" data-en="GitHub opens in a new tab with everything already typed in — you just press Submit. It needs a free GitHub account; email needs nothing." data-pt="O GitHub abre em outra aba com tudo já digitado — você só aperta Submit. Precisa de uma conta gratuita do GitHub; o email não precisa de nada.">O GitHub abre em outra aba com tudo já digitado — você só aperta Submit. Precisa de uma conta gratuita do GitHub; o email não precisa de nada.</p>
+  </div>
+
+  <!-- ==================================================
+       Channels
+       ================================================== -->
+  <div class="channels">
+    <div class="channel">
+      <div class="ico">🐙</div>
+      <h3 data-en="Tickets on GitHub" data-pt="Chamados no GitHub">Chamados no GitHub</h3>
+      <p data-en="Bugs, ideas and requests live here, in the open. You can also read what others already reported." data-pt="Bugs, ideias e pedidos ficam aqui, à vista de todo mundo. Dá pra ler também o que os outros já relataram.">Bugs, ideias e pedidos ficam aqui, à vista de todo mundo. Dá pra ler também o que os outros já relataram.</p>
+      <a class="chan-link" href="https://github.com/caroljardims/content-saver/issues" target="_blank" rel="noopener noreferrer" data-en="see open tickets →" data-pt="ver os chamados abertos →">ver os chamados abertos →</a>
+    </div>
+    <div class="channel">
+      <div class="ico">✉️</div>
+      <h3 data-en="Email" data-pt="Email">Email</h3>
+      <p data-en="Prefer something quieter, or don't have a GitHub account? Write to me directly. I usually reply within a few days." data-pt="Prefere algo mais reservado, ou não tem conta no GitHub? Me escreve direto. Costumo responder em alguns dias.">Prefere algo mais reservado, ou não tem conta no GitHub? Me escreve direto. Costumo responder em alguns dias.</p>
+      <a class="chan-link" href="mailto:caroljardims@gmail.com?subject=N%C3%A9cessaire">caroljardims@gmail.com</a>
+    </div>
+  </div>
+
+  <!-- ==================================================
+       FAQ
+       ================================================== -->
+  <section>
+    <span class="section-label" data-en="before you write —" data-pt="antes de escrever —">antes de escrever —</span>
+    <h2 class="section-title" data-en="three things that <em>solve most of it.</em>" data-pt="três coisinhas que <em>resolvem quase tudo.</em>">três coisinhas que <em>resolvem quase tudo.</em></h2>
+
+    <details>
+      <summary data-en="My captures disappeared" data-pt="Minhas capturas sumiram">Minhas capturas sumiram</summary>
+      <p data-en="Captures live in your browser's local storage. Clearing site data, using a fresh profile, or reinstalling the extension wipes that copy. If you had connected Google Drive, reconnect the same account and they come back." data-pt="As capturas ficam no armazenamento local do navegador. Limpar dados, usar outro perfil ou reinstalar a extensão apaga essa cópia. Se você tinha conectado o Google Drive, reconecte a mesma conta que elas voltam.">As capturas ficam no armazenamento local do navegador. Limpar dados, usar outro perfil ou reinstalar a extensão apaga essa cópia. Se você tinha conectado o Google Drive, reconecte a mesma conta que elas voltam.</p>
+    </details>
+    <details>
+      <summary data-en="Saving does nothing on a certain site" data-pt="Salvar não funciona num site específico">Salvar não funciona num site específico</summary>
+      <p data-en="Some pages block extensions entirely (the browser's own pages, the Web Store, some PDFs), and some load the article only after you scroll. Try selecting the text and using the right-click menu instead — and tell me which site it was." data-pt="Algumas páginas bloqueiam extensões por completo (as páginas do próprio navegador, a Web Store, alguns PDFs), e outras só carregam o texto depois que você rola. Tenta selecionar o texto e usar o botão direito — e me conta qual era o site.">Algumas páginas bloqueiam extensões por completo (as páginas do próprio navegador, a Web Store, alguns PDFs), e outras só carregam o texto depois que você rola. Tenta selecionar o texto e usar o botão direito — e me conta qual era o site.</p>
+    </details>
+    <details>
+      <summary data-en="Drive sync stopped" data-pt="A sincronização com o Drive parou">A sincronização com o Drive parou</summary>
+      <p data-en="The access token expires, and revoking access in your Google account ends it too. Disconnect and reconnect Drive in the extension. Your local copies are untouched either way." data-pt="O token de acesso expira, e revogar o acesso na sua conta Google também encerra. Desconecte e reconecte o Drive na extensão. Suas cópias locais não são afetadas de qualquer jeito.">O token de acesso expira, e revogar o acesso na sua conta Google também encerra. Desconecte e reconecte o Drive na extensão. Suas cópias locais não são afetadas de qualquer jeito.</p>
+    </details>
+  </section>
+
+  <!-- ==================================================
+       Coffee
+       ================================================== -->
+  <div class="coffee">
+    <span class="section-label" data-en="a small favor —" data-pt="um pequeno favor —">um pequeno favor —</span>
+    <h2 data-en="you could <em>buy me a coffee.</em>" data-pt="você pode <em>me pagar um café.</em>">você pode <em>me pagar um café.</em></h2>
+    <p data-en="Support is free and stays free — a coffee just makes the answers arrive caffeinated." data-pt="O suporte é grátis e continua grátis — o café só faz as respostas chegarem cafeinadas.">O suporte é grátis e continua grátis — o café só faz as respostas chegarem cafeinadas.</p>
+    <div class="coffee-btns">
+      <a class="btn primary" href="/pix">💸 <span data-en="pix (brazil)" data-pt="pagar via pix">pagar via pix</span></a>
+      <a class="btn" href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener noreferrer">☕ <span data-en="buy me a coffee" data-pt="me paga um café">me paga um café</span></a>
+    </div>
+    <p class="caveat" data-en="(no pressure though — a kind note is also a very acceptable currency ♡)" data-pt="(sem pressão — um recado carinhoso também é uma moeda muito aceitável ♡)">(sem pressão — um recado carinhoso também é uma moeda muito aceitável ♡)</p>
+  </div>
+
+  <footer>
+    <div class="sign" data-en="made with care, at a sensible pace ♡" data-pt="feito com carinho, num ritmo tranquilo ♡">feito com carinho, num ritmo tranquilo ♡</div>
+    <div>
+      <a href="/content-saver">Nécessaire</a> ·
+      <a href="/content-saver/privacy" data-en="privacy" data-pt="privacidade">privacidade</a> ·
+      <a href="/content-saver/terms" data-en="terms" data-pt="termos">termos</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ==================================================
+   Ticket composer — preenche o GitHub ou o email
+   ================================================== */
+(function () {
+  var REPO = 'https://github.com/caroljardims/content-saver/issues/new';
+  var MAIL = 'caroljardims@gmail.com';
+
+  function val(id) { return (document.getElementById(id).value || '').trim(); }
+
+  function compose() {
+    var lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
+    var title = val('t-title');
+    var browser = val('t-browser');
+    var body = val('t-body');
+
+    var labels = lang === 'en'
+      ? { fallback: 'Support request', browser: 'Browser', details: 'Details', from: 'Sent from the support page' }
+      : { fallback: 'Pedido de suporte', browser: 'Navegador', details: 'Detalhes', from: 'Enviado pela página de suporte' };
+
+    var lines = [];
+    if (body) lines.push('**' + labels.details + '**\n\n' + body);
+    if (browser) lines.push('**' + labels.browser + ':** ' + browser);
+    lines.push('---\n' + labels.from + ': https://caroljardims.com.br/content-saver/support');
+
+    return { title: title || labels.fallback, body: lines.join('\n\n') };
+  }
+
+  document.getElementById('go-github').addEventListener('click', function () {
+    var t = compose();
+    window.open(
+      REPO + '?title=' + encodeURIComponent(t.title) + '&body=' + encodeURIComponent(t.body),
+      '_blank',
+      'noopener'
+    );
+  });
+
+  document.getElementById('go-email').addEventListener('click', function () {
+    var t = compose();
+    window.location.href = 'mailto:' + MAIL +
+      '?subject=' + encodeURIComponent('Nécessaire — ' + t.title) +
+      '&body=' + encodeURIComponent(t.body.replace(/\*\*/g, ''));
+  });
+})();
+
+/* ==================================================
+   Language toggle — compartilha o 'lang' com a home
+   ================================================== */
+(function () {
+  function read() {
+    try { return localStorage.getItem('lang'); } catch (e) { return null; }
+  }
+  function save(l) {
+    try { localStorage.setItem('lang', l); } catch (e) {}
+  }
+
+  var lang = read() || 'pt';
+
+  function applyLang(l) {
+    lang = l;
+    save(l);
+    document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+    document.querySelectorAll('[data-en]').forEach(function (el) {
+      el.innerHTML = el.dataset[l];
+    });
+    document.querySelectorAll('[data-ph-en]').forEach(function (el) {
+      el.placeholder = l === 'pt' ? el.dataset.phPt : el.dataset.phEn;
+    });
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.textContent = l === 'pt' ? '🇺🇸' : '🇧🇷';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyLang(lang);
+    var btn = document.getElementById('lang-toggle');
+    if (btn) btn.addEventListener('click', function () {
+      applyLang(lang === 'pt' ? 'en' : 'pt');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

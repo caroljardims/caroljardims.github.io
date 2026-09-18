@@ -1190,21 +1190,32 @@ h1,h2,h3,h4 {
         </div>
       </article>
 
-      <!-- Content Saver -->
+      <!-- Nécessaire -->
       <article class="polaroid" style="cursor:pointer;" onclick="window.location.href='/content-saver'">
         <div class="thumb thumb-saver">
           <svg viewBox="0 0 200 140" style="width:100%;height:100%;">
             <rect width="200" height="140" fill="#FBEFDB"></rect>
-            <rect x="34" y="26" width="104" height="72" rx="8" fill="#F0B48A" transform="rotate(-5 86 62)"></rect>
-            <rect x="62" y="44" width="104" height="72" rx="8" fill="#FFF7E8" stroke="#D9BC97" transform="rotate(3 114 80)"></rect>
-            <path d="M150 34l-12-8-12 8V16a3 3 0 0 1 3-3h18a3 3 0 0 1 3 3z" fill="#C65D3A"></path>
+            <defs>
+              <clipPath id="pouch-clip">
+                <ellipse cx="102" cy="76" rx="62" ry="46"></ellipse>
+              </clipPath>
+            </defs>
+            <g clip-path="url(#pouch-clip)">
+              <rect x="38" y="28" width="130" height="96" fill="#96582A"></rect>
+              <rect x="38" y="48" width="130" height="24" fill="#F1EDE3"></rect>
+              <rect x="38" y="72" width="130" height="26" fill="#C68F5E"></rect>
+            </g>
+            <ellipse cx="102" cy="76" rx="62" ry="46" fill="none" stroke="#96582A" stroke-width="5"></ellipse>
+            <path d="M42 62c22-14 98-14 120 0" fill="none" stroke="#96582A" stroke-width="6" stroke-linecap="round"></path>
+            <path d="M160 60l14 2-2 12-13-4z" fill="#96582A"></path>
+            <path d="M44 56c-10-10-20-14-24-8-4 6 2 14 12 20" fill="none" stroke="#96582A" stroke-width="5" stroke-linecap="round"></path>
           </svg>
         </div>
         <div class="caption">
-          <h3>Content Saver</h3>
+          <h3>Nécessaire</h3>
           <span class="price" data-en="free" data-pt="grátis">grátis</span>
         </div>
-        <p class="desc" data-en="A browser extension that saves articles, selections and links somewhere that is actually yours: local first, no account, and it syncs through your own Google Drive if you want it to." data-pt="Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu: salva primeiro no seu navegador, sem conta, e sincroniza pelo seu próprio Google Drive se você quiser.">Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu: salva primeiro no seu navegador, sem conta, e sincroniza pelo seu próprio Google Drive se você quiser.</p>
+        <p class="desc" data-en="The little pouch where you keep what you want to come back to: a browser extension that saves articles, selections and links locally, with no account, syncing through your own Google Drive if you want it to." data-pt="A bolsinha onde você guarda o que quer reler: extensão de navegador que salva artigos, trechos e links no seu próprio navegador, sem conta, sincronizando pelo seu Google Drive se você quiser.">A bolsinha onde você guarda o que quer reler: extensão de navegador que salva artigos, trechos e links no seu próprio navegador, sem conta, sincronizando pelo seu Google Drive se você quiser.</p>
         <div class="tags">
           <span class="tag">Extensão</span>
           <span class="tag">Tool</span>
@@ -1272,9 +1283,9 @@ h1,h2,h3,h4 {
         </div>
       </article>
       <article class="grid-card" style="cursor:pointer;" onclick="window.location.href='/content-saver'">
-        <div class="thumb thumb-saver">saver.</div>
+        <div class="thumb thumb-saver">nécessaire.</div>
         <div class="body">
-          <h3>Content Saver <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
+          <h3>Nécessaire <span class="price" data-en="free" data-pt="grátis">grátis</span></h3>
           <p class="desc" data-en="Browser extension that saves articles and selections somewhere that is yours. Local first, no account, syncs through your own Drive. 🔖" data-pt="Extensão de navegador que guarda artigos e trechos num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Drive. 🔖">Extensão de navegador que guarda artigos e trechos num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Drive. 🔖</p>
           <div class="tags"><span class="tag">Extensão</span><span class="tag">Tool</span><span class="tag">Open Source</span></div>
         </div>
@@ -1349,7 +1360,7 @@ h1,h2,h3,h4 {
       <div class="list-row" style="cursor:pointer;" onclick="window.location.href='/content-saver'">
         <span class="num">08</span>
         <div>
-          <h3>Content Saver</h3>
+          <h3>Nécessaire</h3>
           <p class="desc" data-en="Browser extension that saves what you want to come back to. Local first, no account, your own Drive." data-pt="Extensão de navegador que guarda o que você quer reler. Salva local, sem conta, no seu próprio Drive.">Extensão de navegador que guarda o que você quer reler. Salva local, sem conta, no seu próprio Drive.</p>
         </div>
         <div class="tags">Extensão · Tool · Open Source</div>

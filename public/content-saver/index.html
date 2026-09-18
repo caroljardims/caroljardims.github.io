@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Content Saver — guarde o que você quer reler</title>
-<meta name="description" content="Extensão de navegador que salva artigos, trechos e links num lugar que é seu. Local-first, sem conta, sincroniza pelo seu próprio Google Drive.">
+<title>Nécessaire — guarde o que você quer reler</title>
+<meta name="description" content="Nécessaire: a extensão de navegador que guarda artigos, trechos e links num lugar que é seu. Salva local, sem conta, sincroniza pelo seu próprio Google Drive.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,6 +141,15 @@ h1 {
 }
 h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
 .kicker { color: var(--ink-soft); max-width: 52ch; font-size: 18px; }
+.mark {
+  display: flex; align-items: center; gap: 9px; width: fit-content;
+  font-family: var(--font-display); font-size: 21px;
+  color: var(--accent); margin-bottom: 14px;
+}
+.name-note {
+  color: var(--muted); max-width: 46ch; font-size: 15.5px; margin: 14px 0 0;
+}
+.name-note .hand { font-family: var(--font-hand); font-size: 21px; color: var(--accent); }
 
 .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .badge {
@@ -295,9 +304,19 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
   <div class="hero">
     <div class="hero-grid">
       <div>
+        <span class="mark">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3.4 11.2c0-3.4 3.9-5.7 8.6-5.7s8.6 2.3 8.6 5.7c0 4.2-3.9 7.1-8.6 7.1s-8.6-2.9-8.6-7.1z" />
+            <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
+            <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
+          </svg>
+          Nécessaire
+        </span>
         <span class="section-label" data-en="a tiny tool —" data-pt="uma ferramentinha —">uma ferramentinha —</span>
         <h1 data-en="save what you want to <em>come back to.</em>" data-pt="guarde o que você quer <em>reler depois.</em>">guarde o que você quer <em>reler depois.</em></h1>
         <p class="kicker" data-en="A browser extension that keeps articles, selections and links somewhere that is actually yours — not on somebody else's server." data-pt="Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.">Uma extensão de navegador que guarda artigos, trechos e links num lugar que é seu de verdade — não no servidor de outra pessoa.</p>
+        <p class="name-note" data-en="<span class='hand'>nécessaire</span> — the little pouch where you keep the things you'd hate to lose. Same idea, for the internet." data-pt="<span class='hand'>nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet."><span class="hand">nécessaire</span> — aquela bolsinha onde cabe tudo que você não quer perder. Mesma ideia, só que pra internet.</p>
         <div class="badges">
           <span class="badge" data-en="<strong>free</strong> ♡" data-pt="<strong>grátis</strong> ♡"><strong>grátis</strong> ♡</span>
           <span class="badge" data-en="open source" data-pt="código aberto">código aberto</span>
@@ -372,6 +391,7 @@ footer .sign { font-family: var(--font-hand); font-size: 20px; color: var(--acce
       <a class="primary" href="https://github.com/caroljardims/content-saver" target="_blank" rel="noopener noreferrer" data-en="code on GitHub" data-pt="código no GitHub">código no GitHub</a>
       <a href="/content-saver/privacy" data-en="privacy policy" data-pt="política de privacidade">política de privacidade</a>
       <a href="/content-saver/terms" data-en="terms of service" data-pt="termos de uso">termos de uso</a>
+      <a href="/content-saver/support" data-en="support" data-pt="suporte">suporte</a>
     </div>
   </section>
 
