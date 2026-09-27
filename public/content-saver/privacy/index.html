@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Privacy Policy — Necessaire</title>
+    <title>Privacy Policy — Necessair app</title>
     <meta
       name="description"
-      content="Privacy policy for the Necessaire browser extension: no servers, no analytics, nothing leaves your device except to your own Google Drive."
+      content="Privacy policy for the Necessair browser extension and Mac app: no servers, no analytics, nothing leaves your device except to your own Google Drive."
     />
     <style>
       :root {
@@ -74,25 +74,32 @@
           <path d="M3.6 10.4c3.5-2 13.3-2 16.8 0" />
           <path d="M6.2 8.1C4.7 6.5 3.4 5.5 2.6 6.3c-.8.8 0 2 1.4 3" />
         </svg>
-        Necessaire
+        Necessair
       </span>
 
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated 16 September 2026</p>
+      <p class="updated">Last updated 27 September 2026</p>
+
+      <p>
+        Necessair saves links, text selections and article text so you can read them
+        later. It comes as a browser extension for Chrome and Firefox and as an app for
+        the Mac. This policy describes exactly what both do with that data.
+      </p>
 
       <div class="lede">
-        <strong>Necessaire has no servers.</strong> No backend, no database, no
+        <strong>Necessair has no servers.</strong> No backend, no database, no
         analytics, and no account with us — there is no “us” to have an account with.
         Everything you save stays on your own device, unless you choose to connect your
         own Google Drive, in which case it goes to your Drive and nowhere else.
       </div>
 
       <h2>What is collected</h2>
+      <p>Only what you explicitly save.</p>
       <p>
-        Only what you explicitly save. When you click “Save page”, “Save selection”, or use
-        the right-click menu, the extension stores the page URL, title and site name; the
-        article text or the text you selected; the date you saved it; and any tags or
-        notes you add.
+        <strong>In the browser extension.</strong> When you click “Save page”, “Save
+        selection”, or use the right-click menu, the extension stores the page URL, title
+        and site name; the article text or the text you selected; the date you saved it;
+        and any tags or notes you add.
       </p>
       <p>
         The extension does not track your browsing. It reads a page only at the moment you
@@ -100,24 +107,38 @@
         the background on sites you visit, does not record history, and does not observe
         tabs you have not asked it to save.
       </p>
+      <p>
+        <strong>In the Mac app.</strong> A capture is created when you send text to
+        Necessair with Share or with “Save to Necessair” in the Services menu, or when you
+        type a new capture in the app. The app stores the text you sent or typed, and the
+        link or title if you typed one; for some saves from the Services menu, the name of
+        the app the text came from; the date you saved it; and any tags or notes you add.
+      </p>
+      <p>
+        The Mac app does not read other apps on its own. It receives text only when you
+        send it, and it does not need accessibility or screen access.
+      </p>
 
       <h2>Where it is stored</h2>
       <ul>
         <li>
-          <strong>On your device.</strong> Every capture is written to your browser’s local
-          storage. This is the primary copy and it never leaves your machine on its own.
+          <strong>On your device.</strong> In the extension, every capture is written to
+          your browser’s local storage (IndexedDB). In the Mac app, captures are kept in a
+          single file, <code>captures.json</code>, inside the app’s own sandbox container.
+          That is the primary copy, and it never leaves your machine on its own.
         </li>
         <li>
           <strong>In your Google Drive, only if you connect it.</strong> Captures sync to a
-          private application folder in your own Drive, under your own account, counting
-          against your storage quota. We have no access to it.
+          private application folder in your own Drive, shared by the extension and the Mac
+          app, under your own account, counting against your storage quota. We have no
+          access to it.
         </li>
       </ul>
       <p>
-        The extension requests only the
+        Both request only the
         <code>https://www.googleapis.com/auth/drive.appdata</code> scope, which can read
-        and write a hidden folder reserved for this extension. It cannot see, read or
-        modify any other file in your Drive.
+        and write a hidden folder reserved for Necessair. They cannot see, read or modify
+        any other file in your Drive.
       </p>
 
       <h2>What is never done</h2>
@@ -126,50 +147,101 @@
         <li>No analytics, telemetry, crash reporting or usage statistics.</li>
         <li>No advertising, no profiling, no data sold or shared.</li>
         <li>
-          Nothing is transmitted anywhere except between your browser and your own Google
-          Drive.
+          Nothing is transmitted anywhere except between your device and Google, for
+          sign-in and for your own Google Drive. The Mac app talks only to
+          <code>accounts.google.com</code>, <code>oauth2.googleapis.com</code> and
+          <code>www.googleapis.com</code>.
         </li>
       </ul>
 
       <h2>Authentication</h2>
       <p>
-        If you connect Google Drive, an access token is stored in your browser’s extension
-        storage so syncing can continue without asking you to sign in repeatedly. The token
-        is held only on your device and is discarded when you disconnect your account.
+        <strong>In the extension,</strong> if you connect Google Drive, an access token is
+        stored in your browser’s extension storage so syncing can continue without asking
+        you to sign in repeatedly. The token is held only on your device and is discarded
+        when you disconnect your account.
+      </p>
+      <p>
+        <strong>In the Mac app,</strong> you sign in to Google in the system’s sign-in
+        sheet. The app keeps a Google refresh token in the macOS Keychain, on this Mac only;
+        it is never written to the captures file. When you press Disconnect, the app asks
+        Google to revoke the token and removes it from the Keychain. The email of the
+        connected account is fetched from Google to show in the Drive panel, and is not
+        stored.
       </p>
 
       <h2>Deleting your data</h2>
       <ul>
-        <li><strong>Individual captures:</strong> delete them in the extension; the deletion syncs to your Drive copy.</li>
-        <li><strong>Everything local:</strong> removing the extension deletes its local storage.</li>
+        <li>
+          <strong>Individual captures:</strong> delete them in the extension or in the Mac
+          app. The capture is emptied right away. The text, URL, title, site name, tags and
+          notes are gone. What remains is a small marker: the item’s id and type, the date
+          it was saved, the date it was deleted, whether it was archived, a sync counter and
+          a random identifier for the device. On the next sync the Drive copy is overwritten
+          with that marker, so your other devices learn it is gone.
+        </li>
+        <li>
+          <strong>The markers:</strong> each device removes a marker 90 days after the
+          deletion, once every connected Drive has received it. The marker file in your
+          Drive’s hidden folder stays there until you delete Necessair’s hidden app data
+          (see below). It holds no content.
+        </li>
+        <li>
+          <strong>The summary file:</strong> the Drive folder also has a summary file
+          listing the title, link, site name and tags of your captures. The extension
+          rewrites it, without deleted captures, at most once an hour after a sync. The Mac
+          app does not rewrite it, so a capture deleted on the Mac leaves that file the next
+          time the extension syncs.
+        </li>
+        <li>
+          <strong>Deletions made by older versions:</strong> the extension before 1.0.2 and
+          the Mac app up to version 1.0 (build 2) kept a deleted capture’s content. Updating
+          empties those markers the next time the app starts, and the next sync overwrites
+          them in Drive. A marker an older version had already removed from every device
+          cannot be reached this way; its copy in Drive may still hold the content until you
+          delete the hidden app data.
+        </li>
+        <li>
+          <strong>Everything local, extension:</strong> removing the extension deletes its
+          local storage.
+        </li>
+        <li>
+          <strong>Everything local, Mac app:</strong> moving the app to the Trash does not
+          remove its data. To remove it, press Disconnect in the Drive panel first, so the
+          Google token is revoked and removed from the Keychain. Then quit the app and
+          delete the folder <code>~/Library/Containers/caroljardims.com.br.Necessaire</code>,
+          which holds your captures. If you added “Save to Necessair” to the Services menu,
+          also delete <code>~/Library/Services/Save to Necessair.workflow</code>.
+        </li>
         <li>
           <strong>Everything in Drive:</strong> Google Drive → Settings → Manage apps →
-          Necessaire → Delete hidden app data. Because the folder is hidden this is the
+          Necessair → Delete hidden app data. Because the folder is hidden this is the
           only way to remove it, and it cannot be undone.
         </li>
       </ul>
 
       <h2>Children</h2>
       <p>
-        Necessaire is not directed at children and collects no personal information from
+        Necessair is not directed at children and collects no personal information from
         anyone.
       </p>
 
       <h2>Changes</h2>
       <p>
         If this policy changes, the updated version will be published here with a new date.
-        Material changes will be noted in the extension’s release notes.
+        Material changes will be noted in the release notes of the extension and of the
+        Mac app.
       </p>
 
       <h2>Contact</h2>
       <p>
         Questions or concerns:
-        <a href="https://github.com/caroljardims/necessair-support/issues">open an issue on GitHub</a>.
+        <a href="/content-saver/support">see the FAQ or write to me</a>, or <a href="https://github.com/caroljardims/necessair-support">open an issue</a> (issues are public, so describe what you saved rather than pasting it).
       </p>
 
       <footer>
-        <a href="/content-saver">Necessaire</a> · <a href="/content-saver/support">Support</a><br />
-        Necessaire is open source. Liked it?
+        <a href="/content-saver">Necessair</a> · <a href="/content-saver/support">Support</a><br />
+        Necessair is free, with no account and no server. Liked it?
         <a href="/pix">Buy me a coffee via Pix</a> or
         <a href="https://buymeacoffee.com/caroljardims" target="_blank" rel="noopener noreferrer">Buy Me a Coffee</a> ☕
       </footer>
