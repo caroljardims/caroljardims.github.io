@@ -78,12 +78,12 @@
       </span>
 
       <h1>Privacy Policy</h1>
-      <p class="updated">Last updated 27 September 2026</p>
+      <p class="updated">Last updated 1 October 2026</p>
 
       <p>
-        Necessair saves links, text selections and article text so you can read them
-        later. It comes as a browser extension for Chrome and Firefox and as an app for
-        the Mac. This policy describes exactly what both do with that data.
+        Necessair saves links, text selections, article text and images so you can come
+        back to them later. It comes as a browser extension for Chrome and Firefox and as
+        an app for the Mac. This policy describes exactly what both do with that data.
       </p>
 
       <div class="lede">
@@ -94,44 +94,145 @@
       </div>
 
       <h2>What is collected</h2>
-      <p>Only what you explicitly save.</p>
+      <p>
+        Only what you save. Saving is always something you do: you press Save, choose a
+        menu item, or drop an image on the window.
+      </p>
       <p>
         <strong>In the browser extension.</strong> When you click “Save page”, “Save
-        selection”, or use the right-click menu, the extension stores the page URL, title
-        and site name; the article text or the text you selected; the date you saved it;
-        and any tags or notes you add.
+        selection” or “Image”, or use the right-click menu (on a page, a selection, a link
+        or an image), the extension stores:
+      </p>
+      <ul>
+        <li>the page URL, title and site name</li>
+        <li>the article text or the text you selected</li>
+        <li>
+          for an image: the image itself, kept inside the capture; a small thumbnail (320
+          pixels on the longest side); the address the image was loaded from, when it has
+          one; and its description (alt text), when the page gives one
+        </li>
+        <li>the date you saved it, and any tags or notes you add</li>
+      </ul>
+      <p>
+        An image larger than 1 MB or 2048 pixels on its longest side is shrunk and
+        re-encoded to fit, and is not saved at all if it still does not fit. If the website
+        does not let the extension copy an image, it saves a crop of the visible tab
+        instead: a screenshot of the part of the screen where the image is, at screen
+        resolution, which is lower than the original. The capture says so in the list. The
+        rest of the screenshot is discarded, not stored.
       </p>
       <p>
         The extension does not track your browsing. It reads a page only at the moment you
-        ask it to save that page, and only the tab you are looking at. It does not run in
-        the background on sites you visit, does not record history, and does not observe
-        tabs you have not asked it to save.
+        ask it to save that page or an image on it, and only the tab you are looking at.
+        When you press “Image”, it waits for your click on an image (or Esc) and then stops.
+        It does not run on pages in the background, does not record history, and does not
+        observe tabs you have not asked it to save.
       </p>
       <p>
-        <strong>In the Mac app.</strong> A capture is created when you send text to
-        Necessair with Share or with “Save to Necessair” in the Services menu, or when you
-        type a new capture in the app. The app stores the text you sent or typed, and the
-        link or title if you typed one; for some saves from the Services menu, the name of
-        the app the text came from; the date you saved it; and any tags or notes you add.
+        To read an image, the extension may ask the website that served it for the image
+        again, at the address the page loaded it from and without your cookies or sign-in.
+        That is an ordinary request to that website, like the one your browser made when
+        the page loaded. It does not go to the developer.
       </p>
       <p>
-        The Mac app does not read other apps on its own. It receives text only when you
-        send it, and it does not need accessibility or screen access.
+        <strong>In the Mac app.</strong> A capture is created when you:
       </p>
+      <ul>
+        <li>
+          send text to Necessair with Share or with “Save to Necessair” in the Services menu
+        </li>
+        <li>type a new capture in the app</li>
+        <li>drag an image onto the library window, or paste one with ⌘V</li>
+        <li>
+          press Save on a suggestion, or choose File ▸ Save What I Copied (⇧⌘V); see
+          “Suggestions when you copy” below
+        </li>
+      </ul>
+      <p>The app stores:</p>
+      <ul>
+        <li>the text you sent, typed or copied, and the link or title if you typed one</li>
+        <li>
+          for an image: the image itself in the Mac app’s own folder (see “Where it is
+          stored”), a small thumbnail, the file name as its title, and the web address it
+          came from when the app you took it from provides one (never a path on your Mac)
+        </li>
+        <li>
+          for text sent from the Services menu or saved from a suggestion, the name of the
+          app that was in front at that moment
+        </li>
+        <li>the date you saved it, and any tags or notes you add</li>
+      </ul>
+      <p>
+        The Mac app does not read other apps. It does not need accessibility or screen
+        access. It receives content only when you send it, drop or paste it, type it, or
+        press Save on a suggestion. The Share extension and the Services entry send text and
+        links only, not images.
+      </p>
+
+      <h2>Suggestions when you copy (Mac app)</h2>
+      <p>
+        The Mac app notices when you copy something new, and what kind of thing it is (a
+        link, text or an image), without reading it, and offers to save it. It reads what you
+        copied only if you press Save. What you decline is not stored or sent. You can turn
+        this off in Settings ▸ Suggestions.
+      </p>
+      <ul>
+        <li>
+          <strong>On by default.</strong> The first suggestion carries a link to Settings,
+          where you can turn it off.
+        </li>
+        <li>
+          <strong>What it looks at before you press Save.</strong> Only that something
+          changed, and what kind of thing it is, using the checks macOS provides for that.
+          It shows you the kind (“You copied a link”), not the content.
+        </li>
+        <li>
+          <strong>What it skips.</strong> Copies from password managers, and anything the
+          copying app marks as a password, a one-time code or other temporary content.
+          That applies to suggestions only. File ▸ Save What I Copied saves whatever is on
+          the clipboard at that moment, because you asked it to: Necessair keeps nothing you
+          did not choose to save, and what you choose to save is yours to choose.
+        </li>
+        <li>
+          <strong>What you decline.</strong> Nothing about it is kept. The app remembers only
+          that you declined, as a count. Closing the panel and letting it go away on its own both
+          count as declining. After four in a row it stops asking for 7 days.
+        </li>
+        <li>
+          <strong>What it remembers.</strong> Four small settings, on this Mac: whether
+          suggestions are on, whether you have seen the first notice, the count of declines
+          in a row, and the date until which it is paused. None of it contains what you
+          copied.
+        </li>
+        <li>
+          <strong>What macOS controls.</strong> Under the setting macOS calls “Paste from
+          Other Apps” (System Settings ▸ Privacy &amp; Security), the app may be allowed only
+          to suggest links and images, never plain text, or not allowed to look at all.
+        </li>
+        <li>
+          <strong>Where it goes.</strong> Nothing leaves your Mac because of this feature. A
+          suggestion you accept becomes a capture like any other, and syncs to your Google
+          Drive only if you have connected it.
+        </li>
+      </ul>
 
       <h2>Where it is stored</h2>
       <ul>
         <li>
           <strong>On your device.</strong> In the extension, every capture is written to
           your browser’s local storage (IndexedDB). In the Mac app, captures are kept in a
-          single file, <code>captures.json</code>, inside the app’s own sandbox container.
-          That is the primary copy, and it never leaves your machine on its own.
+          file, <code>captures.json</code>, inside the app’s own sandbox container, and each
+          image is kept as its own file in a folder named <code>Images</code> next to it.
+          That is the primary copy, and it never leaves your machine on its own. If the Mac
+          app finds a capture in <code>captures.json</code> that it cannot read, it keeps the
+          rest of your library and first saves a copy of the file next to it, named
+          <code>captures.unreadable-&lt;date&gt;.json</code>, so nothing is lost.
         </li>
         <li>
           <strong>In your Google Drive, only if you connect it.</strong> Captures sync to a
           private application folder in your own Drive, shared by the extension and the Mac
-          app, under your own account, counting against your storage quota. We have no
-          access to it.
+          app, under your own account, counting against your storage quota. An image is part
+          of its capture, so it is synced too. We have no access to it.
         </li>
       </ul>
       <p>
@@ -150,8 +251,11 @@
           Nothing is transmitted anywhere except between your device and Google, for
           sign-in and for your own Google Drive. The Mac app talks only to
           <code>accounts.google.com</code>, <code>oauth2.googleapis.com</code> and
-          <code>www.googleapis.com</code>.
+          <code>www.googleapis.com</code>. The one addition is in the extension: to save an
+          image it may request that image again from the website that served it, as
+          described above.
         </li>
+        <li>Nothing about what you copy and decline is stored or sent.</li>
       </ul>
 
       <h2>Authentication</h2>
@@ -174,11 +278,15 @@
       <ul>
         <li>
           <strong>Individual captures:</strong> delete them in the extension or in the Mac
-          app. The capture is emptied right away. The text, URL, title, site name, tags and
-          notes are gone. What remains is a small marker: the item’s id and type, the date
+          app. The capture is emptied right away. The text, image, thumbnail, image address, URL,
+          title, site name, tags and notes are gone, and the Mac app deletes the image’s file
+          from its <code>Images</code> folder. What remains is a small marker: the item’s id and type, the date
           it was saved, the date it was deleted, whether it was archived, a sync counter and
           a random identifier for the device. On the next sync the Drive copy is overwritten
-          with that marker, so your other devices learn it is gone.
+          with that marker, so your other devices learn it is gone. One exception on the Mac: a
+          <code>captures.unreadable-&lt;date&gt;.json</code> copy, if the app ever made one,
+          still holds what the file held at that moment. Delete it by hand if you do not
+          want it.
         </li>
         <li>
           <strong>The markers:</strong> each device removes a marker 90 days after the
@@ -210,7 +318,8 @@
           remove its data. To remove it, press Disconnect in the Drive panel first, so the
           Google token is revoked and removed from the Keychain. Then quit the app and
           delete the folder <code>~/Library/Containers/caroljardims.com.br.Necessaire</code>,
-          which holds your captures. If you added “Save to Necessair” to the Services menu,
+          which holds your captures, your images and any
+          <code>captures.unreadable-&lt;date&gt;.json</code> copy. If you added “Save to Necessair” to the Services menu,
           also delete <code>~/Library/Services/Save to Necessair.workflow</code>.
         </li>
         <li>
